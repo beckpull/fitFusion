@@ -2,10 +2,10 @@ import React from 'react';
 import { ApolloProvider } from '@apollo/client';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from './screens/HomeScreen';
-import LoginForm from './screens/LoginForm';
-import SignUpForm from './screens/SignUpForm';
-import { client } from './apolloClient';
+import HomeScreen from '../src/screens/HomeScreen';
+import LoginForm from '../src/screens/LoginForm';
+import SignUpForm from '../src/screens/SignUpForm';
+import { client } from '../src/utils/apolloClient';
 
 const Stack = createStackNavigator();
 
