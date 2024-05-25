@@ -16,6 +16,7 @@ export default function App() {
         isLooping
         style={{ width: '100%', height: '100%' }}
       />
+      <Text style={styles.title}>FitFusion</Text>
       <StatusBar style="auto" />
     </View>
   );
@@ -28,4 +29,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  backgroundVideo: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+  },
+  title: {
+    position: 'absolute',
+    color: 'white',
+    fontSize: 30,
+    fontWeight: 'bold',
+  }
 });
