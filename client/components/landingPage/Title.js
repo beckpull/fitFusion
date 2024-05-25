@@ -1,16 +1,25 @@
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 export default function Title() {
   return (
-    <Text style={styles.title}>FitFusion</Text>
+    <View>
+      <Text style={styles.title}>Fit</Text>
+      <Text style={styles.title}>
+        Fusion<Text style={styles.small}>®</Text>
+      </Text>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
   title: {
-    position: 'absolute',
-    color: 'white',
-    fontSize: 30,
+    lineHeight: 40,
+    color: 'black',
+    fontSize: 40,
     fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  small: {
+    fontSize: 20,
   },
 });
