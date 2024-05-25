@@ -1,8 +1,8 @@
 import { Text, Pressable, StyleSheet } from 'react-native';
 
-export default function ButtonSignUp() {
+export default function ButtonSignUp({ navigation }) {
   return (
-    <Pressable style={styles.button} onPress={() => { }}>
+    <Pressable style={styles.button} onPress={() => navigation.navigate('SignUpForm')}>
       <Text style={styles.buttonText}>Sign Up</Text>
     </Pressable>
   )
