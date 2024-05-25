@@ -19,8 +19,7 @@ export default function SignUpForm() {
     }
     // If all fields are filled and email is valid, show an alert with form data
     Alert.alert('Form submitted', `Username: ${username}, Email: ${email}, Username: ${username}, Password: ${password}`);
-
-    // Optionally, you can also clear the form fields after submission
+    // Clear form fields
     setUsername('');
     setEmail('');
     setPassword('');
