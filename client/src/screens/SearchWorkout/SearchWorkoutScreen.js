@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import ButtonSearchExercise from '../components/searchWorkoutPage/ButtonSearchExercise';
-import ButtonSearchMuscle from '../components/searchWorkoutPage/ButtonSearchMuscle';
-import Title from '../components/searchWorkoutPage/Title';
+import ButtonSearchExercise from '../../components/searchWorkoutPages/main/ButtonSearchExercise';
+import ButtonSearchMuscle from '../../components/searchWorkoutPages/main/ButtonSearchMuscle';
+import Title from '../../components/searchWorkoutPages/main/Title';
 
 
 

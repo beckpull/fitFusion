@@ -2,7 +2,7 @@ import { Text, Pressable, StyleSheet } from 'react-native';
 
 export default function ButtonSearchExercise({ navigation }) {
   return (
-    <Pressable style={styles.button} onPress={() => navigation.navigate('#')}>
+    <Pressable style={styles.button} onPress={() => navigation.navigate('SearchByNameScreen')}>
       <Text style={styles.buttonText}>Name</Text>
     </Pressable>
   )

@@ -2,7 +2,7 @@ import { Text, Pressable, StyleSheet } from 'react-native';
 
 export default function ButtonSearchMuscle({ navigation }) {
     return (
-        <Pressable style={styles.button} onPress={() => navigation.navigate('#')}>
+        <Pressable style={styles.button} onPress={() => navigation.navigate('SearchByMuscleScreen')}>
             <Text style={styles.buttonText}>Target Muscle</Text>
         </Pressable>
     )
