@@ -1,9 +1,10 @@
 const { GraphQLError } = require('graphql');
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
+// require('dotenv').config();
 
 // set token secret and expiration date
-const secret = process.env.AUTH_SECRET;
+const secret = 'mysecretssshhhhhh';
+// process.env.AUTH_SECRET;
 const expiration = '2h';
 
 module.exports = {
@@ -17,10 +18,9 @@ module.exports = {
 
     // allows token to be sent via req.query or headers
     let token = req.body.token || req.query.token || req.headers.authorization;
-    if (req.headers.authorization != null ) {
+    if (req.headers.authorization) {
       token = token.split(' ').pop().trim();
     }
-
 
     if (!token) {
       return req;
@@ -32,11 +32,10 @@ module.exports = {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
       req.user = data;
 
-    } catch (error) {
-      console.log('Invalid token:', error.message);
-    return req;
+    } catch {
+      console.log('Invalid token:');
     }
-
+    return req;
   },
   signToken: function ({ username, email, _id }) {
     const payload = { username, email, _id };
