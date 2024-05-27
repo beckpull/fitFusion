@@ -1,26 +1,40 @@
-import { useState } from "react";
-import { View, Text, TextInput, Pressable, StyleSheet, Alert } from "react-native";
+import { useState, useEffect } from "react";
+import { View, Text, TextInput, Pressable, StyleSheet, Alert, Image, TouchableOpacity } from "react-native";
+import icon from "../assets/FitFusionLogoType.png";
+import { useNavigation } from '@react-navigation/native';
 
 export default function LoginForm() {
-  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = () => {
-    if (!name || !email) {
+    if (!email || !password) {
       Alert.alert('Error', 'All fields are required');
       return;
     }
-    Alert.alert('Form submitted', `Name: ${name}, Email: ${email}`);
+    Alert.alert('Form submitted', `Email: ${email}, Password: ${password}`);
   };
+
+  const navigation = useNavigation();
+  useEffect(() => {
+    navigation.setOptions({
+      headerTitle: '',
+    });
+  }, [navigation]);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Name</Text>
+      <Image
+        source={icon}
+        style={{ width: 150, height: 80 }}
+      />
+      <Text style={styles.h1}>Live the experience!</Text>
+      <Text style={{ ...styles.label, marginTop: 100 }}>Name</Text>
       <TextInput
         style={styles.input}
-        value={name}
-        onChangeText={setName}
-        placeholder="Enter your name"
+        value={email}
+        onChangeText={setEmail}
+        placeholder="Enter your email address"
       />
       <Text style={styles.label}>Password</Text>
       <TextInput
@@ -31,16 +45,30 @@ export default function LoginForm() {
         secureTextEntry={true}
       />
       <Pressable style={styles.button} onPress={handleSubmit}>
-        <Text style={styles.buttonText}>Submit</Text>
+        <Text style={styles.buttonText}>Login</Text>
       </Pressable>
+
+      <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
+        <Text style={styles.link}>I forgot my password</Text>
+      </TouchableOpacity>
+
+      <Text style={styles.text}>Not a user?</Text>
+
+      <TouchableOpacity onPress={() => navigation.navigate('SignUpForm')}>
+        <Text style={styles.link}>Create account</Text>
+      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  h1: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
   container: {
     padding: 20,
-    marginTop: 50,
   },
   label: {
     fontSize: 18,
@@ -62,5 +90,14 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 18,
+  },
+  link: {
+    color: 'blue',
+    textAlign: 'center',
+    marginTop: 15,
+  },
+  text: {
+    textAlign: 'center',
+    marginTop: 15,
   },
 });
