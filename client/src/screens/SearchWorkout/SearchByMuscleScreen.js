@@ -1,12 +1,12 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
+import Prototype from '../../components/ExerciseResults';
+import prototypeObject from '../../components/prototypeObject';
 
 export default SearchByNameScreen = () => {
     return (
         <View style={styles.container}>
-
-            <Text style={styles.title}>Hello</Text>
-            <Text style={styles.title}>Leo</Text>
+            <Prototype  prototypeObject={prototypeObject}/>
 
         </View>
     );
