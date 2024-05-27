@@ -114,6 +114,19 @@ const resolvers = {
             }
             throw AuthenticationError
         },
+
+        addWorkoutProgress: async (parent, { workoutPlanId, workoutId, progressInput}, context) => {
+            if (context.user) {
+                return await WorkoutPlan.findOneAndUpdate(
+                    { _id: workoutPlanId, 'workouts._id': workoutId },
+                    {
+                        $push: { 'workouts.$.progress': progressInput }
+                    },
+                    { new: true, runValidators: true }
+                );
+            }
+            throw AuthenticationError
+        },
     },
 };
 
