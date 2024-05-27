@@ -1,4 +1,4 @@
-import React from 'react';
+import {React} from 'react';
 import { Text, Pressable, View, StyleSheet } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
@@ -24,7 +24,7 @@ export default MainSearchScreen = ({ navigation }) => {
                 <Pressable style={styles.button} onPress={() => navigation.navigate('SearchByMuscleScreen')}>
                     <Text style={styles.buttonText}>Target Muscle</Text>
                 </Pressable>
-                
+
             </View>
 
             <StatusBar style="auto" />
