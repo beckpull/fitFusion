@@ -1,11 +1,10 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import Title from '../../components/searchWorkoutPages/searchByName/Title';
+import { Text, View, StyleSheet } from 'react-native';
 
-export default SearchByNameScreen = ({ navigation }) => {
+export default SearchByNameScreen = () => {
     return (
         <View style={styles.container}>
-            <Title/>
+            <Text style={styles.title}>Search for an exercise name:</Text>
         </View>
     );
 };
@@ -21,5 +20,15 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         position: 'absolute',
         bottom: 250,
+    },
+    title: {
+        lineHeight: 40,
+        color: 'black',
+        fontSize: 30,
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+    small: {
+        fontSize: 20,
     },
 });

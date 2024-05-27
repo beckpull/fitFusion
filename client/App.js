@@ -7,7 +7,7 @@ import LoginForm from './src/screens/LoginForm';
 import SignUpForm from './src/screens/SignUpForm';
 import { client } from './src/utils/apolloClient';
 // JRH <>//
-import SearchWorkoutScreen from './src/screens/SearchWorkout/SearchWorkoutScreen';
+import MainSearchScreen from './src/screens/SearchWorkout/MainSearchScreen';
 import SearchByNameScreen from './src/screens/SearchWorkout/SearchByNameScreen';
 import SearchByMuscleScreen from './src/screens/SearchWorkout/SearchByMuscleScreen';
 // JRH^//
@@ -24,7 +24,7 @@ export default function App() {
           <Stack.Screen name="SignUpForm" component={SignUpForm} /> */}
 
           {/* JRH <> */}
-          <Stack.Screen name="SearchWorkoutScreen" component={SearchWorkoutScreen} options={{ title: 'Search for a Workout' }} />
+          <Stack.Screen name="MainSearchScreen" component={MainSearchScreen} options={{ title: 'Search for a Workout' }} />
           <Stack.Screen name="SearchByNameScreen" component={SearchByNameScreen} options={{ title: 'Search by Name' }} />
           <Stack.Screen name="SearchByMuscleScreen" component={SearchByMuscleScreen} options={{ title: 'Search by Targeted Muscle' }} />
           {/* JRH^   */}
