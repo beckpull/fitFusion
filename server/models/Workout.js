@@ -1,0 +1,41 @@
+const { Schema } = require('mongoose');
+
+const workoutSchema = new Schema(
+    {
+        name: {
+            type: String,
+            required: true,
+            unique: true,
+        },
+        workoutId: {
+            type: Number,
+            required: true,
+            unique: true,
+        },
+        bodyPart: {
+            type: String,
+            required: true,
+        },
+        equipment: {
+            type: String,
+            required: true,
+        },
+        gifUrl: {
+            type: String,
+            required: true,
+        },
+        target: {
+            type: String,
+            required: true,
+        },
+        secondary: {
+            type: String,
+        },
+        instructions: {
+            type: String,
+            required: true
+        }
+    }
+);
+
+module.exports = workoutSchema;
