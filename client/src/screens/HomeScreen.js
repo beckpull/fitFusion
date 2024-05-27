@@ -1,4 +1,4 @@
-import React from 'react';
+import {React, useEffect} from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Alert } from 'react-native';
 import VideoBackGround from '../components/landingPage/VideoBackGround';
 import Title from '../components/landingPage/Title';
@@ -9,10 +9,13 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default HomeScreen = ({ navigation }) => {
 
-  navigation.setOptions({
-    headerTitle: '',
-    headerTransparent: true,
-  });
+  useEffect(() => {
+    navigation.setOptions({
+      headerTitle: '',
+      headerTransparent: true,
+
+    });
+  }, [navigation]);
 
   const handlePress = () => {
     Alert.alert('FitFusion', 'FitFusion is a fitness app that provides a variety of workout classes for all levels. Our goal is to help you achieve your fitness goals and live a healthier life.');
