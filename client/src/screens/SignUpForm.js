@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { View, Text, TextInput, Pressable, StyleSheet, Alert } from "react-native";
+import { View, Text, TextInput, Pressable, StyleSheet, TouchableWithoutFeedback, Keyboard, Alert } from "react-native";
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useNavigation } from '@react-navigation/native';
@@ -40,6 +40,11 @@ export default function SignUpForm() {
     setBirthDate(currentDate);
   };
 
+  const navigation = useNavigation();
+  const goToLoginForm = () => {
+    navigation.navigate('LoginForm'); // Replace 'Login' with the name of your Login screen in your navigation stack
+  };
+
   const handleSubmit = () => {
     if (!username || !email || !password || !country || !birthDate) {
       Alert.alert('Error', 'All fields are required');
@@ -56,12 +61,11 @@ export default function SignUpForm() {
     setPassword('');
     setCountry('');
     setBirthDate(new Date());
+
+    navigation.navigate('PhysicalTest'); // Replace 'PhysicalTest' with the name of your Physical Test screen in your navigation stack
+
   };
 
-  const navigation = useNavigation();
-  const goToLoginForm = () => {
-    navigation.navigate('LoginForm'); // Replace 'Login' with the name of your Login screen in your navigation stack
-  };
 
   useEffect(() => {
     navigation.setOptions({
@@ -70,9 +74,33 @@ export default function SignUpForm() {
   }, [navigation]);
 
   return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
     <View style={styles.container}>
-      <Text style={styles.h1}>I am new!</Text>
-      <Text style={styles.h2}>create account</Text>
+      <Text style={styles.h1}>Create Account</Text>
+      <Text style={styles.label}>Username</Text>
+      <TextInput
+        style={styles.input}
+        value={username}
+        onChangeText={setUsername}
+        placeholder="Enter your username"
+      />
+      <Text style={styles.label}>Email</Text>
+      <TextInput
+        style={styles.input}
+        value={email}
+        onChangeText={setEmail}
+        placeholder="Enter your email"
+        keyboardType="email-address"
+      />
+
+      <Text style={styles.label}>Password</Text>
+      <TextInput
+        style={styles.input}
+        value={password}
+        onChangeText={setPassword}
+        placeholder="Enter your password"
+        secureTextEntry={true}
+      />
 
       <Text style={styles.label}>Country</Text>
       <View style={styles.pickerContainer}>
@@ -113,34 +141,10 @@ export default function SignUpForm() {
         )}
       </View>
 
-      <Text style={styles.label}>Username</Text>
-      <TextInput
-        style={styles.input}
-        value={username}
-        onChangeText={setUsername}
-        placeholder="Enter your username"
-      />
 
-      <Text style={styles.label}>Email</Text>
-      <TextInput
-        style={styles.input}
-        value={email}
-        onChangeText={setEmail}
-        placeholder="Enter your email"
-        keyboardType="email-address"
-      />
-
-      <Text style={styles.label}>Password</Text>
-      <TextInput
-        style={styles.input}
-        value={password}
-        onChangeText={setPassword}
-        placeholder="Enter your password"
-        secureTextEntry={true}
-      />
 
       <Pressable style={styles.button} onPress={handleSubmit}>
-        <Text style={styles.buttonText}>Create account</Text>
+        <Text style={styles.buttonText}>Continue</Text>
       </Pressable>
 
       <View style={styles.loginContainer}>
@@ -150,6 +154,7 @@ export default function SignUpForm() {
         </Pressable>
       </View>
     </View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -182,7 +187,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   button: {
-    backgroundColor: 'blue',
+    backgroundColor: '#003566',
     padding: 12,
     alignItems: 'center',
     borderRadius: 5,
@@ -193,12 +198,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   h1: {
-    fontSize: 32,
+    fontSize: 24,
     fontWeight: 'bold',
     marginTop: 20,
   },
-  h2: {
-    fontSize: 32,
+  h1: {
+    fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
   },

@@ -5,6 +5,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/screens/HomeScreen';
 import LoginForm from './src/screens/LoginForm';
 import SignUpForm from './src/screens/SignUpForm';
+import PhysicalTest from './src/screens/PhysicalTest';
+import ForgotPassword from './src/screens/ForgotPassword';
 import { client } from './src/utils/apolloClient';
 
 const Stack = createStackNavigator();
@@ -17,6 +19,8 @@ export default function App() {
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="LoginForm" component={LoginForm} />
           <Stack.Screen name="SignUpForm" component={SignUpForm} />
+          <Stack.Screen name="PhysicalTest" component={PhysicalTest} />
+          <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
         </Stack.Navigator>
       </NavigationContainer>
     </ApolloProvider>
