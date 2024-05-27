@@ -1,25 +1,31 @@
 import React from 'react';
-import { View, Text, StyleSheet, Pressable, Modal, Image } from 'react-native';
-import workouts from './prototypeObject';
+import { View, Text, StyleSheet, Modal, Pressable, Image } from 'react-native';
 
-export default ExerciseModal = ({ modalVisible, setModalVisible }) => {
+export default ExerciseModal = ({ modalVisible, setModalVisible, workout }) => {
   return (
     <Modal
       animationType="slide"
       transparent={true}
       visible={modalVisible}
       onRequestClose={() => {
-        Alert.alert('Modal has been closed.');
         setModalVisible(!modalVisible);
       }}
     >
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <Text style={styles.modalText}>{workouts[0].name}</Text>
-          <Text style={styles.modalText}>Equipment Requirements: {workouts[0].equipment}</Text>
-          <Image source={{ uri: workouts[0].gifUrl }} style={{ width: 200, height: 200 }} />
-          <Text style={styles.modalText}>{workouts[0].instructions}</Text>
-          <Pressable style={[styles.button, styles.buttonClose]} onPress={() => setModalVisible(!modalVisible)}>
+          {workout ? (
+            <>
+              <Text style={styles.title}>{workout.name}</Text>
+              <Image style={{ width: 200, height: 200 }} source={{ uri: workout.gifUrl }} />
+              <Text style={styles.instructions}>{workout.instructions}</Text>
+            </>
+          ) : (
+            <Text>No workout selected</Text>
+          )}
+          <Pressable
+            style={[styles.button, styles.buttonClose]}
+            onPress={() => setModalVisible(false)}
+          >
             <Text style={styles.textStyle}>Close</Text>
           </Pressable>
         </View>

@@ -1,14 +1,16 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
-import Prototype from '../../components/ExerciseResults';
-import prototypeObject from '../../components/prototypeObject';
+import { ScrollView, View, StyleSheet } from 'react-native';
+import Workouts from '../../components/searchResults/ExerciseResults';
+import prototypeObject from '../../components/searchResults/prototypeObject';
 
 export default SearchByNameScreen = () => {
     return (
-        <View style={styles.container}>
-            <Prototype  prototypeObject={prototypeObject}/>
+        <ScrollView>
+            <View style={styles.container}>
+                <Workouts workouts={prototypeObject} />
 
-        </View>
+            </View>
+        </ScrollView>
     );
 };
 
