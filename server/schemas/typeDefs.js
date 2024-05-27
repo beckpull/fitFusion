@@ -23,6 +23,17 @@ const typeDefs = `
         target: String
         secondary: String
         instructions: String
+        progress: [Progress]
+    }
+
+    type Progress {
+        _id: ID
+        date: String!
+        sets: Int
+        reps: Int
+        weight: Int
+        duration: Int
+        distance: Int
     }
 
     type Auth {
@@ -41,6 +52,15 @@ const typeDefs = `
         instructions: String
     }
 
+    input ProgressInput {
+        date: String!
+        sets: Int
+        reps: Int
+        weight: Int
+        duration: Int
+        distance: Int
+    }
+
     type Query {
         me: User
     }
@@ -55,6 +75,8 @@ const typeDefs = `
 
         addWorkout(workoutPlanId: ID!, workoutInput: WorkoutInput!): WorkoutPlan
         removeWorkout(workoutPlanId: ID!, workoutId: ID!): WorkoutPlan
+
+        addWorkoutProgress(workoutPlanId: ID!, workoutId: ID!, progressInput: ProgressInput!): WorkoutPlan
     }
 `
 
