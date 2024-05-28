@@ -1,28 +1,27 @@
-import { React, useEffect } from 'react';
-import { Text, Pressable, StyleSheet } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import React from 'react';
+import { Pressable, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
-
-export default function ButtonAddPlan({ navigation }) {
+const ButtonAddPlan = ({ navigation }) => {
   return (
     <Pressable style={styles.button} onPress={() => navigation.navigate('AddPlan')}>
-      <FontAwesomeIcon icon="fa-solid fa-plus" />
+      <Icon name="plus" size={20} color="#fff" />
     </Pressable>
-  )
+  );
 };
 
 const styles = StyleSheet.create({
-    button: {
-        width: 50,
-        height: 20,
-        backgroundColor: 'black',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 10,
-        marginHorizontal: 10,
-      },
-      buttonText: {
-        color: 'white',
-        fontSize: 20,
-      },
+  button: {
+    width: 50,
+    height: 50,
+    backgroundColor: '#0f0',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 25,
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+  },
 });
+
+export default ButtonAddPlan;

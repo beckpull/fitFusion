@@ -1,30 +1,27 @@
-import { React, useEffect } from 'react';
-import { Text, Pressable, StyleSheet } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import React from 'react';
+import { Pressable, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
-export default function ButtonRemovePlan({ navigation }) {
-
-    
-
+const ButtonRemovePlan = ({ navigation }) => {
   return (
     <Pressable style={styles.button} onPress={() => navigation.navigate('RemovePlan')}>
-      <FontAwesomeIcon icon="fa-solid fa-xmark" />
+      <Icon name="close" size={20} color="#fff" />
     </Pressable>
-  )
+  );
 };
 
 const styles = StyleSheet.create({
-    button: {
-        width: 10,
-        height: 10,
-        backgroundColor: 'black',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 10,
-        marginHorizontal: 10,
-      },
-      buttonText: {
-        color: 'white',
-        fontSize: 20,
-      },
+  button: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    width: 30,
+    height: 30,
+    backgroundColor: 'red',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 15,
+  },
 });
+
+export default ButtonRemovePlan;
