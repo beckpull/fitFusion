@@ -9,6 +9,7 @@ import PhysicalTest from './src/screens/PhysicalTest';
 import ForgotPassword from './src/screens/ForgotPassword';
 import WorkoutPlan from './src/screens/WorkoutPlan';
 import EachPlan from './src/screens/EachPlan';
+import ExerciseDetail from './src/screens/ExerciseDetail';
 import { client } from './src/utils/apolloClient';
 
 const Stack = createStackNavigator();
@@ -25,6 +26,7 @@ export default function App() {
           <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
           <Stack.Screen name="WorkoutPlan" component={WorkoutPlan} />
           <Stack.Screen name="EachPlan" component={EachPlan} />
+          <Stack.Screen name="ExerciseDetail" component={ExerciseDetail} />
         </Stack.Navigator>
       </NavigationContainer>
     </ApolloProvider>

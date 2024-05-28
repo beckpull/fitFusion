@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const EachPlan = ({ route }) => {
-  const { name, workouts } = route.params;
+const EachPlan = ({ route, navigation }) => {
+  const { name, workouts, goal } = route.params;
   const [planName, setPlanName] = useState(name);
   const [isEditing, setIsEditing] = useState(false);
-  const [description, setDescription] = useState("This is a placeholder description for the exercise plan.");
-  const [targetMuscleGroups, setTargetMuscleGroups] = useState("Legs, Glutes");
-  const [secondaryMuscles, setSecondaryMuscles] = useState("Calves, Lower Back");
 
   const handleRename = () => {
     setIsEditing(true);
@@ -18,54 +15,51 @@ const EachPlan = ({ route }) => {
     setIsEditing(false);
   };
 
+  const handleExerciseClick = (exercise) => {
+    navigation.navigate('ExerciseDetail', { exercise });
+  };
+
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.titleContainer}>
-        {isEditing ? (
-          <TextInput
-            style={styles.input}
-            value={planName}
-            onChangeText={setPlanName}
-          />
-        ) : (
-          <Text style={styles.title}>{planName}</Text>
-        )}
-        <TouchableOpacity onPress={isEditing ? handleSave : handleRename} style={styles.iconButton}>
-          <Icon name={isEditing ? "save" : "edit"} size={24} color="black" />
-        </TouchableOpacity>
-      </View>
-
-      <Image
-        source={{ uri: 'https://via.placeholder.com/150' }}
-        style={styles.image}
-      />
-
-      <Text style={styles.subtitle}>Description:</Text>
-      <Text style={styles.description}>{description}</Text>
-
-      <Text style={styles.subtitle}>Target Muscle Groups:</Text>
-      <Text style={styles.muscle}>{targetMuscleGroups}</Text>
-
-      <Text style={styles.subtitle}>Secondary Muscles Targeted:</Text>
-      <Text style={styles.muscle}>{secondaryMuscles}</Text>
-
-      <Text style={styles.subtitle}>Workouts:</Text>
-      {workouts.map((workout, index) => (
-        <View key={index} style={styles.workoutCard}>
-          <Text style={styles.workout}>{workout}</Text>
-          <TouchableOpacity onPress={() => alert(`Edit ${workout}`)} style={styles.iconButton}>
-            <Icon name="edit" size={24} color="black" />
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <View style={styles.container}>
+        <View style={styles.titleContainer}>
+          {isEditing ? (
+            <TextInput
+              style={styles.input}
+              value={planName}
+              onChangeText={setPlanName}
+            />
+          ) : (
+            <Text style={styles.title}>{planName}</Text>
+          )}
+          <TouchableOpacity onPress={isEditing ? handleSave : handleRename} style={styles.iconButton}>
+            <Icon name={isEditing ? "save" : "edit"} size={24} color="black" />
           </TouchableOpacity>
         </View>
-      ))}
+
+        <Text style={styles.subtitle}>Goal:</Text>
+        <Text style={styles.description}>{goal}</Text>
+
+        <Text style={styles.subtitle}>Workouts:</Text>
+        {workouts.map((workout, index) => (
+          <TouchableOpacity key={index} onPress={() => handleExerciseClick(workout)} style={styles.workoutCard}>
+            <Text style={styles.workout}>{workout.name}</Text>
+            <Icon name="angle-right" size={24} color="black" />
+          </TouchableOpacity>
+        ))}
+      </View>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  scrollContainer: {
+    paddingVertical: 20,
+    paddingHorizontal: 20,
+    flexGrow: 1,
+  },
   container: {
     flex: 1,
-    padding: 20,
     alignItems: 'center',
   },
   titleContainer: {
@@ -87,14 +81,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 20,
   },
-  muscle: {
-    fontSize: 16,
-    color: '#555',
-    marginBottom: 20,
-  },
   workout: {
     fontSize: 16,
     marginBottom: 5,
+    marginRight: 10,
   },
   workoutCard: {
     width: '100%',
@@ -113,14 +103,9 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     flex: 1,
   },
-  image: {
-    width: 150,
-    height: 150,
-    marginVertical: 20,
-  },
   iconButton: {
     marginLeft: 10,
   },
 });
 
-export default EachPlan; 
+export default EachPlan;

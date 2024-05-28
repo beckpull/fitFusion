@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 const ButtonRemovePlan = ({ navigation }) => {
   return (
     <Pressable style={styles.button} onPress={() => navigation.navigate('RemovePlan')}>
-      <Icon name="close" size={20} color="#fff" />
+      <Icon name="trash" size={20} color="grey" />
     </Pressable>
   );
 };
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     right: 10,
     width: 30,
     height: 30,
-    backgroundColor: 'red',
+    // backgroundColor: 'red',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 15,
