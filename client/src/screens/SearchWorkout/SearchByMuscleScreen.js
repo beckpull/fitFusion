@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { ScrollView, View, StyleSheet } from 'react-native';
 import Workouts from '../../components/searchResults/ExerciseResults';
 import prototypeObject from '../../components/searchResults/prototypeObject';

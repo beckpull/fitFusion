@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { Text, View, StyleSheet, Pressable, FlatList } from 'react-native';
+import { Text, View, StyleSheet, ScrollView, FlatList } from 'react-native';
 import axios from 'axios';
 import { SearchBar } from 'react-native-elements';
+
+import Workouts from '../../components/searchResults/ExerciseResults';
+import prototypeObject from '../../components/searchResults/prototypeObject';
 
 export default function SearchByNameScreen() {
     const [searchQuery, setSearchQuery] = useState('');
@@ -11,17 +14,19 @@ export default function SearchByNameScreen() {
     const handleSearch = async (query) => {
         setSearchQuery(query);
         console.log('Searching for:', query);
-        // SEARCH FUNCTIONALITY HERE
+
+        // API Results for searchQuery
         setLoading(true);
         const url = `https://exercisedb.p.rapidapi.com/exercises/name/${searchQuery.toLowerCase()}`;
-           try {
-              const response = await axios.get(url, {
-                params: { limit: '30' },
+        try {
+            const response = await axios.get(url, {
+                params: { limit: '50' },
                 headers: {
                     'X-RapidAPI-Key': '1bc24f2cf3msh0169303f2df7b55p108af6jsn0e1789b7d77c',
                     'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com',
                 },
             });
+
             setexercise(response.data);
         } catch (error) {
             // console.error(error);
@@ -41,21 +46,22 @@ export default function SearchByNameScreen() {
                     platform="default"
                 />
 
-                <Pressable style={styles.button} onPress={handleSearch}>
-                    <Text style={styles.buttonText}>TEST</Text>
-                </Pressable>
                 {loading ? (
                     <Text style={styles.message}>Loading...</Text>
                 ) : (
-                    <FlatList
-                        data={exercise}
-                        keyExtractor={(item) => item.id.toString()}
-                        renderItem={({ item }) => (
-                            <View style={styles.exerciseItem}>
-                                <Text style={styles.exerciseName}>{item.name}</Text>
-                            </View>
-                        )}
-                    />
+                    // <FlatList
+
+                    //     data={exercise}
+                    //     keyExtractor={(item) => item.id.toString()}
+                    //     renderItem={({ item }) => (
+                    <ScrollView>
+                        <View style={styles.container}>
+                            <Workouts workouts={exercise} />
+                        </View>
+                    </ScrollView>
+                    //     )}
+
+                    // />
                 )}
             </View>
         </View>
@@ -98,11 +104,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: 'green',
     },
-    exerciseItem: {
-        padding: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: '#ccc',
-    },
+
     exerciseName: {
         fontSize: 16,
     },
