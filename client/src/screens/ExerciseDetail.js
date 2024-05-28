@@ -5,21 +5,28 @@ const ExerciseDetail = ({ route }) => {
   const { exercise } = route.params;
 
   // Assuming the exercise object contains all the necessary information
-  const { title, gifUrl, bodyPart, target, secondaryMuscles, instructions } = exercise;
+  const { name, gifUrl, equipment, bodyPart, target, secondaryMuscles, instructions } = exercise;
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
-        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.title}>{name}</Text>
         <Image source={{ uri: gifUrl }} style={styles.image} />
+        <Text style={styles.subtitle}>Equipment:</Text>
+        <Text style={styles.description}>{equipment}</Text>
         <Text style={styles.subtitle}>Body Part:</Text>
         <Text style={styles.description}>{bodyPart}</Text>
         <Text style={styles.subtitle}>Target Muscles:</Text>
         <Text style={styles.description}>{target}</Text>
         <Text style={styles.subtitle}>Secondary Muscles:</Text>
         <Text style={styles.description}>{secondaryMuscles}</Text>
-        <Text style={styles.subtitle}>Instructions:</Text>
-        <Text style={styles.description}>{instructions}</Text>
+        <View style={styles.instructionList}>
+          {instructions.map((instruction, index) => (
+            <View key={index} style={styles.instructionItem}>
+              <Text style={styles.instruction}>{index + 1}.  {instruction}</Text>
+            </View>
+          ))}
+        </View>
       </View>
     </ScrollView>
   );
@@ -55,6 +62,9 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
     marginVertical: 20,
+  },
+  instructionItem: {
+    marginBottom: 15
   },
 });
 
