@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, Image, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const Exercise = ({ route }) => {
+const EachPlan = ({ route }) => {
   const { name, workouts } = route.params;
   const [planName, setPlanName] = useState(name);
   const [isEditing, setIsEditing] = useState(false);
@@ -123,4 +123,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Exercise;
+export default EachPlan; 

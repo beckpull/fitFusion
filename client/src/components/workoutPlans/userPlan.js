@@ -7,7 +7,7 @@ const UserPlan = ({ name, workouts }) => {
   const navigation = useNavigation();
 
   const handlePress = () => {
-    navigation.navigate('Exercise', { name, workouts });
+    navigation.navigate('EachPlan', { name, workouts });
   };
 
   return (
