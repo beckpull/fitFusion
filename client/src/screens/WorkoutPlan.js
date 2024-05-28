@@ -100,21 +100,6 @@ export const data = [
           instructions:["Attach the band to a pull-up bar or sturdy anchor point.","Step onto the band and grip the bar with your palms facing away from you, hands slightly wider than shoulder-width apart.","Hang with your arms fully extended, keeping your core engaged and your shoulders down and back.","Pull your body up towards the bar by squeezing your shoulder blades together and driving your elbows down towards your hips.","Continue pulling until your chin is above the bar, then slowly lower yourself back down to the starting position.","Repeat for the desired number of repetitions."]
         }
       ]
-  },
-  {
-    name: "Arm Day",
-    goal: "Get buff",
-    workouts: ["Test", "test1", "test2", "test3"]
-  },
-  {
-    name: "Cardio Day",
-    goal: "Get tough lungs",
-    workouts: ["Test", "test1", "test2", "test3", "test4"]
-  },
-  {
-    name: "Core Day",
-    goal: "Strengthen abs",
-    workouts: ["Test", "test1", "test2", "test3", "test4", "test5"]
   }
 ];
 
