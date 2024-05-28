@@ -22,6 +22,11 @@ export default function PhysicalTest() {
 
   const [calories, setCalories] = useState('');
   const [isCalorieGoalEnabled, setIsCalorieGoalEnabled] = useState(false);
+  
+  const navigation = useNavigation();
+  const goToLoginForm = () => {
+    navigation.navigate('LoginForm');
+  };
 
   const handleSubmit = () => {
     if (!age || !height || !weight || !gender || !goal) {
@@ -29,12 +34,9 @@ export default function PhysicalTest() {
       return;
     }
     Alert.alert('Form submitted', `Age: ${age}, Height: ${height}, Weight: ${weight}, Gender: ${gender}, Goal: ${goal}, Calories: ${calories}`);
+    navigation.navigate('MyProfile');
   };
 
-  const navigation = useNavigation();
-  const goToLoginForm = () => {
-    navigation.navigate('LoginForm');
-  };
 
   useEffect(() => {
     navigation.setOptions({
