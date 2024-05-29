@@ -2,20 +2,24 @@ import { useState, useEffect } from "react";
 import { View, Text, TextInput, Pressable, StyleSheet, Alert, Image, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from "react-native";
 import icon from "../assets/FitFusionLogoType.png";
 import { useNavigation } from '@react-navigation/native';
+import MyProfile from "./MyProfile";
+import TabBar from "../components/tabBar/TabBar";
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  
+  const navigation = useNavigation();
 
   const handleSubmit = () => {
-    if (!email || !password) {
-      Alert.alert('Error', 'All fields are required');
-      return;
-    }
-    Alert.alert('Form submitted', `Email: ${email}, Password: ${password}`);
+    // if (!email || !password) {
+    //   Alert.alert('Error', 'All fields are required');
+    //   return;
+    // }
+    // Alert.alert('Form submitted', `Email: ${email}, Password: ${password}`);
+    navigation.navigate('TabBar');
   };
 
-  const navigation = useNavigation();
   useEffect(() => {
     navigation.setOptions({
       headerTitle: '',
