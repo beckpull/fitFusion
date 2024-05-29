@@ -8,7 +8,7 @@ import SignUpForm from './src/screens/SignUpForm';
 import PhysicalTest from './src/screens/PhysicalTest';
 import ForgotPassword from './src/screens/ForgotPassword';
 
-import WorkoutPlan from './src/screens/WorkoutPlan';
+// import WorkoutPlan from './src/screens/WorkoutPlan';
 import EachPlan from './src/screens/EachPlan';
 import ExerciseDetail from './src/screens/ExerciseDetail';
 
@@ -29,7 +29,7 @@ export default function App() {
           <Stack.Screen name="PhysicalTest" component={PhysicalTest} />
           <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
 
-          <Stack.Screen name="WorkoutPlan" component={WorkoutPlan} />
+          {/* <Stack.Screen name="WorkoutPlan" component={WorkoutPlan} /> */}
           <Stack.Screen name="EachPlan" component={EachPlan} />
           <Stack.Screen name="ExerciseDetail" component={ExerciseDetail} />
 
