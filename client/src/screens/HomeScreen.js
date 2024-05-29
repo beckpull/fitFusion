@@ -4,7 +4,7 @@ import VideoBackGround from '../components/landingPage/VideoBackGround';
 import Title from '../components/landingPage/Title';
 import ButtonLogin from '../components/landingPage/ButtonLogin';
 import ButtonSignUp from '../components/landingPage/ButtonSignUp';
-import ButtonWorkout from '../components/landingPage/ButtonWorkout'
+// import ButtonWorkout from '../components/landingPage/ButtonWorkout'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
@@ -29,7 +29,7 @@ export default HomeScreen = ({ navigation }) => {
       <View style={styles.buttonContainer}>
         <ButtonLogin navigation={navigation} />
         <ButtonSignUp navigation={navigation} />
-        <ButtonWorkout navigation={navigation} />
+        {/* <ButtonWorkout navigation={navigation} /> */}
       </View>
       <TouchableOpacity onPress={handlePress}>
         <Text style={styles.link}>Learn more about us</Text>
