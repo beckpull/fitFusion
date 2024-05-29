@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, Modal, Pressable, Image } from 'react-native';
 export default ExerciseModal = ({ modalVisible, setModalVisible, workout }) => {
   return (
     <Modal
-      animationType="slide"
+      animationType="fade"
       transparent={true}
       visible={modalVisible}
       onRequestClose={() => {

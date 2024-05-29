@@ -49,13 +49,13 @@ export default function SearchByNameScreen() {
                 {loading ? (
                     <Text style={styles.message}>Loading...</Text>
                 ) : (
-
+ 
                     <ScrollView>
                         <View style={styles.container}>
                             <Workouts workouts={exercise} />
                         </View>
                     </ScrollView>
-
+          
                 )}
             </View>
         </View>
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'top',
     },
     title: {
         lineHeight: 40,
@@ -78,13 +78,10 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginBottom: 20,
     },
-
-    button: {
-        backgroundColor: 'black',
-        padding: 10,
-        margin: 15,
-        alignItems: 'center',
-        borderRadius: 5,
+    search: {
+        width: '90%',
+        padding: 16,
+        
     },
 
     message: {
