@@ -49,19 +49,13 @@ export default function SearchByNameScreen() {
                 {loading ? (
                     <Text style={styles.message}>Loading...</Text>
                 ) : (
-                    // <FlatList
 
-                    //     data={exercise}
-                    //     keyExtractor={(item) => item.id.toString()}
-                    //     renderItem={({ item }) => (
                     <ScrollView>
                         <View style={styles.container}>
                             <Workouts workouts={exercise} />
                         </View>
                     </ScrollView>
-                    //     )}
 
-                    // />
                 )}
             </View>
         </View>
@@ -84,10 +78,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginBottom: 20,
     },
-    search: {
-        width: '90%',
-        padding: 16,
-    },
+
     button: {
         backgroundColor: 'black',
         padding: 10,
@@ -95,17 +86,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 5,
     },
-    buttonText: {
-        color: 'white',
-        fontSize: 18,
-    },
+
     message: {
         marginTop: 20,
         fontSize: 18,
         color: 'green',
-    },
-
-    exerciseName: {
-        fontSize: 16,
     },
 });

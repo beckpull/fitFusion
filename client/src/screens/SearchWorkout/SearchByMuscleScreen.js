@@ -21,19 +21,5 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    buttonContainer: {
-        flexDirection: 'row',
-        position: 'absolute',
-        bottom: 250,
-    },
-    title: {
-        lineHeight: 40,
-        color: 'black',
-        fontSize: 40,
-        fontWeight: 'bold',
-        textAlign: 'center',
-    },
-    small: {
-        fontSize: 20,
-    },
+   
 });
