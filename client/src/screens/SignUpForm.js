@@ -3,8 +3,15 @@ import { View, Text, TextInput, Pressable, StyleSheet, TouchableWithoutFeedback,
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useNavigation } from '@react-navigation/native';
+import { useMutation } from "@apollo/client";
+import { ADD_USER } from "../utils/mutations";
+import Auth from "../utils/auth";
 
 export default function SignUpForm() {
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [birthDate, setBirthDate] = useState(new Date());
   const [country, setCountry] = useState('USA');
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState([
@@ -25,11 +32,10 @@ export default function SignUpForm() {
     { label: 'USA', value: 'USA' }
   ]);
 
-  const [birthDate, setBirthDate] = useState(new Date());
+  const [addUser, { error, data }] = useMutation(ADD_USER);
+
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+ 
 
   // Email format validation regex
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -45,7 +51,9 @@ export default function SignUpForm() {
     navigation.navigate('LoginForm'); // Replace 'Login' with the name of your Login screen in your navigation stack
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async(event) => {
+    event.preventDefault();
+    console.log("User Signing up", username, email, password, country, birthDate);
     if (!username || !email || !password || !country || !birthDate) {
       Alert.alert('Error', 'All fields are required');
       return;
@@ -53,17 +61,39 @@ export default function SignUpForm() {
       Alert.alert('Error', 'Please enter a valid email address');
       return;
     }
-    // If all fields are filled and email is valid, show an alert with form data
-    Alert.alert('Form submitted', `Email: ${email}, Username: ${username}, Password: ${password}, Birth Date: ${birthDate.toDateString()}, Country: ${country}`);
-    // Clear form fields
+
     setUsername('');
     setEmail('');
     setPassword('');
     setCountry('');
     setBirthDate(new Date());
+    try {
+      // const variables = { 
+      //   username, 
+      //   email, 
+      //   password, 
+      //   country, 
+      //   birthDate,
+        
+      // };
+      // console.log("Variables: ", variables);
+      const { data } = await addUser({
+        variables: { username, email, password, country, birthDate },
+      });
 
-    navigation.navigate('PhysicalTest'); // Replace 'PhysicalTest' with the name of your Physical Test screen in your navigation stack
+      console.log('This is the data: ', data);
 
+      if (error) {
+        console.error('Server error:', error);
+        return;
+      }
+
+      Auth.login(data.addUser.token);
+      console.log("User added successfully!");
+      navigation.navigate('PhysicalTest');
+    } catch (err) {
+      console.error('something happened!!', err.message);
+    }
   };
 
 
@@ -79,6 +109,7 @@ export default function SignUpForm() {
       <Text style={styles.h1}>Create Account</Text>
       <Text style={styles.label}>Username</Text>
       <TextInput
+
         style={styles.input}
         value={username}
         onChangeText={setUsername}

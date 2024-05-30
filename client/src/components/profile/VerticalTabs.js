@@ -7,7 +7,7 @@ export default function VerticalTabs() {
 
     const tabData = [
         { title: 'Movement', image: require('../../assets/images/image1.png'), description: 'Do you have any injuries or discomfort? We adapt it completely or partially to take care of you.' },
-        { title: 'Carga', image: require('../../assets/images/image2.png'), description: 'According to your goal! You choose to Tone or Increase' },
+        { title: 'Weight', image: require('../../assets/images/image2.png'), description: 'According to your goal! You choose to Tone or Increase' },
         { title: 'Intensity', image: require('../../assets/images/image3.png'), description: ' It depends on your physical condition. We propose the movement, you set the intensity.' }
     ];
 
@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
     tabsContainer: {
         borderBottomWidth: 1,
         borderBottomColor: '#FFF',
+        marginTop: 30,
     },
     tab: {
         width: 100,
@@ -90,6 +91,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         margin: 10,
+        marginTop: 40,
     },
     descriptionText: {
         fontSize: 16,
