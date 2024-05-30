@@ -116,7 +116,7 @@ const WorkoutPlan = ({ navigation }) => {
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         {data.map((plan, index) => (
-          <UserPlan key={index} name={plan.name} goal={plan.goal} workouts={plan.workouts} navigation={navigation} />
+          <UserPlan key={index} name={plan.name} goal={plan.goal} workouts={plan.workouts} />
         ))}
       </ScrollView>
       <ButtonAddPlan navigation={navigation} />
@@ -129,7 +129,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     paddingTop: 20,
-    // marginTop: 100,
   },
   scrollContainer: {
     alignItems: 'center',

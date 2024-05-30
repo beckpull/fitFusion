@@ -1,11 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import ExerciseForm from '../components/workoutPlans/ExerciseForm';
 
 const EachPlan = ({ route, navigation }) => {
   const { name, workouts, goal } = route.params;
   const [planName, setPlanName] = useState(name);
   const [isEditing, setIsEditing] = useState(false);
+  const [isFormVisible, setIsFormVisible] = useState(false);
+  const [currentExercise, setCurrentExercise] = useState(null);
+
+  useEffect(() => {
+    const checkFirstTimeView = async (exerciseName) => {
+      try {
+        const firstTime = await AsyncStorage.getItem(`firstTime_${exerciseName}`);
+        if (firstTime === null) {
+          setIsFormVisible(true);
+          await AsyncStorage.setItem(`firstTime_${exerciseName}`, 'false');
+        }
+      } catch (error) {
+        console.error('Failed to check first time view', error);
+      }
+    };
+
+    if (currentExercise) {
+      checkFirstTimeView(currentExercise.name);
+    }
+  }, [currentExercise]);
 
   const handleRename = () => {
     setIsEditing(true);
@@ -16,7 +38,18 @@ const EachPlan = ({ route, navigation }) => {
   };
 
   const handleExerciseClick = (exercise) => {
+    setCurrentExercise(exercise);
     navigation.navigate('ExerciseDetail', { exercise });
+  };
+
+  const handleComplete = (exercise) => {
+    setCurrentExercise(exercise);
+    setIsFormVisible(true);
+  };
+
+  const handleFormSave = (data) => {
+    // Save the form data if needed
+    setIsFormVisible(false);
   };
 
   return (
@@ -42,11 +75,25 @@ const EachPlan = ({ route, navigation }) => {
 
         <Text style={styles.subtitle}>Workouts:</Text>
         {workouts.map((workout, index) => (
-          <TouchableOpacity key={index} onPress={() => handleExerciseClick(workout)} style={styles.workoutCard}>
-            <Text style={styles.workout}>{workout.name}</Text>
-            <Icon name="angle-right" size={24} color="black" />
-          </TouchableOpacity>
+          <View key={index} style={styles.workoutContainer}>
+            <TouchableOpacity onPress={() => handleExerciseClick(workout)} style={styles.workoutCard}>
+              <Text style={styles.workout}>{workout.name}</Text>
+              <Icon name="angle-right" size={24} color="black" />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleComplete(workout)} style={styles.completeButton}>
+              <Text style={styles.completeButtonText}>Complete</Text>
+            </TouchableOpacity>
+          </View>
         ))}
+
+        {isFormVisible && currentExercise && (
+          <ExerciseForm 
+            visible={isFormVisible} 
+            onClose={() => setIsFormVisible(false)} 
+            onSave={handleFormSave} 
+            exercise={currentExercise} 
+          />
+        )}
       </View>
     </ScrollView>
   );
@@ -81,10 +128,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 20,
   },
-  workout: {
-    fontSize: 16,
-    marginBottom: 5,
-    marginRight: 10,
+  workoutContainer: {
+    width: '100%',
+    marginBottom: 10,
   },
   workoutCard: {
     width: '100%',
@@ -95,6 +141,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  workout: {
+    fontSize: 16,
+    marginBottom: 5,
+    marginRight: 10,
+  },
+  completeButton: {
+    marginTop: 10,
+    padding: 10,
+    backgroundColor: '#28a745',
+    borderRadius: 5,
+  },
+  completeButtonText: {
+    color: '#fff',
+    textAlign: 'center',
   },
   input: {
     fontSize: 24,
