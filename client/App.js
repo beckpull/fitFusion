@@ -15,6 +15,11 @@ import ExerciseDetail from './src/screens/ExerciseDetail';
 import TabBar from './src/components/tabBar/TabBar';
 
 import { client } from './src/utils/apolloClient';
+// JRH <>//
+import MainSearchScreen from './src/screens/SearchWorkout/MainSearchScreen';
+import SearchByNameScreen from './src/screens/SearchWorkout/SearchByNameScreen';
+import SearchByMuscleScreen from './src/screens/SearchWorkout/SearchByMuscleScreen';
+// JRH^//
 
 const Stack = createStackNavigator();
 
@@ -27,6 +32,14 @@ export default function App() {
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="LoginForm" component={LoginForm} />
           <Stack.Screen name="SignUpForm" component={SignUpForm} />
+
+          {/* API Search Screens (From JRH) <> */}
+          <Stack.Screen name="MainSearchScreen" component={MainSearchScreen} options={{ title: 'Search for a Workout' }} />
+          <Stack.Screen name="SearchByNameScreen" component={SearchByNameScreen} options={{ title: 'Search by Name' }} />
+          <Stack.Screen name="SearchByMuscleScreen" component={SearchByMuscleScreen} options={{ title: 'Search by Targeted Muscle' }} />
+          {/* JRH^   */}
+
+
           <Stack.Screen name="PhysicalTest" component={PhysicalTest} />
           <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
 
