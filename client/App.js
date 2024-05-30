@@ -27,13 +27,15 @@ import SearchByNameScreen from './src/screens/SearchWorkout/SearchByNameScreen';
 import SearchByMuscleScreen from './src/screens/SearchWorkout/SearchByMuscleScreen';
 
 // JRH^//
-
+// 
 
 const Stack = createStackNavigator();
 
 const httpLink = createHttpLink({
-  uri: REACT_APP_GRAPHQL_URI,
-});
+    uri: `http://${process.env.HTTP_URI}:3001/graphql`,
+  });
+
+  console.log(httpLink)
 
 const authLink = setContext(async (_, { headers }) => {
   const token = await AsyncStorage.getItem('id_token');
