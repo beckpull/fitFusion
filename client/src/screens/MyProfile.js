@@ -4,8 +4,7 @@ import UserImage from '../components/profile/UserImage';
 import { StatusBar } from 'expo-status-bar';
 import * as ImagePicker from 'expo-image-picker';
 import IconButton from '../components/profile/IconButton';
-import { useState } from 'react';
-import Colors from '../styles/colors';
+import { useState, useEffect } from 'react';
 import VerticalTabs from '../components/profile/VerticalTabs';
 
 const PlaceholderImage = require('../assets/images/persona-icon.jpg');
@@ -20,11 +19,47 @@ export default function MyProfile() {
     });
     if (!result.canceled) {
       setSelectedImage(result.assets[0].uri);
+      uploadImage(result.assets[0]);
     } else {
       Alert.alert('You did not select any image.');
     }
 
   };
+
+  const uploadImage = async (image) => {
+    let formData = new FormData();
+    formData.append('image', {
+      uri: image.uri,
+      type: 'image/jpeg', // or 'image/png'
+      name: 'userImage.jpg', // or 'userImage.png'
+    });
+
+    try {
+      // Replace 'http://my-api.com/upload' with your image upload endpoint
+      let response = await axios.post('http://my-api.com/upload', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+
+      let imageUrl = response.data.imageUrl; // Replace 'imageUrl' with the key your server responds with
+      updateUserImage(imageUrl);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const updateUserImage = async (imageUrl) => {
+    try {
+      // Replace 'http://my-api.com/user' with your user update endpoint
+      // Replace 'userId' with the user's ID
+      // Replace 'authToken' with the user's auth token
+      await axios.put('http://my-api.com/user/userId', { imageUrl }, {
+        headers: { Authorization: `Bearer authToken` },
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.rowContainer}>
@@ -55,7 +90,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     paddingTop: 20,
-    // backgroundColor: Colors.primary,
   },
   imageWrapper: {
     marginRight: 16,
@@ -80,10 +114,11 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#fff',
     borderRadius: 10,
-    shadowColor: 'gray', // iOS
-    shadowOpacity: 0.2, // iOS
-    shadowOffset: { width: 0, height: 4 }, // iOS
-    shadowRadius: 5, // iOS
+    // shadowColor: 'gray', // iOS
+    // shadowOpacity: 0.2, // iOS
+    // shadowOffset: { width: 0, height: 4 }, // iOS
+    // shadowRadius: 5, // iOS
+    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.2)', // equivalent to your shadow* properties
     elevation: 3, // Android only
   }
 });

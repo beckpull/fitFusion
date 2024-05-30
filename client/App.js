@@ -10,6 +10,8 @@ import ForgotPassword from './src/screens/ForgotPassword';
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+// require('dotenv').config();
+const { REACT_APP_GRAPHQL_URI } = require('react-native-dotenv');
 
 
 // import WorkoutPlan from './src/screens/WorkoutPlan';
@@ -30,8 +32,8 @@ import SearchByMuscleScreen from './src/screens/SearchWorkout/SearchByMuscleScre
 const Stack = createStackNavigator();
 
 const httpLink = createHttpLink({
-    uri: 'http://192.168.1.124:3001/graphql',
-  });
+  uri: REACT_APP_GRAPHQL_URI,
+});
 
 const authLink = setContext(async (_, { headers }) => {
   const token = await AsyncStorage.getItem('id_token');
