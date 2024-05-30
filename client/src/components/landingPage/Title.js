@@ -1,25 +1,13 @@
-import { StyleSheet, Text, View } from "react-native";
+import { View, Image } from "react-native";
+import icon from "../../assets/FitFusionLogoType.png";
 
 export default function Title() {
   return (
     <View>
-      <Text style={styles.title}>Fit</Text>
-      <Text style={styles.title}>
-        Fusion<Text style={styles.small}>®</Text>
-      </Text>
+      <Image
+        source={icon}
+        style={{ width: 150, height: 80 }}
+      />
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  title: {
-    lineHeight: 40,
-    color: 'black',
-    fontSize: 40,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  small: {
-    fontSize: 20,
-  },
-});

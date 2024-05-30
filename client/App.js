@@ -5,6 +5,15 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/screens/HomeScreen';
 import LoginForm from './src/screens/LoginForm';
 import SignUpForm from './src/screens/SignUpForm';
+import PhysicalTest from './src/screens/PhysicalTest';
+import ForgotPassword from './src/screens/ForgotPassword';
+
+// import WorkoutPlan from './src/screens/WorkoutPlan';
+import EachPlan from './src/screens/EachPlan';
+import ExerciseDetail from './src/screens/ExerciseDetail';
+
+import TabBar from './src/components/tabBar/TabBar';
+
 import { client } from './src/utils/apolloClient';
 // JRH <>//
 import MainSearchScreen from './src/screens/SearchWorkout/MainSearchScreen';
@@ -30,8 +39,17 @@ export default function App() {
           {/* JRH^   */}
 
 
+          <Stack.Screen name="PhysicalTest" component={PhysicalTest} />
+          <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+
+          {/* <Stack.Screen name="WorkoutPlan" component={WorkoutPlan} /> */}
+          <Stack.Screen name="EachPlan" component={EachPlan} />
+          <Stack.Screen name="ExerciseDetail" component={ExerciseDetail} />
+
+          <Stack.Screen name="TabBar" component={TabBar} />
+
         </Stack.Navigator>
       </NavigationContainer>
     </ApolloProvider>
   );
-}
+};
