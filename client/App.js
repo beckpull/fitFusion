@@ -19,6 +19,7 @@ import { client } from './src/utils/apolloClient';
 const Stack = createStackNavigator();
 
 export default function App() {
+
   return (
     <ApolloProvider client={client}>
       <NavigationContainer>

@@ -4,20 +4,56 @@ import icon from "../assets/FitFusionLogoType.png";
 import { useNavigation } from '@react-navigation/native';
 import MyProfile from "./MyProfile";
 import TabBar from "../components/tabBar/TabBar";
+import { useMutation } from "@apollo/client";
+import { LOGIN_USER } from "../utils/mutations";
+import Auth from "../utils/auth";
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  // const [userFormData, setUserFormData] = useState({ email: '', password: '' });
+  const [login, { error, data }] = useMutation(LOGIN_USER);
+  const [validated] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  
   
   const navigation = useNavigation();
 
-  const handleSubmit = () => {
-    // if (!email || !password) {
-    //   Alert.alert('Error', 'All fields are required');
-    //   return;
+  // const handleInputChange = (event) => {
+  //   const { name, value } = event.target;
+  //   setUserFormData({ 
+  //     ...userFormData, 
+  //     [name]: value });
+  // }
+
+  const handleSubmit = async(event) => {
+    event.preventDefault();
+    console.log("user: ", email, password);
+
+    // check if form has everything (as per react-bootstrap docs)
+    // const form = event.currentTarget;
+    // if (form.checkValidity() === false) {
+    //   event.preventDefault();
+    //   event.stopPropagation();
     // }
-    // Alert.alert('Form submitted', `Email: ${email}, Password: ${password}`);
-    navigation.navigate('TabBar');
+
+    try {
+      const { data } = await login({
+
+        variables: { email, password },
+      });
+      console.log(data);
+
+      Auth.login(data.login.token);
+    } catch (err) {
+      console.error('something happened!!', err);
+      setShowAlert(true);
+    }
+
+    // setUserFormData({
+    //   email: '',
+    //   password: '',
+    // });
   };
 
   useEffect(() => {
@@ -36,7 +72,9 @@ export default function LoginForm() {
         <Text style={styles.h1}>Live the experience!</Text>
         <Text style={{ ...styles.label, marginTop: 100 }}>Email</Text>
         <TextInput
+          id='email'
           style={styles.input}
+          name="email"
           value={email}
           onChangeText={setEmail}
           placeholder="Enter your email address"
@@ -44,6 +82,7 @@ export default function LoginForm() {
         <Text style={styles.label}>Password</Text>
         <TextInput
           style={styles.input}
+          name="password"
           value={password}
           onChangeText={setPassword}
           placeholder="Enter your password"

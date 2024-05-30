@@ -6,6 +6,7 @@ import AboutUs from '../../screens/AboutUs';
 import Friends from '../../screens/Friends';
 import { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import Colors from '../../styles/colors';
 
 const Tab = createBottomTabNavigator();
 
@@ -15,7 +16,7 @@ export default function TabBar() {
     navigation.setOptions({
       headerTitle: '',
       headerStyle: {
-        backgroundColor: '#E76F51',
+        backgroundColor: '#FFF',
         shadowColor: 'transparent',
       },
     });
@@ -38,7 +39,7 @@ export default function TabBar() {
 
           return <Icon name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: '#E76F51',
+        tabBarActiveTintColor: Colors.primaryVariant,
         tabBarInactiveTintColor: 'gray',
         tabBarStyle: { display: 'flex' },
       })}

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TextInput, Pressable, Alert, Keyboard, Switch, TouchableWithoutFeedback } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
+import colors from '../styles/colors';
 
 export default function PhysicalTest() {
   const [age, setAge] = useState('');
@@ -112,7 +113,7 @@ export default function PhysicalTest() {
 
         <View style={styles.switchContainer}>
           <Switch
-            trackColor={{ false: "#767577", true: "#E76F51" }}
+            trackColor={{ false: "#767577", true: colors.primaryVariant }}
             thumbColor={isCalorieGoalEnabled ? "white" : "#f4f3f4"}
             ios_backgroundColor="#3e3e3e"
             onValueChange={setIsCalorieGoalEnabled}
@@ -195,7 +196,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   button: {
-    backgroundColor: '#003566',
+    backgroundColor: colors.secondaryVariant,
     padding: 12,
     alignItems: 'center',
     borderRadius: 5,
@@ -242,7 +243,7 @@ const styles = StyleSheet.create({
   buttonGender: {
     flex: 1,
     marginRight: 10,
-    backgroundColor: '#003566',
+    backgroundColor: colors.secondaryVariant,
     padding: 10,
     justifyContent: 'center',
     alignItems: 'center',
@@ -253,7 +254,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   selectedButton: {
-    backgroundColor: '#E76F51',
+    backgroundColor: colors.primaryVariant,
   },
   switchContainer: {
     flexDirection: 'row',
