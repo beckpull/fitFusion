@@ -181,8 +181,6 @@ shellAppWorkspaces
 .env.test.local
 .env.production.local
 apps/bare-expo/deploy-url.txt
-.env
-
 
 # Temporary files created by Metro to check the health of the file watcher
 .metro-health-check*
@@ -226,6 +224,7 @@ jspm_packages/
 
 # Env
 .envrc.local
+.env
 
 # Distribution directories
 dist/
@@ -247,3 +246,5 @@ typings/
 
 # Yarn Integrity file
 .yarn-integrity
+
+

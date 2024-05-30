@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
-// require('dotenv').config();
+require('dotenv').config();
+// const { MONGODB_URI } = require('react-native-dotenv');
+
 
 // mongoose.connect(process.env.MONGODB_URI, {
 //     useNewUrlParser: true,
@@ -15,6 +17,6 @@ const mongoose = require('mongoose');
   
 //   module.exports = db;
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/fitfusion');
+mongoose.connect(process.env.MONGODB_URI);
 
 module.exports = mongoose.connection;

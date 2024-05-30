@@ -6,6 +6,7 @@ const typeDefs = `
         password: String!
         country: String!
         birthDate: String!
+        imageUrl: String
         workoutPlans: [WorkoutPlan]
     }
 
@@ -70,6 +71,7 @@ const typeDefs = `
     type Mutation {
         addUser(username: String!, email: String!, password: String!, country: String!, birthDate: String!): Auth
         login(email: String!, password: String!): Auth
+        updateUserImage(userId: ID!, imageUrl: String!): User
 
         addWorkoutPlan(name: String!): WorkoutPlan
         updateWorkoutPlan(workoutPlanId: ID!, name: String): WorkoutPlan

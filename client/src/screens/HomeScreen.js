@@ -1,5 +1,5 @@
 import {React, useEffect} from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Alert } from 'react-native';
+import { View, StyleSheet, Text, Pressable, Alert } from 'react-native';
 import VideoBackGround from '../components/landingPage/VideoBackGround';
 import Title from '../components/landingPage/Title';
 import ButtonLogin from '../components/landingPage/ButtonLogin';
@@ -31,9 +31,9 @@ export default HomeScreen = ({ navigation }) => {
         <ButtonSignUp navigation={navigation} />
         {/* <ButtonWorkout navigation={navigation} /> */}
       </View>
-      <TouchableOpacity onPress={handlePress}>
+      <Pressable onPress={handlePress}>
         <Text style={styles.link}>Learn more about us</Text>
-      </TouchableOpacity>
+      </Pressable>
       <Icon name="heart" size={20} color="#fff" />
     </View>
   );

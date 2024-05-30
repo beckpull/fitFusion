@@ -10,6 +10,8 @@ import ForgotPassword from './src/screens/ForgotPassword';
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+// require('dotenv').config();
+const { REACT_APP_GRAPHQL_URI } = require('react-native-dotenv');
 
 
 // import WorkoutPlan from './src/screens/WorkoutPlan';

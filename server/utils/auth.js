@@ -1,9 +1,10 @@
 const { GraphQLError } = require('graphql');
 const jwt = require('jsonwebtoken');
 // require('dotenv').config();
+const { AUTH_SECRET } = require('react-native-dotenv');
 
 // set token secret and expiration date
-const secret = 'mysecretssshhhhhh';
+const secret = AUTH_SECRET;
 // process.env.AUTH_SECRET;
 const expiration = '2h';
 

@@ -42,6 +42,10 @@ const userSchema = new Schema(
         //     type: String,
         //     required: true,
         // },
+        imageUrl: {
+            type: String,
+            default: '' 
+          },
         workoutPlans: [
             {
                 type: Schema.Types.ObjectId,
