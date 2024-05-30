@@ -4,28 +4,33 @@ export const GET_ME = gql`
   query me {
     me {
       _id
-      username
       email
       password
+      username
       workoutPlans {
+        _id
         name
-        workoutId
-        bodyPart
-        equipment
-        gifUrl
-        target
-        secondary
-        instructions
-        progress {
+        workouts {
+          _id
+          bodyPart
+          equipment
+          gifUrl
+          instructions
+          name
+          progress {
+            _id
             date
-            sets
-            reps
-            weight
-            duration
             distance
-        },
+            duration
+            reps
+            sets
+            weight
+          }
+          secondary
+          target
+          workoutId
+        }
       }
     }
-  }
 `;
 

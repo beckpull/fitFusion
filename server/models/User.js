@@ -18,6 +18,30 @@ const userSchema = new Schema(
             type: String,
             required: true,
         },
+        country: { // new field
+            type: String,
+            required: true,
+        },
+        birthDate: { // new field
+            type: Date,
+            required: true,
+        },
+        // age: {
+        //     type: Number,
+        //     required: true,
+        // },
+        // height: {
+        //     type: Number,
+        //     required: true,
+        // },
+        // weight: {
+        //     type: Number,
+        //     required: true,
+        // },
+        // gender: {
+        //     type: String,
+        //     required: true,
+        // },
         workoutPlans: [
             {
                 type: Schema.Types.ObjectId,

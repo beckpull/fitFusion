@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, Pressable, Alert, Keyboard, Switch, 
 import { useNavigation } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import colors from '../styles/colors';
+import TabBar from "../components/tabBar/TabBar";
 
 export default function PhysicalTest() {
   const [age, setAge] = useState('');
@@ -35,7 +36,7 @@ export default function PhysicalTest() {
       return;
     }
     Alert.alert('Form submitted', `Age: ${age}, Height: ${height}, Weight: ${weight}, Gender: ${gender}, Goal: ${goal}, Calories: ${calories}`);
-    navigation.navigate('MyProfile');
+    navigation.navigate('TabBar');
   };
 
 

@@ -30,30 +30,27 @@ export default function LoginForm() {
     event.preventDefault();
     console.log("user: ", email, password);
 
-    // check if form has everything (as per react-bootstrap docs)
-    // const form = event.currentTarget;
-    // if (form.checkValidity() === false) {
-    //   event.preventDefault();
-    //   event.stopPropagation();
-    // }
-
     try {
+      console.log("Attempting login...");
       const { data } = await login({
-
         variables: { email, password },
       });
-      console.log(data);
+
+      console.log('This is the data: ', data);
+
+      if (error) {
+        console.error('Server error:', error);
+        setShowAlert(true);
+        return;
+      }
 
       Auth.login(data.login.token);
+      console.log("Login successful!");
+      navigation.navigate('TabBar');
     } catch (err) {
-      console.error('something happened!!', err);
+      console.error('something happened!!', err.message);
       setShowAlert(true);
     }
-
-    // setUserFormData({
-    //   email: '',
-    //   password: '',
-    // });
   };
 
   useEffect(() => {

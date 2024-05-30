@@ -7,6 +7,10 @@ import LoginForm from './src/screens/LoginForm';
 import SignUpForm from './src/screens/SignUpForm';
 import PhysicalTest from './src/screens/PhysicalTest';
 import ForgotPassword from './src/screens/ForgotPassword';
+import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 // import WorkoutPlan from './src/screens/WorkoutPlan';
 import EachPlan from './src/screens/EachPlan';
@@ -14,14 +18,35 @@ import ExerciseDetail from './src/screens/ExerciseDetail';
 
 import TabBar from './src/components/tabBar/TabBar';
 
-import { client } from './src/utils/apolloClient';
+// import { client } from './src/utils/apolloClient';
 // JRH <>//
 import MainSearchScreen from './src/screens/SearchWorkout/MainSearchScreen';
 import SearchByNameScreen from './src/screens/SearchWorkout/SearchByNameScreen';
 import SearchByMuscleScreen from './src/screens/SearchWorkout/SearchByMuscleScreen';
+
 // JRH^//
 
+
 const Stack = createStackNavigator();
+
+const httpLink = createHttpLink({
+    uri: 'http://192.168.1.124:3001/graphql',
+  });
+
+const authLink = setContext(async (_, { headers }) => {
+  const token = await AsyncStorage.getItem('id_token');
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
+});
 
 export default function App() {
 
