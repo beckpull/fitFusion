@@ -24,6 +24,7 @@ import SearchByMuscleScreen from './src/screens/SearchWorkout/SearchByMuscleScre
 const Stack = createStackNavigator();
 
 export default function App() {
+
   return (
     <ApolloProvider client={client}>
       <NavigationContainer>
