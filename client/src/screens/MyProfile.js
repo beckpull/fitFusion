@@ -5,14 +5,23 @@ import { StatusBar } from 'expo-status-bar';
 import * as ImagePicker from 'expo-image-picker';
 import IconButton from '../components/profile/IconButton';
 import VerticalTabs from '../components/profile/VerticalTabs';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { UPDATE_USER_IMAGE } from '../utils/mutations';
+import { GET_ME } from '../utils/queries';
 
 const PlaceholderImage = require('../assets/images/persona-icon.jpg');
 
 export default function MyProfile() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [updateUserImage] = useMutation(UPDATE_USER_IMAGE);
+  const { loading, error, data } = useQuery(GET_ME);
+
+  console.log('Data:', data);
+
+  if (loading) return <Text>Loading...</Text>;
+  if (error) return <Text>Error: {error.message}</Text>;
+
+  const { me: { username } } = data;
 
   const handleUpdateImage = async (imageUrl) => {
     console.log("URL Image: ", imageUrl);
@@ -35,8 +44,9 @@ export default function MyProfile() {
     });
 
     if (!result.canceled) {
-      setSelectedImage(result.assets[0].uri);
-      handleUpdateImage(result.assets[0].uri);
+      const imageUri = result.assets[0].uri;
+      setSelectedImage(imageUri);
+      handleUpdateImage(imageUri);
     } else {
       Alert.alert('You did not select any image.');
     }
@@ -56,7 +66,7 @@ export default function MyProfile() {
 
           <View style={styles.userInfoContainer}>
             <IconButton iconName="picture-o" onPress={pickImageAsync} />
-            <Text style={styles.userName}>User Name</Text>
+            <Text style={styles.userName}>Welcome {username}</Text>
             <Text style={styles.userWorkouts}>Workouts: 10</Text>
           </View>
         </TouchableOpacity>

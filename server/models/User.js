@@ -18,11 +18,11 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    country: { // new field
+    country: {
       type: String,
       required: true,
     },
-    birthDate: { // new field
+    birthDate: {
       type: Date,
       required: true,
     },

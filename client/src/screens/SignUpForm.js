@@ -68,15 +68,6 @@ export default function SignUpForm() {
     setCountry('');
     setBirthDate(new Date());
     try {
-      // const variables = { 
-      //   username, 
-      //   email, 
-      //   password, 
-      //   country, 
-      //   birthDate,
-        
-      // };
-      // console.log("Variables: ", variables);
       const { data } = await addUser({
         variables: { username, email, password, country, birthDate },
       });

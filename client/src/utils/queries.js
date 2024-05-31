@@ -1,10 +1,13 @@
 import { gql } from '@apollo/client';
 
 export const GET_ME = gql`
-  query me {
+  query Me {
     me {
       _id
+      birthDate
+      country
       email
+      imageUrl
       password
       username
       workoutPlans {
@@ -32,5 +35,6 @@ export const GET_ME = gql`
         }
       }
     }
+  }
 `;
 

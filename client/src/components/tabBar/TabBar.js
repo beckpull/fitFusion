@@ -7,6 +7,7 @@ import Friends from '../../screens/Friends';
 import { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Colors from '../../styles/colors';
+import LogoutButton from './LogoutButton';
 
 const Tab = createBottomTabNavigator();
 
@@ -19,6 +20,7 @@ export default function TabBar() {
         backgroundColor: '#FFF',
         shadowColor: 'transparent',
       },
+      headerRight: () => <LogoutButton />,
     });
   }, [navigation]);
   return (

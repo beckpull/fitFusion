@@ -7,6 +7,7 @@ const resolvers = {
       const foundUser = await User.findOne({
         _id: context.user._id
       });
+      // return User.findOne({ _id: context.user._id });
 
       if (!foundUser) {
         console.log("no found user");
