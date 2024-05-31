@@ -26,10 +26,10 @@ import SearchByMuscleScreen from './src/screens/SearchWorkout/SearchByMuscleScre
 const Stack = createStackNavigator();
 
 const httpLink = createHttpLink({
-    uri: `http://${process.env.HTTP_URI}:3001/graphql`,
-  });
+  uri: `http://${process.env.HTTP_URI}:3001/graphql`,
+});
 
-  console.log(httpLink)
+console.log(httpLink)
 
 const authLink = setContext(async (_, { headers }) => {
   const token = await AsyncStorage.getItem('id_token');

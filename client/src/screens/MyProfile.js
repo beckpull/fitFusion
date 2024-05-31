@@ -1,63 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, Text, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import UserImage from '../components/profile/UserImage';
 import { StatusBar } from 'expo-status-bar';
 import * as ImagePicker from 'expo-image-picker';
 import IconButton from '../components/profile/IconButton';
-import { useState, useEffect } from 'react';
 import VerticalTabs from '../components/profile/VerticalTabs';
+import { useMutation } from '@apollo/client';
+import { UPDATE_USER_IMAGE } from '../utils/mutations';
 
 const PlaceholderImage = require('../assets/images/persona-icon.jpg');
 
 export default function MyProfile() {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [updateUserImage] = useMutation(UPDATE_USER_IMAGE);
+
+  const handleUpdateImage = async (imageUrl) => {
+    console.log("URL Image: ", imageUrl);
+    try {
+      const { data } = await updateUserImage({
+        variables: {
+          imageUrl: imageUrl, 
+        },
+      });
+      console.log('Updated user image:', data);
+    } catch (error) {
+      console.error('Error updating user image:', error);
+    }
+  };
 
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       quality: 1,
     });
+
     if (!result.canceled) {
       setSelectedImage(result.assets[0].uri);
-      uploadImage(result.assets[0]);
+      handleUpdateImage(result.assets[0].uri);
     } else {
       Alert.alert('You did not select any image.');
     }
-
-  };
-
-  const uploadImage = async (image) => {
-    let formData = new FormData();
-    formData.append('image', {
-      uri: image.uri,
-      type: 'image/jpeg', // or 'image/png'
-      name: 'userImage.jpg', // or 'userImage.png'
-    });
-
-    try {
-      // Replace 'http://my-api.com/upload' with your image upload endpoint
-      let response = await axios.post('http://my-api.com/upload', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-
-      let imageUrl = response.data.imageUrl; // Replace 'imageUrl' with the key your server responds with
-      updateUserImage(imageUrl);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const updateUserImage = async (imageUrl) => {
-    try {
-      // Replace 'http://my-api.com/user' with your user update endpoint
-      // Replace 'userId' with the user's ID
-      // Replace 'authToken' with the user's auth token
-      await axios.put('http://my-api.com/user/userId', { imageUrl }, {
-        headers: { Authorization: `Bearer authToken` },
-      });
-    } catch (error) {
-      console.error(error);
-    }
+    handleUpdateImage();
   };
 
   return (
@@ -114,11 +97,7 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#fff',
     borderRadius: 10,
-    // shadowColor: 'gray', // iOS
-    // shadowOpacity: 0.2, // iOS
-    // shadowOffset: { width: 0, height: 4 }, // iOS
-    // shadowRadius: 5, // iOS
-    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.2)', // equivalent to your shadow* properties
+    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.2)',
     elevation: 3, // Android only
   }
 });
