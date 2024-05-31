@@ -24,11 +24,11 @@ const resolvers = {
       return { token, user };
     },
 
-    updateUserImage: async (parent, { userId, imageUrl }, context) => {
+    updateUserImage: async (parent, { imageUrl }, context) => {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
-          { _id: userId },
-          { imageUrl },
+          {  _id: context.user._id  },
+          { $set: { imageUrl: imageUrl } },
           { new: true }
         );
 

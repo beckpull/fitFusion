@@ -24,10 +24,12 @@ export const ADD_USER = gql`
 `;
 
 export const UPDATE_USER_IMAGE = gql`
-  mutation updateUserImage($userId: ID!, $imageUrl: String!) {
-    updateUserImage(userId: $userId, imageUrl: $imageUrl) {
-      _id
+  mutation UpdateUserImage($imageUrl: String!) {
+    updateUserImage(imageUrl: $imageUrl) {
       imageUrl
+      email
+      username
+      _id
     }
   }
 `;
