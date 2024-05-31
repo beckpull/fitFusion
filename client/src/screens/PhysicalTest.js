@@ -4,6 +4,9 @@ import { useNavigation } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import colors from '../styles/colors';
 import TabBar from "../components/tabBar/TabBar";
+import { useMutation } from "@apollo/client";
+import { ADD_USER } from "../utils/mutations";
+import Auth from "../utils/auth";
 
 export default function PhysicalTest() {
   const [age, setAge] = useState('');
@@ -13,9 +16,9 @@ export default function PhysicalTest() {
   const [goal, setGoal] = useState('Lose weight');
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState([
-    { label: 'Lose Weight', value: 'Lose Weight' },
-    { label: 'Gain Muscle', value: 'Gain Muscle' },
-    { label: 'Improve Endurance', value: 'Improve Endurance' },
+    { label: 'Beginner', value: 'Beginner' },
+    { label: 'Intermediate', value: 'Gain Muscle' },
+    { label: 'Advanced', value: 'Improve Endurance' },
     { label: 'Improve Flexibility', value: 'Improve Flexibility' },
     { label: 'Improve Balance', value: 'Improve Balance' },
     { label: 'Improve Strength', value: 'Improve Strength' },
