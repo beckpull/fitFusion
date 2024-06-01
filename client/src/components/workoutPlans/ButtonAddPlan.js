@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 const ButtonAddPlan = ({ navigation }) => {
   return (
-    <Pressable style={styles.button} onPress={() => navigation.navigate('AddPlan')}>
+    <Pressable style={styles.button} onPress={() => navigation.navigate('NewWorkoutForm')}>
       <Icon name="plus" size={30} color="grey" />
     </Pressable>
   );
