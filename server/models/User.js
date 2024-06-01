@@ -26,22 +26,29 @@ const userSchema = new Schema(
       type: Date,
       required: true,
     },
-    // age: {
-    //     type: Number,
-    //     required: true,
-    // },
-    // height: {
-    //     type: Number,
-    //     required: true,
-    // },
-    // weight: {
-    //     type: Number,
-    //     required: true,
-    // },
-    // gender: {
-    //     type: String,
-    //     required: true,
-    // },
+    age: {
+        type: Number,
+        // required: true,
+    },
+    height: {
+        type: Number,
+        // required: true,
+    },
+    weight: {
+        type: Number,
+        // required: true,
+    },
+    gender: {
+        type: String,
+        // required: true,
+    },
+    level: {
+        type: String,
+        // required: true,
+    },
+    calories: {
+        type: Number,
+    },
     imageUrl: {
       type: String,
       default: ''

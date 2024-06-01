@@ -7,16 +7,17 @@ import LoginForm from './src/screens/LoginForm';
 import SignUpForm from './src/screens/SignUpForm';
 import PhysicalTest from './src/screens/PhysicalTest';
 import ForgotPassword from './src/screens/ForgotPassword';
+// import Testimonials from './src/components/AboutUs/Testimonials';
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 
 // import WorkoutPlan from './src/screens/WorkoutPlan';
 import EachPlan from './src/screens/EachPlan';
 import ExerciseDetail from './src/screens/ExerciseDetail';
 
 import TabBar from './src/components/tabBar/TabBar';
+import AboutUs from './src/screens/AboutUs';
 
 // import { client } from './src/utils/apolloClient';
 import MainSearchScreen from './src/screens/SearchWorkout/MainSearchScreen';
@@ -53,6 +54,7 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="AboutUs" component={AboutUs} />
           <Stack.Screen name="LoginForm" component={LoginForm} />
           <Stack.Screen name="SignUpForm" component={SignUpForm} />
 
@@ -71,6 +73,7 @@ export default function App() {
           <Stack.Screen name="ExerciseDetail" component={ExerciseDetail} />
 
           <Stack.Screen name="TabBar" component={TabBar} />
+          {/* <Stack.Screen name="Testimonials" component={Testimonials} /> */}
 
         </Stack.Navigator>
       </NavigationContainer>
