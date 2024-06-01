@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity } from 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ExerciseForm from '../components/workoutPlans/ExerciseForm';
+import ButtonAddWorkout from '../components/workoutPlans/ButtonAddWorkout';
 
 const EachPlan = ({ route, navigation }) => {
   const { name, workouts, goal } = route.params;
@@ -87,14 +88,16 @@ const EachPlan = ({ route, navigation }) => {
         ))}
 
         {isFormVisible && currentExercise && (
-          <ExerciseForm 
-            visible={isFormVisible} 
-            onClose={() => setIsFormVisible(false)} 
-            onSave={handleFormSave} 
-            exercise={currentExercise} 
+          <ExerciseForm
+            visible={isFormVisible}
+            onClose={() => setIsFormVisible(false)}
+            onSave={handleFormSave}
+            exercise={currentExercise}
           />
         )}
       </View>
+      <View style={styles.space}></View>
+      <ButtonAddWorkout navigation={navigation} />
     </ScrollView>
   );
 };
@@ -166,6 +169,9 @@ const styles = StyleSheet.create({
   },
   iconButton: {
     marginLeft: 10,
+  },
+  space: {
+    height: 70,
   },
 });
 
