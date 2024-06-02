@@ -17,7 +17,30 @@ export default ExerciseModal = ({ modalVisible, setModalVisible, workout }) => {
             <>
               <Text style={styles.title}>{workout.name}</Text>
               <Image style={{ width: 200, height: 200 }} source={{ uri: workout.gifUrl }} />
-              <Text style={styles.instructions}>{workout.instructions}</Text>
+             
+              <Text style={styles.subtitle}>Equipment:</Text>
+        <Text style={styles.description}>{workout.equipment}</Text>
+        <Text style={styles.subtitle}>Body Part:</Text>
+        <Text style={styles.description}>{workout.bodyPart}</Text>
+        <Text style={styles.subtitle}>Target Muscles:</Text>
+        <Text style={styles.description}>{workout.target}</Text>
+        <Text style={styles.subtitle}>Secondary Muscles:</Text>
+        <Text style={styles.description}>{workout.secondaryMuscles}</Text>
+             
+             
+              <View style={styles.instructions}>
+
+
+                {workout.instructions.map((instruction, index) => (
+                  <View key={index} style={styles.instructionItem}>
+                    <Text style={styles.instruction}>{index + 1}.  {instruction}</Text>
+                  </View>
+                  
+                  
+                  ))}
+                
+                
+                </View>
             </>
           ) : (
             <Text>No workout selected</Text>
@@ -69,6 +92,25 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  description: {
+    fontSize: 16,
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  subtitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginTop: 20,
+    marginBottom: 5,
+  },
+  instructionItem: {
+    marginBottom: 15
   },
 });
 

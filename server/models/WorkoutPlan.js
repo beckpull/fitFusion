@@ -8,10 +8,14 @@ const workoutPlanSchema = new Schema(
             required: true,
             unique: true,
         },
+        goal: {
+            type: String,
+            required: true,         
+        },
         workouts: [workoutSchema],
     }
 );
 
-const WorkoutPlan = model('WorkoutPlans', workoutPlanSchema);
+const WorkoutPlan = model('WorkoutPlan', workoutPlanSchema);
 
 module.exports = WorkoutPlan;
