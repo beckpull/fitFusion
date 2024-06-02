@@ -12,7 +12,7 @@ import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import MyWorkouts from './src/screens/MyWorkouts';
+// import MyWorkouts from './src/screens/MyWorkouts';
 import EachPlan from './src/screens/EachPlan';
 import ExerciseDetail from './src/screens/ExerciseDetail';
 
@@ -68,7 +68,7 @@ export default function App() {
 
           <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
 
-          <Stack.Screen name="MyWorkouts" component={MyWorkouts} />
+          {/* <Stack.Screen name="MyWorkouts" component={MyWorkouts} /> */}
           <Stack.Screen name="EachPlan" component={EachPlan} />
           <Stack.Screen name="ExerciseDetail" component={ExerciseDetail} />
 
