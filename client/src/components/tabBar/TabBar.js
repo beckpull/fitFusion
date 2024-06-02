@@ -3,7 +3,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import MyProfile from '../../screens/MyProfile';
 import MyWorkouts from '../../screens/MyWorkouts';
 import AboutUs from '../../screens/AboutUs';
-import Friends from '../../screens/Friends';
+import Blog from '../../screens/Blog';
 import { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Colors from '../../styles/colors';
@@ -35,8 +35,8 @@ export default function TabBar() {
             iconName = focused ? 'fitness' : 'fitness-outline';
           } else if (route.name === 'AboutUs') {
             iconName = focused ? 'information-circle' : 'information-circle-outline';
-          } else if (route.name === 'Friends') {
-            iconName = focused ? 'people' : 'people-outline';
+          } else if (route.name === 'Blog') {
+            iconName = focused ? 'newspaper' : 'newspaper-outline';
           }
 
           return <Icon name={iconName} size={size} color={color} />;
@@ -47,7 +47,7 @@ export default function TabBar() {
       })}
     >
       <Tab.Screen name="MyWorkouts" component={MyWorkouts} />
-      <Tab.Screen name="Friends" component={Friends} />
+      <Tab.Screen name="Blog" component={Blog} />
       <Tab.Screen name="AboutUs" component={AboutUs} />
       <Tab.Screen name="MyProfile" component={MyProfile} options={{ headerShown: false }} />
     </Tab.Navigator>

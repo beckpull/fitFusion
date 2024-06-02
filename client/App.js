@@ -58,6 +58,7 @@ export default function App() {
           <Stack.Screen name="AboutUs" component={AboutUs} />
           <Stack.Screen name="LoginForm" component={LoginForm} />
           <Stack.Screen name="SignUpForm" component={SignUpForm} />
+          <Stack.Screen name="PhysicalTest" component={PhysicalTest} />
 
           {/* API Search Screens (From JRH) <> */}
           <Stack.Screen name="MainSearchScreen" component={MainSearchScreen} options={{ title: 'Search for a Workout' }} />
@@ -67,7 +68,6 @@ export default function App() {
 
  <Stack.Screen name="NewWorkoutForm" component={NewWorkoutForm} options={{ title: 'New Workout Form' }} />
 
-          <Stack.Screen name="PhysicalTest" component={PhysicalTest} />
           <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
 
           {/* <Stack.Screen name="WorkoutPlan" component={WorkoutPlan} /> */}
