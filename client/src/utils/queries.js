@@ -1,41 +1,42 @@
 import { gql } from '@apollo/client';
 
 export const GET_ME = gql`
-  query Me {
-    me {
+query Query {
+  me {
+    _id
+    birthDate
+    country
+    email
+    imageUrl
+    password
+    username
+    workoutPlans {
       _id
-      birthDate
-      country
-      email
-      imageUrl
-      password
-      username
-      workoutPlans {
+      goal
+      name
+      workouts {
         _id
+        bodyPart
+        equipment
+        gifUrl
+        instructions
         name
-        workouts {
+        secondary
+        target
+        workoutId
+        progress {
           _id
-          bodyPart
-          equipment
-          gifUrl
-          instructions
-          name
-          progress {
-            _id
-            date
-            distance
-            duration
-            reps
-            sets
-            weight
-          }
-          secondary
-          target
-          workoutId
+          date
+          distance
+          duration
+          reps
+          sets
+          weight
         }
       }
     }
   }
+}
 `;
 
 
