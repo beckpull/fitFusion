@@ -9,15 +9,9 @@ import '../styles/Workout.css';
 const WorkoutPlan = ({ navigation }) => {
 
   const { loading, error, data } = useQuery(GET_ME);
-  const { me: { workoutPlans } } = data;
+  console.log(loading);
+  console.log(error);
   console.log(data);
-
-  useEffect(() => {
-    navigation.setOptions({
-      headerTitle: '',
-      headerTransparent: true,
-    });
-  }, [navigation]);
 
   if (loading) return <Text>Loading...</Text>;
 
@@ -26,12 +20,14 @@ const WorkoutPlan = ({ navigation }) => {
     return <Text>Error: {error.message}</Text>;
   }
 
+  const { me: { workoutPlans } } = data;
+
   return (
     <View style={styles.container}>
     { workoutPlans ? (
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         {workoutPlans.map((plan, index) => (
-          <UserPlan key={index} name={plan.name} goal={plan.goal} workouts={plan.workouts} />
+          <UserPlan key={index} name={plan.name} workouts={plan.workouts} />
         ))}
       </ScrollView>
     ) : "" }
