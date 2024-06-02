@@ -23,6 +23,7 @@ import AboutUs from './src/screens/AboutUs';
 import MainSearchScreen from './src/screens/SearchWorkout/MainSearchScreen';
 import SearchByNameScreen from './src/screens/SearchWorkout/SearchByNameScreen';
 import SearchByMuscleScreen from './src/screens/SearchWorkout/SearchByMuscleScreen';
+import NewWorkoutForm from './src/screens/NewWorkoutForm';
 
 const Stack = createStackNavigator();
 
@@ -64,6 +65,7 @@ export default function App() {
           <Stack.Screen name="SearchByMuscleScreen" component={SearchByMuscleScreen} options={{ title: 'Search by Targeted Muscle' }} />
           {/* JRH^   */}
 
+ <Stack.Screen name="NewWorkoutForm" component={NewWorkoutForm} options={{ title: 'New Workout Form' }} />
 
           <Stack.Screen name="PhysicalTest" component={PhysicalTest} />
           <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
