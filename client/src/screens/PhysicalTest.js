@@ -5,41 +5,61 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import colors from '../styles/colors';
 import TabBar from "../components/tabBar/TabBar";
 import { useMutation } from "@apollo/client";
-import { ADD_USER } from "../utils/mutations";
+import { ADD_USER_SECOND_SCREEN } from "../utils/mutations";
 import Auth from "../utils/auth";
 
-export default function PhysicalTest() {
-  const [age, setAge] = useState('');
-  const [height, setHeight] = useState('');
-  const [weight, setWeight] = useState('');
-  const [gender, setGender] = useState('');
-  const [goal, setGoal] = useState('Lose weight');
+export default function PhysicalTest({ route }) {
+  const [age, setAge] = useState(0);
+  const [height, setHeight] = useState(0);
+  const [weight, setWeight] = useState(0);
+  const [gender, setGender] = useState('null');
+  const [level, setLevel] = useState('null');
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState([
-    { label: 'Beginner', value: 'Beginner' },
-    { label: 'Intermediate', value: 'Gain Muscle' },
-    { label: 'Advanced', value: 'Improve Endurance' },
-    { label: 'Improve Flexibility', value: 'Improve Flexibility' },
-    { label: 'Improve Balance', value: 'Improve Balance' },
-    { label: 'Improve Strength', value: 'Improve Strength' },
-    { label: 'Improve Overall Health', value: 'Improve Overall Health' },
+    { label: `It's been a while since I've been to the gym🏋️‍♂️❌`, value: `It's been a while since I've been to the gym🏋️‍♂️❌` },
+    { label: `I'm fairly active, but there's always room por improvement💪🔄`, value: `I'm fairly active, but there's always room por improvement💪🔄` },
+    { label: 'I live for the gym!🏋️‍♂️❤️', value: 'I live for the gym!🏋️‍♂️❤️' }
   ]);
 
   const [calories, setCalories] = useState('');
   const [isCalorieGoalEnabled, setIsCalorieGoalEnabled] = useState(false);
-  
+  const [addUserSecondScreen, { error, data }] = useMutation(ADD_USER_SECOND_SCREEN);
   const navigation = useNavigation();
   const goToLoginForm = () => {
     navigation.navigate('LoginForm');
   };
 
-  const handleSubmit = () => {
-    if (!age || !height || !weight || !gender || !goal) {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (!age || !height || !weight || !gender || !level) {
       Alert.alert('Error', 'All fields are required');
       return;
     }
-    Alert.alert('Form submitted', `Age: ${age}, Height: ${height}, Weight: ${weight}, Gender: ${gender}, Goal: ${goal}, Calories: ${calories}`);
-    navigation.navigate('TabBar');
+    Alert.alert('Form submitted', `Age: ${age}, Height: ${height}, Weight: ${weight}, Gender: ${gender}, Level: ${level}, Calories: ${calories}`);
+    try {
+      const { data } = await addUserSecondScreen({
+        variables: {
+          id: route.params.userId,
+          age: parseInt(age),
+          height: parseInt(height),
+          weight: parseInt(weight),
+          gender,
+          level,
+          calories: parseInt(calories),
+        },
+      });
+      console.log('This is the data: ', data);
+      if (error) {
+        console.error('Server error:', error);
+        return;
+      }
+
+      Auth.login(data.addUserSecondScreen.token);
+      console.log("User added successfully!");
+      navigation.navigate('TabBar');
+    } catch (error) {
+      console.error('Error signing up:', error.message);
+    }
   };
 
 
@@ -139,23 +159,23 @@ export default function PhysicalTest() {
           </View>
         )}
 
-        <Text style={styles.label}>Goals</Text>
+        <Text style={styles.label}>Level</Text>
         <View style={styles.pickerContainer}>
           <DropDownPicker
             items={items}
-            placeholder="Select your goals"
+            placeholder="Select your level"
             open={open}
-            value={goal}
+            value={level}
             setOpen={setOpen}
-            setValue={setGoal}
+            setValue={setLevel}
             setItems={setItems}
             dropDownStyle={{ backgroundColor: '#fafafa' }}
             containerStyle={open ? { marginBottom: 200 } : {}}
             modal={true}
             onChangeItem={item => {
-              setGoal(item.value);
+              setLevel(item.value);
               console.log('onChangeItem triggered');
-              console.log('selected item:', goal);
+              console.log('selected item:', level);
             }}
             onOpen={() => {
               console.log('onOpen triggered');
@@ -167,13 +187,6 @@ export default function PhysicalTest() {
         <Pressable style={styles.button} onPress={handleSubmit}>
           <Text style={styles.buttonText}>Create Account</Text>
         </Pressable>
-
-        <View style={styles.loginContainer}>
-          <Text style={styles.loginText}>I am already a user,</Text>
-          <Pressable onPress={goToLoginForm}>
-            <Text style={styles.loginLink}>Login</Text>
-          </Pressable>
-        </View>
       </View>
     </TouchableWithoutFeedback>
   );

@@ -23,6 +23,16 @@ export const ADD_USER = gql`
   }
 `;
 
+export const ADD_USER_SECOND_SCREEN = gql`
+  mutation Mutation($age: Int!, $height: Int!, $weight: Int!, $gender: String!, $level: String!, $calories: Int!) {
+    addUserSecondScreen(age: $age, height: $height, weight: $weight, gender: $gender, level: $level, calories: $calories) {
+      _id
+      email
+      username
+      country
+    }
+  }
+`;
 export const UPDATE_USER_IMAGE = gql`
   mutation UpdateUserImage($imageUrl: String!) {
     updateUserImage(imageUrl: $imageUrl) {

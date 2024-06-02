@@ -68,6 +68,7 @@ export default function SignUpForm() {
     setCountry('');
     setBirthDate(new Date());
     try {
+      console.log('Entering the try!')
       const { data } = await addUser({
         variables: { username, email, password, country, birthDate },
       });
@@ -80,8 +81,9 @@ export default function SignUpForm() {
       }
 
       Auth.login(data.addUser.token);
-      console.log("User added successfully!");
-      navigation.navigate('PhysicalTest');
+      console.log("User added successfully!", data.addUser);
+      // console.log("User added successfully!");
+      navigation.navigate('PhysicalTest', { userId: data.addUser.user.id });
     } catch (err) {
       console.error('something happened!!', err.message);
     }

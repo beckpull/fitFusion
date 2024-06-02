@@ -6,7 +6,7 @@ export default function Title() {
     <View>
       <Image
         source={icon}
-        style={{ width: 150, height: 80 }}
+        style={{ width: 250, height:120 }}
       />
     </View>
   )

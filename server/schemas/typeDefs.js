@@ -77,6 +77,7 @@ const typeDefs = `
 
     type Mutation {
         addUser(username: String!, email: String!, password: String!, country: String!, birthDate: String!): Auth
+        addUserSecondScreen(age: Int!, height: Int!, weight: Int!, gender: String!, level: String!, calories: Int!): User
         login(email: String!, password: String!): Auth
         updateUserImage(imageUrl: String!): User
 
