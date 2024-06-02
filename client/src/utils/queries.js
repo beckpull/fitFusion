@@ -44,6 +44,7 @@ query MyWorkoutPlans {
   myWorkoutPlans {
     _id
     name
+    goal
   }
 }
 `;
