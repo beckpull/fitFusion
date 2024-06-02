@@ -38,3 +38,12 @@ export const GET_ME = gql`
   }
 `;
 
+
+export const GET_WORKOUTS = gql`
+query MyWorkoutPlans {
+  myWorkoutPlans {
+    _id
+    name
+  }
+}
+`;

@@ -5,13 +5,13 @@ const workoutPlanSchema = new Schema(
     {
         name: {
             type: String,
-            required: true,
+            // required: true,
             unique: true,
         },
         workouts: [workoutSchema],
     }
 );
 
-const WorkoutPlan = model('WorkoutPlans', workoutPlanSchema);
+const WorkoutPlan = model('WorkoutPlan', workoutPlanSchema);
 
 module.exports = WorkoutPlan;

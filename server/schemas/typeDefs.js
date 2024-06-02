@@ -12,7 +12,7 @@ const typeDefs = `
 
     type WorkoutPlan {
         _id: ID
-        name: String!
+        name: String
         workouts: [Workout]
     }
 
@@ -66,6 +66,12 @@ const typeDefs = `
 
     type Query {
         me: User
+
+        allUsers: [User]
+        myWorkoutPlans: [WorkoutPlan]
+
+
+
     }
 
     type Mutation {
