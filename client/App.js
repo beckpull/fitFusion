@@ -7,12 +7,12 @@ import LoginForm from './src/screens/LoginForm';
 import SignUpForm from './src/screens/SignUpForm';
 import PhysicalTest from './src/screens/PhysicalTest';
 import ForgotPassword from './src/screens/ForgotPassword';
-// import Testimonials from './src/components/AboutUs/Testimonials';
+import Testimonials from './src/components/AboutUs/Testimonials';
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// import WorkoutPlan from './src/screens/WorkoutPlan';
+// import MyWorkouts from './src/screens/MyWorkouts';
 import EachPlan from './src/screens/EachPlan';
 import ExerciseDetail from './src/screens/ExerciseDetail';
 
@@ -60,22 +60,20 @@ export default function App() {
           <Stack.Screen name="SignUpForm" component={SignUpForm} />
           <Stack.Screen name="PhysicalTest" component={PhysicalTest} />
 
-          {/* API Search Screens (From JRH) <> */}
           <Stack.Screen name="MainSearchScreen" component={MainSearchScreen} options={{ title: 'Search for a Workout' }} />
           <Stack.Screen name="SearchByNameScreen" component={SearchByNameScreen} options={{ title: 'Search by Name' }} />
           <Stack.Screen name="SearchByMuscleScreen" component={SearchByMuscleScreen} options={{ title: 'Search by Targeted Muscle' }} />
-          {/* JRH^   */}
 
  <Stack.Screen name="NewWorkoutForm" component={NewWorkoutForm} options={{ title: 'New Workout Form' }} />
 
           <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
 
-          {/* <Stack.Screen name="WorkoutPlan" component={WorkoutPlan} /> */}
+          {/* <Stack.Screen name="MyWorkouts" component={MyWorkouts} /> */}
           <Stack.Screen name="EachPlan" component={EachPlan} />
           <Stack.Screen name="ExerciseDetail" component={ExerciseDetail} />
 
           <Stack.Screen name="TabBar" component={TabBar} />
-          {/* <Stack.Screen name="Testimonials" component={Testimonials} /> */}
+          <Stack.Screen name="Testimonials" component={Testimonials} />
 
         </Stack.Navigator>
       </NavigationContainer>
