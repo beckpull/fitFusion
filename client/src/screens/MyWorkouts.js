@@ -9,6 +9,7 @@ import '../styles/Workout.css';
 const WorkoutPlan = ({ navigation }) => {
 
   const { loading, error, data } = useQuery(GET_ME);
+  const { me: { workoutPlans } } = data;
   console.log(data);
 
   useEffect(() => {
@@ -27,9 +28,9 @@ const WorkoutPlan = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-    { data.workouts ? (
+    { workoutPlans ? (
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {data.workouts.map((plan, index) => (
+        {workoutPlans.map((plan, index) => (
           <UserPlan key={index} name={plan.name} goal={plan.goal} workouts={plan.workouts} />
         ))}
       </ScrollView>
