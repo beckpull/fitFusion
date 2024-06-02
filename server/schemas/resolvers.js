@@ -18,11 +18,26 @@ const resolvers = {
   },
 
   Mutation: {
-    addUser: async (parent, { username, email, password, country, birthDate }) => {
-      const user = await User.create({ username, email, password, country, birthDate });
+    addUser: async (parent, { username, email, password, country, birthDate, age, height, weight, gender, level, calories }) => {
+      const user = await User.create({ username, email, password, country, birthDate, age, height, weight, gender, level, calories});
       const token = signToken(user);
 
       return { token, user };
+    },
+
+    addUserSecondScreen: async (parent, { age, height, weight, gender, level, calories }, context) => {
+      if (context.user) {
+        const updatedUserFromForm = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $set: { age, height, weight, gender, level, calories } },
+          { new: true }
+        );
+        if (!updatedUserFromForm) {
+          throw new Error('No user found with this id!');
+        }
+        return updatedUserFromForm;
+      }
+      throw new AuthenticationError('You need to be logged in!');
     },
 
     updateUserImage: async (parent, { imageUrl }, context) => {

@@ -46,10 +46,10 @@ export default function TabBar() {
         tabBarStyle: { display: 'flex' },
       })}
     >
-      <Tab.Screen name="MyProfile" component={MyProfile} options={{ headerShown: false }} />
       <Tab.Screen name="MyWorkouts" component={MyWorkouts} />
-      <Tab.Screen name="AboutUs" component={AboutUs} />
       <Tab.Screen name="Friends" component={Friends} />
+      <Tab.Screen name="AboutUs" component={AboutUs} />
+      <Tab.Screen name="MyProfile" component={MyProfile} options={{ headerShown: false }} />
     </Tab.Navigator>
   );
 }

@@ -15,6 +15,8 @@ export default function MyProfile() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [updateUserImage] = useMutation(UPDATE_USER_IMAGE);
   const { loading, error, data } = useQuery(GET_ME);
+  console.log('Loading:', loading);
+  console.log('Error:', error);
 
   console.log('Data:', data);
 
