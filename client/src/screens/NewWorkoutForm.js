@@ -7,32 +7,30 @@ import { ADD_WORKOUT_PLAN } from '../utils/mutations';
 
 export default function NewWorkoutForm() {
     const [name, setName] = useState('');
-    const [goals, setGoals] = useState('');
+    const [goal, setGoal] = useState('');
 
     const [addWorkoutPlan, { error, data }] = useMutation(ADD_WORKOUT_PLAN);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log("Adding workout plan", name, goals);
+        console.log("Adding workout plan", name, goal);
 
-        if (!name || !goals) {
+        if (!name || !goal) {
             Alert.alert('Error', 'All fields are required');
             return;
 
         };
 
         setName('');
-        setGoals('');
+        setGoal('');
         try {
             const { data } = await addWorkoutPlan({
-                variables: {
-                    name,
-                    // goals,
-                },
+                variables: { name, goal, },
             });
             console.log(data);
-            Alert.alert('Success', 'Next, add exercises to your workout plan!');
+            Alert.alert('Workout Plan Added!', 'Next, add exercises to your workout plan!');
             setName('');
+            setGoal('');
 
         } catch (error) {
             console.error(error);
@@ -47,19 +45,19 @@ export default function NewWorkoutForm() {
                 <View style={styles.container}>
                     <Text style={styles.h1}>Create a New Workout Plan</Text>
                     <Text style={styles.label}>Workout Plan Name:</Text>
-                   
+
                     <TextInput
                         style={styles.input}
                         value={name}
                         onChangeText={setName}
                         placeholder="Example: 5K Training Plan"
                     />
-                    <Text style={styles.label}>Goals:</Text>
-                    
+                    <Text style={styles.label}>Goal:</Text>
+
                     <TextInput
                         style={styles.input}
-                        value={goals}
-                        onChangeText={setGoals}
+                        value={goal}
+                        onChangeText={setGoal}
                         placeholder="Example: Run a 5K in under 30 minutes"
                     />
 

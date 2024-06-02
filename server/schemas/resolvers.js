@@ -8,7 +8,7 @@ const resolvers = {
         _id: context.user._id
       })
       // ADD THIS LINE IF WE WANT QUERY:ME TO RETURN WORKOUTPLAN NAMES
-      // .populate('workoutPlans');
+      .populate('workoutPlans');
       // ^^^^^^^^^
       // return User.findOne({ _id: context.user._id });
 
@@ -51,7 +51,7 @@ const resolvers = {
     updateUserImage: async (parent, { imageUrl }, context) => {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
-          {  _id: context.user._id  },
+          { _id: context.user._id },
           { $set: { imageUrl: imageUrl } },
           { new: true }
         );
@@ -84,18 +84,21 @@ const resolvers = {
       return { token, user };
     },
 
-    addWorkoutPlan: async (parent, { name }, context) => {
+    addWorkoutPlan: async (parent, { name, goal }, context) => {
+      
       if (context.user) {
         const workoutPlan = await WorkoutPlan.create({
-          name
+          name,
+          goal
         });
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
           { $addToSet: { workoutPlans: workoutPlan } }
         );
-
+        console.log(workoutPlan)
         return workoutPlan;
+
       }
       throw AuthenticationError;
     },

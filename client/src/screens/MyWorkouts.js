@@ -4,6 +4,8 @@ import UserPlan from '../components/workoutPlans/UserPlan';
 import ButtonAddPlan from '../components/workoutPlans/ButtonAddPlan';
 import '../styles/Workout.css';
 
+import { GET_WORKOUTS } from '../utils/queries';
+
 
 export const data = [
   {

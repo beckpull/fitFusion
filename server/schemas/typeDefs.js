@@ -13,6 +13,7 @@ const typeDefs = `
     type WorkoutPlan {
         _id: ID
         name: String
+        goal: String
         workouts: [Workout]
     }
 
@@ -79,7 +80,7 @@ const typeDefs = `
         login(email: String!, password: String!): Auth
         updateUserImage(imageUrl: String!): User
 
-        addWorkoutPlan(name: String!): WorkoutPlan
+        addWorkoutPlan(name: String!, goal: String): WorkoutPlan
         updateWorkoutPlan(workoutPlanId: ID!, name: String): WorkoutPlan
         removeWorkoutPlan(workoutPlanId: ID!): WorkoutPlan
 
