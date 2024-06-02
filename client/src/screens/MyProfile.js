@@ -52,7 +52,7 @@ export default function MyProfile() {
     } else {
       Alert.alert('You did not select any image.');
     }
-    handleUpdateImage();
+    // handleUpdateImage();
   };
 
   return (
