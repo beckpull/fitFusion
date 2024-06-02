@@ -6,7 +6,10 @@ const resolvers = {
     me: async (parent, args, context) => {
       const foundUser = await User.findOne({
         _id: context.user._id
-      });
+      })
+      // ADD THIS LINE IF WE WANT QUERY:ME TO RETURN WORKOUTPLAN NAMES
+      .populate('workoutPlans');
+      // ^^^^^^^^^
       // return User.findOne({ _id: context.user._id });
 
       if (!foundUser) {
@@ -14,7 +17,27 @@ const resolvers = {
       }
 
       return foundUser;
-    }
+    },
+
+    // DELETE THIS LATER
+    allUsers: async () => {
+      return await User.find({});
+    },
+
+    myWorkoutPlans: async (parent, args, context) => {
+      if (!context.user) {
+        throw new AuthenticationError('You must be logged in');
+      }
+
+      const foundUser = await User.findOne({ _id: context.user._id }).populate('workoutPlans');
+
+      if (!foundUser) {
+        throw new Error('User not found');
+      }
+
+      return foundUser.workoutPlans;
+    },
+
   },
 
   Mutation: {
@@ -43,7 +66,7 @@ const resolvers = {
     updateUserImage: async (parent, { imageUrl }, context) => {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
-          {  _id: context.user._id  },
+          { _id: context.user._id },
           { $set: { imageUrl: imageUrl } },
           { new: true }
         );
@@ -76,18 +99,21 @@ const resolvers = {
       return { token, user };
     },
 
-    addWorkoutPlan: async (parent, { name }, context) => {
+    addWorkoutPlan: async (parent, { name, goal }, context) => {
+      
       if (context.user) {
         const workoutPlan = await WorkoutPlan.create({
-          name
+          name,
+          goal
         });
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
           { $addToSet: { workoutPlans: workoutPlan } }
         );
-
+        console.log(workoutPlan)
         return workoutPlan;
+
       }
       throw AuthenticationError;
     },

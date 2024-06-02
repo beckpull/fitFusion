@@ -43,3 +43,12 @@ export const UPDATE_USER_IMAGE = gql`
     }
   }
 `;
+
+export const ADD_WORKOUT_PLAN = gql`
+mutation AddWorkoutPlan($name: String!, $goal: String!) {
+  addWorkoutPlan(name: $name, goal: $goal) {
+    name
+    goal
+  }
+}
+`;

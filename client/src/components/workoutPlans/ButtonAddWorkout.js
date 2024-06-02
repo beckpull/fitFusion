@@ -2,9 +2,9 @@ import React from 'react';
 import { Pressable, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const ButtonAddPlan = ({ navigation }) => {
+const ButtonAddWorkout = ({ navigation }) => {
   return (
-    <Pressable style={styles.button} onPress={() => navigation.navigate('NewWorkoutForm')}>
+    <Pressable style={styles.button} onPress={() => navigation.navigate('SearchByNameScreen')}>
       <Icon name="plus" size={30} color="grey" />
     </Pressable>
   );
@@ -21,7 +21,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 20,
     right: 20,
+    
   },
 });
 
-export default ButtonAddPlan;
+export default ButtonAddWorkout;
