@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import { View, StyleSheet, Text, ScrollView, TouchableOpacity, Alert, Linking } from 'react-native';
 import UserImage from '../components/profile/UserImage';
 import { StatusBar } from 'expo-status-bar';
 import * as ImagePicker from 'expo-image-picker';
 import IconButton from '../components/profile/IconButton';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import Colors from '../styles/colors';
 import VerticalTabs from '../components/profile/VerticalTabs';
 import { useMutation, useQuery } from '@apollo/client';
 import { UPDATE_USER_IMAGE } from '../utils/mutations';
@@ -23,7 +25,7 @@ export default function MyProfile() {
   if (loading) return <Text>Loading...</Text>;
   if (error) return <Text>Error: {error.message}</Text>;
 
-  const { me: { username } } = data;
+  const { me: { username, workoutPlans } } = data;
 
   const handleUpdateImage = async (imageUrl) => {
     console.log("URL Image: ", imageUrl);
@@ -55,9 +57,23 @@ export default function MyProfile() {
     // handleUpdateImage();
   };
 
+  const handleClick = () => {
+    const url = 'https://open.spotify.com/playlist/6n7bvpS89XxLR7rMLaIpwi?si=89cc0abf12a14737&nd=1&dlsi=66de112c7a1a4d29';
+    
+    Linking.canOpenURL(url)
+    .then((supported) => {
+      if (supported) {
+        return Linking.openURL(url);
+      } else {
+        console.log(`Don't know how to open this URL: ${url}`);
+      }
+    })
+    .catch((err) => console.error('An error occurred', err));
+  };
+
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.rowContainer}>
+      <ScrollView>
         <TouchableOpacity style={styles.card}>
           <View style={styles.imageWrapper}>
             <UserImage
@@ -69,7 +85,15 @@ export default function MyProfile() {
           <View style={styles.userInfoContainer}>
             <IconButton iconName="picture-o" onPress={pickImageAsync} />
             <Text style={styles.userName}>Welcome {username}</Text>
-            <Text style={styles.userWorkouts}>Workouts: 10</Text>
+            <Text style={styles.userWorkouts}>Workouts: {workoutPlans.length}</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.card} onPress={handleClick}>
+          <Icon name="music" size={30} color={Colors.primaryVariant} />
+          <View style={styles.cont}>
+          <Text style={{ fontWeight: 'bold', marginBottom: 5 }}>FitFusion Music</Text>
+          <Text>Your best Buddy to work out</Text>
+
           </View>
         </TouchableOpacity>
 
@@ -111,5 +135,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.2)',
     elevation: 3, // Android only
-  }
+    marginBottom: 20,
+  },
+  cont: {
+    marginLeft: 15,
+  },
 });
