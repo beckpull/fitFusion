@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Modal, ScrollView } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Modal, KeyboardAvoidingView, Platform } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import { useMutation } from '@apollo/client';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-const ExerciseForm = ({ visible, onClose, onSave, exercise }) => {
+import { ADD_WORKOUT_PROGRESS } from '../../utils/mutations';
+
+const ExerciseForm = ({ visible, onClose, onSave, exercise, workoutPlanId, workoutId }) => {
   const [sets, setSets] = useState('');
   const [reps, setReps] = useState('');
   const [weight, setWeight] = useState('');
@@ -10,85 +14,132 @@ const ExerciseForm = ({ visible, onClose, onSave, exercise }) => {
   const [distance, setDistance] = useState('');
   const [measurementType, setMeasurementType] = useState('setsRepsWeight');
 
-  const handleSave = () => {
-    const data = {
+  // const workoutPlanId = WorkoutPlanId;
+  // const workoutId = WorkoutId;
+  console.log("workoutPlanId ", workoutPlanId);
+  console.log("workoutId ", workoutId);
+
+  const [saveProgress, { loading, error }] = useMutation(ADD_WORKOUT_PROGRESS);
+
+
+  if (loading) return <Text>Loading...</Text>;
+
+  if (error) {
+    console.log(error);
+    return <Text>Error: {error.message}</Text>;
+  }
+
+  const handleSave = async () => {
+    const input = {
       sets: measurementType === 'setsRepsWeight' ? sets : null,
       reps: measurementType === 'setsRepsWeight' ? reps : null,
       weight: measurementType === 'setsRepsWeight' ? weight : null,
       duration: measurementType === 'durationDistance' ? duration : null,
       distance: measurementType === 'durationDistance' ? distance : null,
     };
-    onSave(data);
+
+    const variables = {
+      workoutPlanId: workoutPlanId, 
+      workoutId: workoutId, 
+      progressInput: {
+        sets: parseInt(sets),
+        reps: parseInt(reps),
+        weight: parseInt(weight),
+        duration: parseInt(duration),
+        distance: parseInt(distance)
+      }
+    }
+
+    console.log(variables);
+
+    try {
+      const { data } = await saveProgress({ 
+        variables: { ...variables } 
+      });
+    console.log
+    console.log(data);
+    onSave(input);
     onClose();
+    } catch (err) {
+      console.error('Error saving progress', err);
+    }
   };
 
   return (
     <Modal visible={visible} animationType="slide">
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <View style={styles.modalContainer}>
-          <Text style={styles.title}>Input Your Exercise Goal</Text>
-          <Text style={styles.exerciseName}>Exercise: {exercise.name}</Text>
-          <Text style={styles.exerciseEquipment}>Equipment: {exercise.equipment}</Text>
-          <Picker
-            selectedValue={measurementType}
-            onValueChange={(itemValue) => setMeasurementType(itemValue)}
-            style={styles.picker}
-          >
-            <Picker.Item label="Sets, Reps, Weight" value="setsRepsWeight" />
-            <Picker.Item label="Duration, Distance" value="durationDistance" />
-          </Picker>
-          {measurementType === 'setsRepsWeight' && (
-            <>
-              <TextInput
-                placeholder="Sets"
-                value={sets}
-                onChangeText={setSets}
-                style={styles.input}
-                keyboardType="numeric"
-              />
-              <TextInput
-                placeholder="Reps"
-                value={reps}
-                onChangeText={setReps}
-                style={styles.input}
-                keyboardType="numeric"
-              />
-              <TextInput
-                placeholder="Weight"
-                value={weight}
-                onChangeText={setWeight}
-                style={styles.input}
-                keyboardType="numeric"
-              />
-            </>
-          )}
-          {measurementType === 'durationDistance' && (
-            <>
-              <TextInput
-                placeholder="Duration"
-                value={duration}
-                onChangeText={setDuration}
-                style={styles.input}
-                keyboardType="numeric"
-              />
-              <TextInput
-                placeholder="Distance"
-                value={distance}
-                onChangeText={setDistance}
-                style={styles.input}
-                keyboardType="numeric"
-              />
-            </>
-          )}
-          <Button title="Back" onPress={onClose} />
-          <Button title="Save" onPress={handleSave} />
-        </View>
-      </ScrollView>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.flex}
+      >
+        <KeyboardAwareScrollView contentContainerStyle={styles.scrollContainer}>
+          <View style={styles.modalContainer}>
+            <Text style={styles.title}>Input Your Exercise Goal</Text>
+            <Text style={styles.exerciseName}>Exercise: {exercise.name}</Text>
+            <Text style={styles.exerciseEquipment}>Equipment: {exercise.equipment}</Text>
+            <Picker
+              selectedValue={measurementType}
+              onValueChange={(itemValue) => setMeasurementType(itemValue)}
+              style={styles.picker}
+            >
+              <Picker.Item label="Sets, Reps, Weight" value="setsRepsWeight" />
+              <Picker.Item label="Duration, Distance" value="durationDistance" />
+            </Picker>
+            {measurementType === 'setsRepsWeight' && (
+              <>
+                <TextInput
+                  placeholder="Sets"
+                  value={sets}
+                  onChangeText={setSets}
+                  style={styles.input}
+                  keyboardType="numeric"
+                />
+                <TextInput
+                  placeholder="Reps"
+                  value={reps}
+                  onChangeText={setReps}
+                  style={styles.input}
+                  keyboardType="numeric"
+                />
+                <TextInput
+                  placeholder="Weight"
+                  value={weight}
+                  onChangeText={setWeight}
+                  style={styles.input}
+                  keyboardType="numeric"
+                />
+              </>
+            )}
+            {measurementType === 'durationDistance' && (
+              <>
+                <TextInput
+                  placeholder="Duration"
+                  value={duration}
+                  onChangeText={setDuration}
+                  style={styles.input}
+                  keyboardType="numeric"
+                />
+                <TextInput
+                  placeholder="Distance"
+                  value={distance}
+                  onChangeText={setDistance}
+                  style={styles.input}
+                  keyboardType="numeric"
+                />
+              </>
+            )}
+            <Button title="Back" onPress={onClose} />
+            <Button title="Save" onPress={handleSave} />
+          </View>
+        </KeyboardAwareScrollView>
+      </KeyboardAvoidingView>
     </Modal>
   );
 };
 
 const styles = StyleSheet.create({
+  flex: {
+    flex: 1,
+  },
   scrollContainer: {
     flexGrow: 1,
     justifyContent: 'center',
