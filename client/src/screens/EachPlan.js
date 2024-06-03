@@ -6,7 +6,6 @@ import ExerciseForm from '../components/workoutPlans/ExerciseForm';
 import ButtonAddWorkout from '../components/workoutPlans/ButtonAddWorkout';
 
 
-
 const EachPlan = ({ route, navigation }) => {
   const { name, workouts, goal } = route.params;
   const [planName, setPlanName] = useState(name);

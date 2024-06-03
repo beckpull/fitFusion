@@ -15,7 +15,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // import MyWorkouts from './src/screens/MyWorkouts';
 import EachPlan from './src/screens/EachPlan';
 import ExerciseDetail from './src/screens/ExerciseDetail';
-
+import { WorkoutProvider } from './src/context/WorkoutContext';
 import TabBar from './src/components/tabBar/TabBar';
 import AboutUs from './src/screens/AboutUs';
 
@@ -52,31 +52,33 @@ export default function App() {
 
   return (
     <ApolloProvider client={client}>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="AboutUs" component={AboutUs} />
-          <Stack.Screen name="LoginForm" component={LoginForm} />
-          <Stack.Screen name="SignUpForm" component={SignUpForm} />
-          <Stack.Screen name="PhysicalTest" component={PhysicalTest} />
+      <WorkoutProvider>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="AboutUs" component={AboutUs} />
+            <Stack.Screen name="LoginForm" component={LoginForm} />
+            <Stack.Screen name="SignUpForm" component={SignUpForm} />
+            <Stack.Screen name="PhysicalTest" component={PhysicalTest} />
 
-          <Stack.Screen name="MainSearchScreen" component={MainSearchScreen} options={{ title: 'Search for a Workout' }} />
-          <Stack.Screen name="SearchByNameScreen" component={SearchByNameScreen} options={{ title: 'Search by Name' }} />
-          <Stack.Screen name="SearchByMuscleScreen" component={SearchByMuscleScreen} options={{ title: 'Search by Targeted Muscle' }} />
+            {/* <Stack.Screen name="MainSearchScreen" component={MainSearchScreen} options={{ title: 'Search for a Workout' }} /> */}
+            <Stack.Screen name="SearchByNameScreen" component={SearchByNameScreen} options={{ title: 'Search by Name' }} />
+            {/* <Stack.Screen name="SearchByMuscleScreen" component={SearchByMuscleScreen} options={{ title: 'Search by Targeted Muscle' }} /> */}
 
- <Stack.Screen name="NewWorkoutForm" component={NewWorkoutForm} options={{ title: 'New Workout Form' }} />
+            <Stack.Screen name="NewWorkoutForm" component={NewWorkoutForm} options={{ title: 'New Workout Form' }} />
 
-          <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+            <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
 
-          {/* <Stack.Screen name="MyWorkouts" component={MyWorkouts} /> */}
-          <Stack.Screen name="EachPlan" component={EachPlan} />
-          <Stack.Screen name="ExerciseDetail" component={ExerciseDetail} />
+            {/* <Stack.Screen name="MyWorkouts" component={MyWorkouts} /> */}
+            <Stack.Screen name="EachPlan" component={EachPlan} />
+            <Stack.Screen name="ExerciseDetail" component={ExerciseDetail} />
 
-          <Stack.Screen name="TabBar" component={TabBar} />
-          <Stack.Screen name="Testimonials" component={Testimonials} />
+            <Stack.Screen name="TabBar" component={TabBar} />
+            <Stack.Screen name="Testimonials" component={Testimonials} />
 
-        </Stack.Navigator>
-      </NavigationContainer>
+          </Stack.Navigator>
+        </NavigationContainer>
+      </WorkoutProvider>
     </ApolloProvider>
   );
 };
