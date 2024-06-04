@@ -1,15 +1,22 @@
-import React, { useState } from 'react';
-import { Text, View, StyleSheet, ScrollView, FlatList } from 'react-native';
+import React, { useState, useContext } from 'react';
+import { Text, View, StyleSheet, ScrollView, Alert } from 'react-native';
 import axios from 'axios';
 import { SearchBar } from 'react-native-elements';
 
+import { useMutation } from '@apollo/client';
+import { ADD_WORKOUT } from '../../utils/mutations';
+import { WorkoutContext } from '../../context/WorkoutContext';
+
 import Workouts from '../../components/searchResults/ExerciseResults';
-import prototypeObject from '../../components/searchResults/prototypeObject';
+
 
 export default function SearchByNameScreen() {
     const [searchQuery, setSearchQuery] = useState('');
     const [exercise, setexercise] = useState([]);
     const [loading, setLoading] = useState(false);
+
+    const { currentWorkoutId } = useContext(WorkoutContext);
+    const [addWorkout, { error }] = useMutation(ADD_WORKOUT);
 
     const handleSearch = async (query) => {
         setSearchQuery(query);
@@ -35,6 +42,31 @@ export default function SearchByNameScreen() {
         }
     };
 
+    const handleAddWorkout = async (exercise) => {
+       console.log(`The current ID is ${currentWorkoutId}`)
+        try {
+            const { data } = await addWorkout({
+                variables: {
+                    workoutPlanId: currentWorkoutId,
+                    workoutInput: {
+                        name: exercise.name,
+                        workoutId: Number(exercise.id),
+                        bodyPart: exercise.bodyPart,
+                        equipment: exercise.equipment,
+                        gifUrl: exercise.gifUrl,
+                        target: exercise.target,
+                        instructions: exercise.instructions.join(', '),
+                        secondary: exercise.secondaryMuscles.join(', '), 
+                    }
+                }
+            });
+            Alert.alert('Success', 'Exercise added to workout plan');
+        } catch (error) {
+            console.error(error);
+            Alert.alert('Error', 'Failed to add exercise to workout plan');
+        }
+    };
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Search for an exercise name:</Text>
@@ -52,7 +84,7 @@ export default function SearchByNameScreen() {
  
                     <ScrollView>
                         <View style={styles.container}>
-                            <Workouts workouts={exercise} />
+                            <Workouts workouts={exercise} onAdd={handleAddWorkout}/>
                         </View>
                     </ScrollView>
           

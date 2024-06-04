@@ -5,36 +5,36 @@ const workoutSchema = new Schema(
     {
         name: {
             type: String,
-            required: true,
-            unique: true,
+            // required: true,
+            // unique: true,
         },
         workoutId: {
             type: Number,
-            required: true,
-            unique: true,
+            // required: true,
+            // unique: true,
         },
         bodyPart: {
             type: String,
-            required: true,
+            // required: true,
         },
         equipment: {
             type: String,
-            required: true,
+            // required: true,
         },
         gifUrl: {
             type: String,
-            required: true,
+            // required: true,
         },
         target: {
             type: String,
-            required: true,
+            // required: true,
         },
         secondary: {
-            type: String,
+            type: [String],
         },
         instructions: {
-            type: String,
-            required: true
+            type: [String],
+            // required: true
         },
         progress: [progressSchema],
     }

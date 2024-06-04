@@ -74,11 +74,14 @@ const EachPlan = ({ navigation }) => {
             />
           ) : (
             <Text style={styles.title}>{planName}</Text>
+
           )}
+          {console.log( )}
           <TouchableOpacity onPress={isEditing ? handleSave : handleRename} style={styles.iconButton}>
             <Icon name={isEditing ? "save" : "edit"} size={24} color="black" />
           </TouchableOpacity>
         </View>
+
 
         <Text style={styles.subtitle}>Workouts:</Text>
         {workoutPlans.map((plan) => (
@@ -97,6 +100,7 @@ const EachPlan = ({ navigation }) => {
                 </TouchableOpacity>
               </View>
             ))}
+
           </View>
         ))}
 
