@@ -4,7 +4,9 @@ import { GET_ME } from '../utils/queries';
 import { useQuery } from '@apollo/client';
 import { useFocusEffect } from '@react-navigation/native';
 import UserPlan from '../components/workoutPlans/UserPlan';
+import RecommendedPlan from '../components/workoutPlans/RecommendedPlan';
 import ButtonAddPlan from '../components/workoutPlans/ButtonAddPlan';
+import { recommendedPlans } from '../components/workoutPlans/recommendedPlanData';
 import '../styles/Workout.css';
 
 const WorkoutPlan = ({ navigation }) => {
@@ -25,17 +27,26 @@ const WorkoutPlan = ({ navigation }) => {
 
   const { me: { workoutPlans } } = data;
 
+
   return (
     <View style={styles.container}>
-      {workoutPlans ? (
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
-          {workoutPlans.map((plan) => (
-            <UserPlan key={plan._id} planId={plan._id} name={plan.name} workouts={plan.workouts} />
-          ))}
-        </ScrollView>
-      ) : (
-        <Text>No workout plans available</Text>
-      )}
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        {/* Render recommended plans */}
+        <Text style={styles.sectionTitle}>Recommended Plans</Text>
+        {recommendedPlans.map((plan) => (
+          <RecommendedPlan key={plan.id} planId={plan.id} name={plan.name} goal={plan.goal} workouts={plan.workouts} />
+        ))}
+
+        {/* Render user's plans */}
+        <Text style={styles.sectionTitle}>Your Plans</Text>
+        {workoutPlans ? (
+          workoutPlans.map((plan) => (
+            <UserPlan key={plan._id} planId={plan._id} name={plan.name} goal={plan.goal} workouts={plan.workouts} />
+           ))
+        ) : (
+          <Text>No workout plans available. Add one below!</Text>
+        )}
+      </ScrollView>
       <ButtonAddPlan navigation={navigation} />
     </View>
   );
@@ -48,8 +59,12 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
   scrollContainer: {
-    alignItems: 'center',
     paddingBottom: 80,
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
   },
 });
 
