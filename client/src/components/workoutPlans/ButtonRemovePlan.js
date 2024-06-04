@@ -2,9 +2,9 @@ import React from 'react';
 import { Pressable, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const ButtonRemovePlan = ({ navigation }) => {
+const ButtonRemovePlan = ({ onPress }) => {
   return (
-    <Pressable style={styles.button} onPress={() => navigation.navigate('RemovePlan')}>
+    <Pressable style={styles.button} onPress={onPress}>
       <Icon name="trash" size={20} color="grey" />
     </Pressable>
   );
