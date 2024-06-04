@@ -1,17 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { View, StyleSheet, ScrollView, Text } from 'react-native';
 import { GET_ME } from '../utils/queries';
 import { useQuery } from '@apollo/client';
+import { useFocusEffect } from '@react-navigation/native';
 import UserPlan from '../components/workoutPlans/UserPlan';
 import ButtonAddPlan from '../components/workoutPlans/ButtonAddPlan';
 import '../styles/Workout.css';
 
 const WorkoutPlan = ({ navigation }) => {
+  const { loading, error, data, refetch } = useQuery(GET_ME);
 
-  const { loading, error, data } = useQuery(GET_ME);
-  console.log(loading);
-  console.log(error);
-  console.log(data);
+  useFocusEffect(
+    useCallback(() => {
+      refetch();
+    }, [refetch])
+  );
 
   if (loading) return <Text>Loading...</Text>;
 
@@ -24,14 +27,15 @@ const WorkoutPlan = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-    { workoutPlans ? (
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {workoutPlans.map((plan, index) => (
-          <UserPlan key={index} name={plan.name} workouts={plan.workouts} />
-        ))}
-      </ScrollView>
-    ) : "" }
-      
+      {workoutPlans ? (
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+          {workoutPlans.map((plan, index) => (
+            <UserPlan key={plan._id} name={plan.name} workouts={plan.workouts} />
+          ))}
+        </ScrollView>
+      ) : (
+        <Text>No workout plans available</Text>
+      )}
       <ButtonAddPlan navigation={navigation} />
     </View>
   );
@@ -50,5 +54,3 @@ const styles = StyleSheet.create({
 });
 
 export default WorkoutPlan;
-
-

@@ -57,7 +57,6 @@ const typeDefs = `
     }
 
     input ProgressInput {
-        date: String!
         sets: Int
         reps: Int
         weight: Int

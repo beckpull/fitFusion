@@ -1,35 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useQuery } from '@apollo/client';
+import { GET_ME } from '../utils/queries';
 import ExerciseForm from '../components/workoutPlans/ExerciseForm';
+import ExerciseCompletionForm from '../components/workoutPlans/ExerciseCompletionForm';
 import ButtonAddWorkout from '../components/workoutPlans/ButtonAddWorkout';
 
-
-const EachPlan = ({ route, navigation }) => {
-  const { name, workouts, goal, id } = route.params;
-  const [planName, setPlanName] = useState(name);
+const EachPlan = ({ navigation }) => {
+  const [planName, setPlanName] = useState('');
   const [isEditing, setIsEditing] = useState(false);
-  const [isFormVisible, setIsFormVisible] = useState(false);
+  const [isGoalFormVisible, setIsGoalFormVisible] = useState(false);
+  const [isCompletionFormVisible, setIsCompletionFormVisible] = useState(false);
   const [currentExercise, setCurrentExercise] = useState(null);
+  const [currentPlanId, setCurrentPlanId] = useState(null); 
+  const { loading, error, data, refetch } = useQuery(GET_ME);
 
   useEffect(() => {
-    const checkFirstTimeView = async (exerciseName) => {
-      try {
-        const firstTime = await AsyncStorage.getItem(`firstTime_${exerciseName}`);
-        if (firstTime === null) {
-          setIsFormVisible(true);
-          await AsyncStorage.setItem(`firstTime_${exerciseName}`, 'false');
-        }
-      } catch (error) {
-        console.error('Failed to check first time view', error);
-      }
-    };
+    refetch();
+  }, [refetch]);
 
-    if (currentExercise) {
-      checkFirstTimeView(currentExercise.name);
-    }
-  }, [currentExercise]);
+  if (loading) return <Text>Loading...</Text>;
+
+  if (error) {
+    console.log(error);
+    return <Text>Error: {error.message}</Text>;
+  }
+
+  const { me: { workoutPlans } } = data;
 
   const handleRename = () => {
     setIsEditing(true);
@@ -44,14 +42,24 @@ const EachPlan = ({ route, navigation }) => {
     navigation.navigate('ExerciseDetail', { exercise });
   };
 
-  const handleComplete = (exercise) => {
+  const handleComplete = (exercise, planId) => { // Include planId
     setCurrentExercise(exercise);
-    setIsFormVisible(true);
+    setIsCompletionFormVisible(true);
+    setCurrentPlanId(planId); // Set the current plan ID
   };
 
-  const handleFormSave = (data) => {
-    // Save the form data if needed
-    setIsFormVisible(false);
+  const handleSetGoal = (exercise, planId) => { // Include planId
+    setCurrentExercise(exercise);
+    setIsGoalFormVisible(true);
+    setCurrentPlanId(planId); // Set the current plan ID
+  };
+
+  const handleGoalFormSave = (data) => {
+    setIsGoalFormVisible(false);
+  };
+
+  const handleCompletionFormSave = (data) => {
+    setIsCompletionFormVisible(false);
   };
 
   return (
@@ -74,28 +82,47 @@ const EachPlan = ({ route, navigation }) => {
           </TouchableOpacity>
         </View>
 
-        <Text style={styles.subtitle}>Goal:</Text>
-        <Text style={styles.description}>{goal}</Text>
 
-        <Text style={styles.subtitle}>Exercises:</Text>
-        {workouts.map((workout, index) => (
-          <View key={index} style={styles.workoutContainer}>
-            <TouchableOpacity onPress={() => handleExerciseClick(workout)} style={styles.workoutCard}>
-              <Text style={styles.workout}>{workout.name}</Text>
-              <Icon name="angle-right" size={24} color="black" />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleComplete(workout)} style={styles.completeButton}>
-              <Text style={styles.completeButtonText}>Complete</Text>
-            </TouchableOpacity>
+        <Text style={styles.subtitle}>Workouts:</Text>
+        {workoutPlans.map((plan) => (
+          <View key={plan._id} style={styles.workoutContainer}>
+            {plan.workouts.map((workout) => (
+              <View key={workout._id}>
+                <TouchableOpacity onPress={() => handleExerciseClick(workout)} style={styles.workoutCard}>
+                  <Text style={styles.workout}>{workout.name}</Text>
+                  <Icon name="angle-right" size={24} color="black" />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => handleComplete(workout, plan._id)} style={styles.completeButton}>
+                  <Text style={styles.completeButtonText}>Complete</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => handleSetGoal(workout, plan._id)} style={styles.setGoalButton}>
+                  <Text style={styles.setGoalButtonText}>Set Goal</Text>
+                </TouchableOpacity>
+              </View>
+            ))}
+
           </View>
         ))}
 
-        {isFormVisible && currentExercise && (
+        {isGoalFormVisible && currentExercise && (
           <ExerciseForm
-            visible={isFormVisible}
-            onClose={() => setIsFormVisible(false)}
-            onSave={handleFormSave}
+            visible={isGoalFormVisible}
+            onClose={() => setIsGoalFormVisible(false)}
+            onSave={handleGoalFormSave}
             exercise={currentExercise}
+            workoutPlanId={currentPlanId}  
+            workoutId={currentExercise._id} 
+          />
+        )}
+
+        {isCompletionFormVisible && currentExercise && (
+          <ExerciseCompletionForm
+            visible={isCompletionFormVisible}
+            onClose={() => setIsCompletionFormVisible(false)}
+            onSave={handleCompletionFormSave}
+            exercise={currentExercise}
+            workoutPlanId={currentPlanId}  
+            workoutId={currentExercise._id} 
           />
         )}
       </View>
@@ -127,54 +154,58 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginTop: 20,
-    marginBottom: 5,
-  },
-  description: {
-    fontSize: 16,
-    marginBottom: 20,
-  },
-  workoutContainer: {
-    width: '100%',
-    marginBottom: 10,
-  },
-  workoutCard: {
-    width: '100%',
-    padding: 15,
-    backgroundColor: '#f9f9f9',
-    borderRadius: 10,
-    marginVertical: 5,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  workout: {
-    fontSize: 16,
-    marginBottom: 5,
-    marginRight: 10,
-  },
-  completeButton: {
-    marginTop: 10,
-    padding: 10,
-    backgroundColor: '#28a745',
-    borderRadius: 5,
-  },
-  completeButtonText: {
-    color: '#fff',
-    textAlign: 'center',
+    marginVertical: 20,
   },
   input: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    borderBottomWidth: 1,
+    borderWidth: 1,
     borderColor: '#ccc',
+    padding: 10,
+    marginVertical: 10,
     flex: 1,
   },
   iconButton: {
     marginLeft: 10,
   },
+  workoutContainer: {
+    width: '100%',
+    marginBottom: 20,
+    alignItems: 'center',
+  },
+  workoutCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#f9f9f9',
+    padding: 15,
+    width: '100%',
+    borderRadius: 10,
+    marginBottom: 10,
+  },
+  workout: {
+    fontSize: 18,
+  },
+  completeButton: {
+    backgroundColor: '#4CAF50',
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  completeButtonText: {
+    color: 'white',
+    fontSize: 16,
+  },
+  setGoalButton: {
+    backgroundColor: '#2196F3',
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  setGoalButtonText: {
+    color: 'white',
+    fontSize: 16,
+  },
   space: {
-    height: 70,
+    height: 50,
   },
 });
 
