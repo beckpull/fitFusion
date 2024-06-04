@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { useQuery, useMutation } from '@apollo/client';
-import { GET_ME, UPDATE_WORKOUT_PLAN_NAME } from '../utils/queries';  // Ensure you import the mutation here
+import { useQuery } from '@apollo/client';
+import { GET_ME } from '../utils/queries';
 import ExerciseForm from '../components/workoutPlans/ExerciseForm';
 import ExerciseCompletionForm from '../components/workoutPlans/ExerciseCompletionForm';
 import ButtonAddWorkout from '../components/workoutPlans/ButtonAddWorkout';
 
 const EachPlan = ({ navigation }) => {
+  const [planName, setPlanName] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
   const [isGoalFormVisible, setIsGoalFormVisible] = useState(false);
   const [isCompletionFormVisible, setIsCompletionFormVisible] = useState(false);
   const [currentExercise, setCurrentExercise] = useState(null);
   const [currentPlanId, setCurrentPlanId] = useState(null); 
   const { loading, error, data, refetch } = useQuery(GET_ME);
-  const [updateWorkoutPlanName] = useMutation(UPDATE_WORKOUT_PLAN_NAME);
 
   useEffect(() => {
     refetch();
@@ -28,21 +29,29 @@ const EachPlan = ({ navigation }) => {
 
   const { me: { workoutPlans } } = data;
 
+  const handleRename = () => {
+    setIsEditing(true);
+  };
+
+  const handleSave = () => {
+    setIsEditing(false);
+  };
+
   const handleExerciseClick = (exercise) => {
     setCurrentExercise(exercise);
     navigation.navigate('ExerciseDetail', { exercise });
   };
 
-  const handleComplete = (exercise, planId) => {
+  const handleComplete = (exercise, planId) => { // Include planId
     setCurrentExercise(exercise);
     setIsCompletionFormVisible(true);
-    setCurrentPlanId(planId);
+    setCurrentPlanId(planId); // Set the current plan ID
   };
 
-  const handleSetGoal = (exercise, planId) => {
+  const handleSetGoal = (exercise, planId) => { // Include planId
     setCurrentExercise(exercise);
     setIsGoalFormVisible(true);
-    setCurrentPlanId(planId);
+    setCurrentPlanId(planId); // Set the current plan ID
   };
 
   const handleGoalFormSave = (data) => {
@@ -53,24 +62,27 @@ const EachPlan = ({ navigation }) => {
     setIsCompletionFormVisible(false);
   };
 
-  const handleUpdatePlanName = (planId, newName) => {
-    updateWorkoutPlanName({ variables: { planId, newName } })
-      .then(() => refetch())
-      .catch(err => console.error(err));
-  };
-
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
+        <View style={styles.titleContainer}>
+          {isEditing ? (
+            <TextInput
+              style={styles.input}
+              value={planName}
+              onChangeText={setPlanName}
+            />
+          ) : (
+            <Text style={styles.title}>{planName}</Text>
+          )}
+          <TouchableOpacity onPress={isEditing ? handleSave : handleRename} style={styles.iconButton}>
+            <Icon name={isEditing ? "save" : "edit"} size={24} color="black" />
+          </TouchableOpacity>
+        </View>
+
         <Text style={styles.subtitle}>Workouts:</Text>
         {workoutPlans.map((plan) => (
           <View key={plan._id} style={styles.workoutContainer}>
-            <View style={styles.titleContainer}>
-              <Text style={styles.title}>{plan.name}</Text>
-              <TouchableOpacity onPress={() => handleUpdatePlanName(plan._id, "New Plan Name")} style={styles.iconButton}>
-                <Icon name="edit" size={24} color="black" />
-              </TouchableOpacity>
-            </View>
             {plan.workouts.map((workout) => (
               <View key={workout._id} style={styles.workoutBlock}>
                 <TouchableOpacity onPress={() => handleExerciseClick(workout)} style={styles.workoutCard}>
