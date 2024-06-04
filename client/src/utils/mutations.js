@@ -76,3 +76,12 @@ mutation AddWorkoutProgress($workoutPlanId: ID!, $workoutId: ID!, $progressInput
   }
 }
 `;
+
+export const UPDATE_WORKOUT_PLAN_NAME = gql`
+  mutation UpdateWorkoutPlanName($planId: ID!, $newName: String!) {
+    updateWorkoutPlanName(planId: $planId, newName: $newName) {
+      _id
+      name
+    }
+  }
+`;
