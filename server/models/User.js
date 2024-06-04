@@ -49,9 +49,9 @@ const userSchema = new Schema(
     calories: {
         type: Number,
     },
-    imageUrl: {
-      type: String,
-      default: ''
+    profilePic: {
+      data: String,
+      contentType: String,
     },
     workoutPlans: [
       {

@@ -7,9 +7,12 @@ query Query {
     birthDate
     country
     email
-    imageUrl
     password
     username
+    profilePic {
+      data
+      contentType
+    }
     workoutPlans {
       _id
       goal

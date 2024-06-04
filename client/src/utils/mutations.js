@@ -33,15 +33,16 @@ export const ADD_USER_SECOND_SCREEN = gql`
     }
   }
 `;
-export const UPDATE_USER_IMAGE = gql`
-  mutation UpdateUserImage($imageUrl: String!) {
-    updateUserImage(imageUrl: $imageUrl) {
-      imageUrl
-      email
-      username
-      _id
+
+export const UPDATE_PROFILE_PIC = gql`
+mutation Mutation($profilePic: ProfilePicInput!) {
+  updateProfilePic(profilePic: $profilePic) {
+    profilePic {
+      data
+      contentType
     }
   }
+}
 `;
 
 export const ADD_WORKOUT_PLAN = gql`
