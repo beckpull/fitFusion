@@ -30,10 +30,10 @@ const workoutSchema = new Schema(
             // required: true,
         },
         secondary: {
-            type: String,
+            type: [String],
         },
         instructions: {
-            type: String,
+            type: [String],
             // required: true
         },
         progress: [progressSchema],

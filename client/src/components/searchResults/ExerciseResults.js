@@ -30,7 +30,6 @@ export default function Workouts(props) {
               <Text>Description</Text>
             </Pressable>
 
-            {/* NOT CODED OUT YET */}
             <Pressable style={styles.button} onPress={() => props.onAdd(workout)}>
               <Text>Add</Text>
             </Pressable>

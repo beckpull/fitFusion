@@ -50,13 +50,13 @@ export default function SearchByNameScreen() {
                     workoutPlanId: currentWorkoutId,
                     workoutInput: {
                         name: exercise.name,
-                        workoutId: exercise.id,
+                        workoutId: Number(exercise.id),
                         bodyPart: exercise.bodyPart,
                         equipment: exercise.equipment,
                         gifUrl: exercise.gifUrl,
                         target: exercise.target,
-                        instructions: exercise.instructions,
-                        secondary: exercise.secondaryMuscles, 
+                        instructions: exercise.instructions.join(', '),
+                        secondary: exercise.secondaryMuscles.join(', '), 
                     }
                 }
             });

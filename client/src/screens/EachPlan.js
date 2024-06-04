@@ -7,7 +7,7 @@ import ButtonAddWorkout from '../components/workoutPlans/ButtonAddWorkout';
 
 
 const EachPlan = ({ route, navigation }) => {
-  const { name, workouts, goal } = route.params;
+  const { name, workouts, goal, id } = route.params;
   const [planName, setPlanName] = useState(name);
   const [isEditing, setIsEditing] = useState(false);
   const [isFormVisible, setIsFormVisible] = useState(false);
@@ -66,7 +66,9 @@ const EachPlan = ({ route, navigation }) => {
             />
           ) : (
             <Text style={styles.title}>{planName}</Text>
+
           )}
+          {console.log( )}
           <TouchableOpacity onPress={isEditing ? handleSave : handleRename} style={styles.iconButton}>
             <Icon name={isEditing ? "save" : "edit"} size={24} color="black" />
           </TouchableOpacity>
@@ -75,7 +77,7 @@ const EachPlan = ({ route, navigation }) => {
         <Text style={styles.subtitle}>Goal:</Text>
         <Text style={styles.description}>{goal}</Text>
 
-        <Text style={styles.subtitle}>Workouts:</Text>
+        <Text style={styles.subtitle}>Exercises:</Text>
         {workouts.map((workout, index) => (
           <View key={index} style={styles.workoutContainer}>
             <TouchableOpacity onPress={() => handleExerciseClick(workout)} style={styles.workoutCard}>

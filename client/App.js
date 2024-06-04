@@ -20,9 +20,9 @@ import TabBar from './src/components/tabBar/TabBar';
 import AboutUs from './src/screens/AboutUs';
 
 // import { client } from './src/utils/apolloClient';
-import MainSearchScreen from './src/screens/SearchWorkout/MainSearchScreen';
+// import MainSearchScreen from './src/screens/SearchWorkout/MainSearchScreen';
 import SearchByNameScreen from './src/screens/SearchWorkout/SearchByNameScreen';
-import SearchByMuscleScreen from './src/screens/SearchWorkout/SearchByMuscleScreen';
+// import SearchByMuscleScreen from './src/screens/SearchWorkout/SearchByMuscleScreen';
 import NewWorkoutForm from './src/screens/NewWorkoutForm';
 
 const Stack = createStackNavigator();
