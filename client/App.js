@@ -8,6 +8,7 @@ import SignUpForm from './src/screens/SignUpForm';
 import PhysicalTest from './src/screens/PhysicalTest';
 import ForgotPassword from './src/screens/ForgotPassword';
 import Testimonials from './src/components/AboutUs/Testimonials';
+// import MyProfile from './src/screens/MyProfile';
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -74,6 +75,7 @@ export default function App() {
 
           <Stack.Screen name="TabBar" component={TabBar} />
           <Stack.Screen name="Testimonials" component={Testimonials} />
+          {/* <Stack.Screen name="MyProfile" component={MyProfile} /> */}
 
         </Stack.Navigator>
       </NavigationContainer>

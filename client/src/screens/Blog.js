@@ -1,32 +1,32 @@
-import React, { useEffect } from 'react';
-import { View, Text, ScrollView, StyleSheet, Image, Linking } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, ScrollView, StyleSheet, Image, Linking, ActivityIndicator } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+
+
+const API_KEY = '83e7b281b3864bf888cb227cd1e5cb2c'
 
 export default function Blog({ navigation }) {
 
-  const blogPosts = [
-    {
-      title: 'How Healthy Are Ancient Grains?',
-      text: 'Ancient types of wheat, like kamut, are put to the test for inflammation, blood sugar, and cholesterol control. ',
-      date: '2024-05-09',
-      image: require('../assets/images/blog1.jpg'),
-      link: 'https://nutritionfacts.org/blog/how-healthy-are-ancient-grains/',
-    },
-    {
-      title: 'Irregular Meals, Night Shifts, and Metabolic Harms ',
-      text: 'What can shift workers do to moderate the adverse effects of circadian rhythm disruption?',
-      date: '2024-05-16',
-      image: require('../assets/images/blog2.jpg'),
-      link: 'https://nutritionfacts.org/blog/irregular-meals-night-shifts-and-metabolic-harms/',
-    },
-    {
-      title: 'Syncing Your Brain and Body Clocks ',
-      text: 'Exposure to bright light synchronizes the central circadian clock in our brain, whereas proper meal timing helps sync the timing of different clock genes throughout the rest of our body. ',
-      date: '2024-04-24',
-      image: require('../assets/images/blog3.jpg'),
-      link: 'https://nutritionfacts.org/blog/syncing-your-brain-and-body-clocks/',
-    }
-  ]
+  const [blogPosts, setBlogPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const topics = ['fitness', 'health', 'nutrition', 'exercise', 'wellness'];
+    // Select a random topic from the list, everytime the component is rendered, in this
+    // case, when the app is started.
+    const randomTopic = topics[Math.floor(Math.random() * topics.length)];
+
+    fetch(`https://newsapi.org/v2/everything?q=${randomTopic}&apiKey=${API_KEY}`)
+      .then(response => response.json())
+      .then(data => {
+        setBlogPosts(data.articles);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching news:', error);
+        setLoading(false);
+      });
+  }, []);
 
   function BlogPost({ title, text, date, image, link }) {
     useEffect(() => {
@@ -37,7 +37,7 @@ export default function Blog({ navigation }) {
     }, [navigation]);
     return (
       <View style={styles.blogContainer}>
-        <Image style={styles.image} source={image} />
+        <Image style={styles.image} source={{ uri: image }} />
         <View style={styles.textContainer}>
           <Text style={[styles.title, styles.bold]}>
             {title}
@@ -61,16 +61,20 @@ export default function Blog({ navigation }) {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.heading}>This is our blog!</Text>
-      {blogPosts.map((blog, index) => (
-        <BlogPost
-          key={index}
-          title={blog.title}
-          text={blog.text}
-          date={blog.date}
-          image={blog.image}
-          link={blog.link}
-        />
-      ))}
+      {loading ? (
+        <ActivityIndicator size="large" color="#17a2b8" />
+      ) : (
+        blogPosts.map((blog, index) => (
+          <BlogPost
+            key={index}
+            title={blog.title}
+            text={blog.description}
+            date={new Date(blog.publishedAt).toDateString()}
+            image={blog.urlToImage}
+            link={blog.url}
+          />
+        ))
+      )}
     </ScrollView>
   );
 }
