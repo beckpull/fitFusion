@@ -6,11 +6,11 @@ import { useFocusEffect } from '@react-navigation/native';
 import UserPlan from '../components/workoutPlans/UserPlan';
 import RecommendedPlan from '../components/workoutPlans/RecommendedPlan';
 import ButtonAddPlan from '../components/workoutPlans/ButtonAddPlan';
-import { recommendedPlans } from '../components/workoutPlans/recommendedPlanData';
 import '../styles/Workout.css';
 
 const WorkoutPlan = ({ navigation }) => {
   const { loading, error, data, refetch } = useQuery(GET_ME);
+  console.log("GET_ME ", data);
 
   useFocusEffect(
     useCallback(() => {
@@ -25,7 +25,8 @@ const WorkoutPlan = ({ navigation }) => {
     // return <Text>Error: {error.message}</Text>;
   }
 
-  const { me: { workoutPlans } } = data;
+  const { me: { workoutPlans, recommendedPlans } } = data;
+  console.log('recommended plans: ', recommendedPlans);
 
   return (
     <View style={styles.container}>
@@ -41,9 +42,11 @@ const WorkoutPlan = ({ navigation }) => {
 
         {/* Render recommended plans */}
         <Text style={styles.recommendedPlans}>Recommended Plans</Text>
-        {recommendedPlans.map((plan) => (
-          <RecommendedPlan key={plan.id} planId={plan.id} name={plan.name} goal={plan.goal} workouts={plan.workouts} />
-        ))}
+        {recommendedPlans && recommendedPlans.length > 0 ? (
+          recommendedPlans.map((plan) => (
+            <RecommendedPlan key={plan._id} planId={plan._id} name={plan.name} goal={plan.goal} workouts={plan.workouts} />
+          ))
+        ) : <Text>No recommended plans available.</Text>}
 
       </ScrollView>
       <View style={styles.buttonContainer}>

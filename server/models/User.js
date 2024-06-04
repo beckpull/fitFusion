@@ -58,7 +58,13 @@ const userSchema = new Schema(
         type: Schema.Types.ObjectId,
         ref: 'WorkoutPlan'
       }
-    ]
+    ],
+    recommendedPlans: [
+      {
+          type: Schema.Types.ObjectId,
+          ref: 'WorkoutPlan'
+      }
+  ]
   },
   {
     toJSON: {

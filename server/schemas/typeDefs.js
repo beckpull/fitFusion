@@ -8,13 +8,15 @@ const typeDefs = `
         birthDate: String!
         imageUrl: String
         workoutPlans: [WorkoutPlan]
+        recommendedPlans: [WorkoutPlan]
     }
 
     type WorkoutPlan {
         _id: ID
-        name: String
+        name: String!
         goal: String
         workouts: [Workout]
+        isRecommended: Boolean
     }
 
     type Workout {
@@ -69,9 +71,6 @@ const typeDefs = `
 
         allUsers: [User]
         myWorkoutPlans: [WorkoutPlan]
-
-
-
     }
 
     type Mutation {
