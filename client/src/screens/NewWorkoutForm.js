@@ -1,19 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, Pressable, StyleSheet, TouchableWithoutFeedback, Keyboard, Alert } from "react-native";
 import { useMutation } from '@apollo/client';
+import { useNavigation } from '@react-navigation/native';
 import { ADD_WORKOUT_PLAN } from '../utils/mutations';
+import { WorkoutContext } from '../context/WorkoutContext';
 
-// Define the mutation
 
 export default function NewWorkoutForm() {
     const [name, setName] = useState('');
     const [goal, setGoal] = useState('');
+    const { setCurrentWorkoutId } = useContext(WorkoutContext);
 
     const [addWorkoutPlan, { error, data }] = useMutation(ADD_WORKOUT_PLAN);
 
+    const navigation = useNavigation();
+
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log("Adding workout plan", name, goal);
+
 
         if (!name || !goal) {
             Alert.alert('Error', 'All fields are required');
@@ -27,10 +31,13 @@ export default function NewWorkoutForm() {
             const { data } = await addWorkoutPlan({
                 variables: { name, goal, },
             });
-            console.log(data);
+  
             Alert.alert('Workout Plan Added!', 'Next, add exercises to your workout plan!');
+    
             setName('');
             setGoal('');
+            setCurrentWorkoutId(data.addWorkoutPlan._id);
+            navigation.navigate('SearchByNameScreen');
 
         } catch (error) {
             console.error(error);

@@ -47,8 +47,28 @@ export const UPDATE_USER_IMAGE = gql`
 export const ADD_WORKOUT_PLAN = gql`
 mutation AddWorkoutPlan($name: String!, $goal: String!) {
   addWorkoutPlan(name: $name, goal: $goal) {
+    _id
     name
     goal
+  }
+}
+`;
+
+
+export const ADD_WORKOUT = gql`
+mutation AddWorkout($workoutPlanId: ID!, $workoutInput: WorkoutInput!) {
+  addWorkout(workoutPlanId: $workoutPlanId, workoutInput: $workoutInput) {
+    _id
+    workouts {
+      name
+      workoutId
+      bodyPart
+      equipment
+      gifUrl
+      target
+      instructions
+      secondary
+    }
   }
 }
 `;
@@ -77,6 +97,7 @@ mutation AddWorkoutProgress($workoutPlanId: ID!, $workoutId: ID!, $progressInput
 }
 `;
 
+
 export const UPDATE_WORKOUT_PLAN_NAME = gql`
   mutation UpdateWorkoutPlanName($planId: ID!, $newName: String!) {
     updateWorkoutPlanName(planId: $planId, newName: $newName) {
@@ -85,3 +106,4 @@ export const UPDATE_WORKOUT_PLAN_NAME = gql`
     }
   }
 `;
+

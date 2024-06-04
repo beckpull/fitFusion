@@ -1,14 +1,16 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import ExerciseModal from './ExerciseModal';
+import { WorkoutContext } from '../../context/WorkoutContext';
+
 
 
 export default function Workouts(props) {
   const [modalVisible, setModalVisible] = useState(false);
-
-
   const workouts = props.workouts || [];
   const [selectedWorkout, setSelectedWorkout] = useState(null);
+
+  const { currentWorkoutId } = useContext(WorkoutContext);
 
   const handleOpenModal = (workout) => {
     setSelectedWorkout(workout);
@@ -28,9 +30,7 @@ export default function Workouts(props) {
               <Text>Description</Text>
             </Pressable>
 
-            {/* NOT CODED OUT YET */}
-            <Pressable 
-            style={styles.button}>
+            <Pressable style={styles.button} onPress={() => props.onAdd(workout)}>
               <Text>Add</Text>
             </Pressable>
 

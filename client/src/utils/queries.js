@@ -38,14 +38,3 @@ query Query {
   }
 }
 `;
-
-
-export const GET_WORKOUTS = gql`
-query MyWorkoutPlans {
-  myWorkoutPlans {
-    _id
-    name
-    goal
-  }
-}
-`;
