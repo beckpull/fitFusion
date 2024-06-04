@@ -20,7 +20,7 @@ const WorkoutPlan = ({ navigation }) => {
 
   if (error) {
     console.log(error);
-    return <Text>Error: {error.message}</Text>;
+    // return <Text>Error: {error.message}</Text>;
   }
 
   const { me: { workoutPlans } } = data;
@@ -29,8 +29,8 @@ const WorkoutPlan = ({ navigation }) => {
     <View style={styles.container}>
       {workoutPlans ? (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
-          {workoutPlans.map((plan, index) => (
-            <UserPlan key={plan._id} name={plan.name} workouts={plan.workouts} />
+          {workoutPlans.map((plan) => (
+            <UserPlan key={plan._id} planId={plan._id} name={plan.name} workouts={plan.workouts} />
           ))}
         </ScrollView>
       ) : (

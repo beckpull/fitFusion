@@ -7,13 +7,11 @@ import ExerciseForm from '../components/workoutPlans/ExerciseForm';
 import ExerciseCompletionForm from '../components/workoutPlans/ExerciseCompletionForm';
 import ButtonAddWorkout from '../components/workoutPlans/ButtonAddWorkout';
 
-const EachPlan = ({ navigation }) => {
-  const [planName, setPlanName] = useState('');
-  const [isEditing, setIsEditing] = useState(false);
+const EachPlan = ({ navigation, route }) => {
+  const { planId } = route.params;
   const [isGoalFormVisible, setIsGoalFormVisible] = useState(false);
   const [isCompletionFormVisible, setIsCompletionFormVisible] = useState(false);
   const [currentExercise, setCurrentExercise] = useState(null);
-  const [currentPlanId, setCurrentPlanId] = useState(null); 
   const { loading, error, data, refetch } = useQuery(GET_ME);
 
   useEffect(() => {
@@ -28,30 +26,25 @@ const EachPlan = ({ navigation }) => {
   }
 
   const { me: { workoutPlans } } = data;
+  const currentPlan = workoutPlans.find(plan => plan._id === planId);
 
-  const handleRename = () => {
-    setIsEditing(true);
-  };
-
-  const handleSave = () => {
-    setIsEditing(false);
-  };
+  if (!currentPlan) {
+    return <Text>Workout Plan not found</Text>;
+  }
 
   const handleExerciseClick = (exercise) => {
     setCurrentExercise(exercise);
     navigation.navigate('ExerciseDetail', { exercise });
   };
 
-  const handleComplete = (exercise, planId) => { // Include planId
+  const handleComplete = (exercise) => {
     setCurrentExercise(exercise);
     setIsCompletionFormVisible(true);
-    setCurrentPlanId(planId); // Set the current plan ID
   };
 
-  const handleSetGoal = (exercise, planId) => { // Include planId
+  const handleSetGoal = (exercise) => {
     setCurrentExercise(exercise);
     setIsGoalFormVisible(true);
-    setCurrentPlanId(planId); // Set the current plan ID
   };
 
   const handleGoalFormSave = (data) => {
@@ -66,43 +59,26 @@ const EachPlan = ({ navigation }) => {
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
         <View style={styles.titleContainer}>
-          {isEditing ? (
-            <TextInput
-              style={styles.input}
-              value={planName}
-              onChangeText={setPlanName}
-            />
-          ) : (
-            <Text style={styles.title}>{planName}</Text>
-
-          )}
-          {console.log( )}
-          <TouchableOpacity onPress={isEditing ? handleSave : handleRename} style={styles.iconButton}>
-            <Icon name={isEditing ? "save" : "edit"} size={24} color="black" />
-          </TouchableOpacity>
+          <Text style={styles.title}>{currentPlan.name}</Text>
         </View>
 
-
         <Text style={styles.subtitle}>Workouts:</Text>
-        {workoutPlans.map((plan) => (
-          <View key={plan._id} style={styles.workoutContainer}>
-            {plan.workouts.map((workout) => (
-              <View key={workout._id} style={styles.workoutBlock}>
-                <TouchableOpacity onPress={() => handleExerciseClick(workout)} style={styles.workoutCard}>
-                  <Text style={styles.workout}>{workout.name}</Text>
-                  <Icon name="angle-right" size={24} color="black" />
+        {currentPlan.workouts.map((workout) => (
+          <View key={workout._id} style={styles.workoutContainer}>
+            <View style={styles.workoutBlock}>
+              <TouchableOpacity onPress={() => handleExerciseClick(workout)} style={styles.workoutCard}>
+                <Text style={styles.workout}>{workout.name}</Text>
+                <Icon name="angle-right" size={24} color="black" />
+              </TouchableOpacity>
+              <View style={styles.buttonContainer}>
+                <TouchableOpacity onPress={() => handleComplete(workout)} style={styles.completeButton}>
+                  <Text style={styles.completeButtonText}>Complete</Text>
                 </TouchableOpacity>
-                <View style={styles.buttonContainer}>
-                  <TouchableOpacity onPress={() => handleComplete(workout, plan._id)} style={styles.completeButton}>
-                    <Text style={styles.completeButtonText}>Complete</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress={() => handleSetGoal(workout, plan._id)} style={styles.setGoalButton}>
-                    <Text style={styles.setGoalButtonText}>Set Goal</Text>
-                  </TouchableOpacity>
-                </View>
+                <TouchableOpacity onPress={() => handleSetGoal(workout)} style={styles.setGoalButton}>
+                  <Text style={styles.setGoalButtonText}>Set Goal</Text>
+                </TouchableOpacity>
               </View>
-            ))}
-
+            </View>
           </View>
         ))}
 
@@ -112,7 +88,7 @@ const EachPlan = ({ navigation }) => {
             onClose={() => setIsGoalFormVisible(false)}
             onSave={handleGoalFormSave}
             exercise={currentExercise}
-            workoutPlanId={currentPlanId}  
+            workoutPlanId={planId}  
             workoutId={currentExercise._id} 
           />
         )}
@@ -123,7 +99,7 @@ const EachPlan = ({ navigation }) => {
             onClose={() => setIsCompletionFormVisible(false)}
             onSave={handleCompletionFormSave}
             exercise={currentExercise}
-            workoutPlanId={currentPlanId}  
+            workoutPlanId={planId}  
             workoutId={currentExercise._id} 
           />
         )}
@@ -135,12 +111,13 @@ const EachPlan = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   scrollContainer: {
-    flexGrow: 1,
-    padding: 20,
+    flexGrow: 1, // Ensure that the ScrollView fills the available space
   },
   container: {
     flex: 1,
     alignItems: 'center',
+    paddingHorizontal: 20, // Adjust padding as needed
+    paddingTop: 20, // Adjust padding as needed
   },
   titleContainer: {
     flexDirection: 'row',
