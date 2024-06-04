@@ -261,9 +261,9 @@ See the [open issues](https://github.com/beckpull/fitFusion/issues) for a full l
 
 #### Disclaimer:
 
-> I utilized several articles from sources such as (but not limited to) Stack Overflow, W3Schools, and MDN Web Docs, as well as many classwork example code from the University of Denver **as references** for the javascript code attached.
+> We utilized several articles from sources such as (but not limited to) Stack Overflow, W3Schools, and MDN Web Docs, as well as many classwork example code from the University of Denver **as references** for the javascript code attached.
 >
-> **All of the utilized information has been altered in order to fit this project. This repository contains _solely_ my own work (in addition to the DU starter code for this assignemnt).**
+> **All of the utilized information has been altered in order to fit this project. This repository contains _solely_ our own work.**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
