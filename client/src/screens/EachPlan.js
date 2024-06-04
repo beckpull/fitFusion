@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useQuery } from '@apollo/client';
@@ -7,12 +7,16 @@ import ExerciseForm from '../components/workoutPlans/ExerciseForm';
 import ExerciseCompletionForm from '../components/workoutPlans/ExerciseCompletionForm';
 import ButtonAddWorkout from '../components/workoutPlans/ButtonAddWorkout';
 
+import { WorkoutContext } from '../context/WorkoutContext';
+  
 const EachPlan = ({ navigation, route }) => {
   const { planId } = route.params;
   const [isGoalFormVisible, setIsGoalFormVisible] = useState(false);
   const [isCompletionFormVisible, setIsCompletionFormVisible] = useState(false);
   const [currentExercise, setCurrentExercise] = useState(null);
   const { loading, error, data, refetch } = useQuery(GET_ME);
+
+  const { setCurrentWorkoutId } = useContext(WorkoutContext);
 
   useEffect(() => {
     refetch();
@@ -53,6 +57,12 @@ const EachPlan = ({ navigation, route }) => {
 
   const handleCompletionFormSave = (data) => {
     setIsCompletionFormVisible(false);
+  };
+
+  const handleAdd = () => {
+    console.log(planId);
+    setCurrentWorkoutId(planId);
+    navigation.navigate('SearchByNameScreen');
   };
 
   return (
@@ -104,20 +114,20 @@ const EachPlan = ({ navigation, route }) => {
           />
         )}
       </View>
-      <ButtonAddWorkout navigation={navigation} />
+      <ButtonAddWorkout onPress={handleAdd} />
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   scrollContainer: {
-    flexGrow: 1, // Ensure that the ScrollView fills the available space
+    flexGrow: 1,
   },
   container: {
     flex: 1,
     alignItems: 'center',
-    paddingHorizontal: 20, // Adjust padding as needed
-    paddingTop: 20, // Adjust padding as needed
+    paddingHorizontal: 20, 
+    paddingTop: 20, 
   },
   titleContainer: {
     flexDirection: 'row',
