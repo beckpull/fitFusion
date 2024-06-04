@@ -36,14 +36,13 @@ const ExerciseCompletionForm = ({ visible, onClose, onSave, exercise, workoutPla
       }
     }
 
-    console.log(variables);
+    // console.log(variables);
 
     try {
       const { data } = await saveProgress({ 
         variables: { ...variables } 
       });
-    console.log
-    console.log(data);
+    // console.log(data);
     onSave(input);
     onClose();
     } catch (err) {
