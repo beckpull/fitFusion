@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Modal, Pressable, Image } from 'react-native';
+import { View, Text, StyleSheet, Modal, ScrollView, Pressable, Image } from 'react-native';
 
 export default ExerciseModal = ({ modalVisible, setModalVisible, workout }) => {
   return (
@@ -11,48 +11,51 @@ export default ExerciseModal = ({ modalVisible, setModalVisible, workout }) => {
         setModalVisible(!modalVisible);
       }}
     >
+
       <View style={styles.centeredView}>
-        <View style={styles.modalView}>
-          {workout ? (
-            <>
-              <Text style={styles.title}>{workout.name}</Text>
-              <Image style={{ width: 200, height: 200 }} source={{ uri: workout.gifUrl }} />
-             
-              <Text style={styles.subtitle}>Equipment:</Text>
-        <Text style={styles.description}>{workout.equipment}</Text>
-        <Text style={styles.subtitle}>Body Part:</Text>
-        <Text style={styles.description}>{workout.bodyPart}</Text>
-        <Text style={styles.subtitle}>Target Muscles:</Text>
-        <Text style={styles.description}>{workout.target}</Text>
-        <Text style={styles.subtitle}>Secondary Muscles:</Text>
-        <Text style={styles.description}>{workout.secondaryMuscles}</Text>
-             
-             
-              <View style={styles.instructions}>
+        <ScrollView>
+          <View style={styles.modalView}>
+            {workout ? (
+              <>
+                <Text style={styles.title}>{workout.name}</Text>
+                <Image style={{ width: 200, height: 200 }} source={{ uri: workout.gifUrl }} />
+
+                <Text style={styles.subtitle}>Equipment:</Text>
+                <Text style={styles.description}>{workout.equipment}</Text>
+                <Text style={styles.subtitle}>Body Part:</Text>
+                <Text style={styles.description}>{workout.bodyPart}</Text>
+                <Text style={styles.subtitle}>Target Muscles:</Text>
+                <Text style={styles.description}>{workout.target}</Text>
+                
 
 
-                {workout.instructions.map((instruction, index) => (
-                  <View key={index} style={styles.instructionItem}>
-                    <Text style={styles.instruction}>{index + 1}.  {instruction}</Text>
-                  </View>
-                  
-                  
+                <View style={styles.instructions}>
+
+
+                  {workout.instructions.map((instruction, index) => (
+                    <View key={index} style={styles.instructionItem}>
+                      <Text style={styles.instruction}>{index + 1}.  {instruction}</Text>
+                    </View>
+
+
                   ))}
-                
-                
+
+
                 </View>
-            </>
-          ) : (
-            <Text>No workout selected</Text>
-          )}
-          <Pressable
-            style={[styles.button, styles.buttonClose]}
-            onPress={() => setModalVisible(false)}
-          >
-            <Text style={styles.textStyle}>Close</Text>
-          </Pressable>
-        </View>
+              </>
+            ) : (
+              <Text>No workout selected</Text>
+            )}
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible(false)}
+            >
+              <Text style={styles.textStyle}>Close</Text>
+            </Pressable>
+          </View>
+        </ScrollView>
       </View>
+
     </Modal>
   );
 };
