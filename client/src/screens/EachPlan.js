@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   titleContainer: {
-    flex: 1,
+    // flex: 1,
     alignItems: 'center',
     // marginBottom: 20,
   },
