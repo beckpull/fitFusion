@@ -3,11 +3,11 @@ import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import ButtonRemovePlan from './ButtonRemovePlan';
 import { useNavigation } from '@react-navigation/native';
 
-const UserPlan = ({ name, goal, workouts }) => {
+const UserPlan = ({ planId, name, workouts }) => {
   const navigation = useNavigation();
 
   const handlePress = () => {
-    navigation.navigate('EachPlan', { name, goal, workouts });
+    navigation.navigate('EachPlan', { planId });
   };
 
   return (
