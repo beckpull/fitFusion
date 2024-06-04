@@ -20,7 +20,7 @@ const WorkoutPlan = ({ navigation }) => {
 
   if (error) {
     console.log(error);
-    return <Text>Error: {error.message}</Text>;
+    // return <Text>Error: {error.message}</Text>;
   }
 
   const { me: { workoutPlans } } = data;

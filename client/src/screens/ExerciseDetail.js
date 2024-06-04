@@ -4,7 +4,8 @@ import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 const ExerciseDetail = ({ route }) => {
   const { exercise } = route.params;
 
-  const { name, gifUrl, equipment, bodyPart, target, secondaryMuscles, instructions } = exercise;
+  const { name, gifUrl, equipment, bodyPart, target, secondary, instructions } = exercise;
+  console.log(instructions);
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -18,18 +19,17 @@ const ExerciseDetail = ({ route }) => {
         <Text style={styles.subtitle}>Target Muscles:</Text>
         <Text style={styles.description}>{target}</Text>
         <Text style={styles.subtitle}>Secondary Muscles:</Text>
-        <Text style={styles.description}>{secondaryMuscles}</Text>
+        <Text style={styles.description}>
+        {secondary.map((muscle, index) => (
+          <View key={index} style={styles.instructionItem}>
+            <Text style={styles.instruction}>{muscle}</Text>
+          </View>))}</Text>
         <Text style={styles.subtitle}>Instructions:</Text>
         <View style={styles.instructionList}>
-          {Array.isArray(instructions) ? (
-            instructions.map((instruction, index) => (
+            {instructions.map((instruction, index) => (
               <View key={index} style={styles.instructionItem}>
                 <Text style={styles.instruction}>{index + 1}. {instruction}</Text>
-              </View>
-            ))
-          ) : (
-            <Text style={styles.instructionItem}>No instructions available</Text>
-          )}
+              </View>))}
         </View>
       </View>
     </ScrollView>

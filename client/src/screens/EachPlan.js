@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useQuery } from '@apollo/client';
 import { GET_ME } from '../utils/queries';
@@ -59,26 +59,8 @@ const EachPlan = ({ navigation, route }) => {
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
         <View style={styles.titleContainer}>
-<<<<<<< HEAD
           <Text style={styles.title}>{currentPlan.name}</Text>
-=======
-          {isEditing ? (
-            <TextInput
-              style={styles.input}
-              value={planName}
-              onChangeText={setPlanName}
-            />
-          ) : (
-            <Text style={styles.title}>{planName}</Text>
-
-          )}
-          {console.log( )}
-          <TouchableOpacity onPress={isEditing ? handleSave : handleRename} style={styles.iconButton}>
-            <Icon name={isEditing ? "save" : "edit"} size={24} color="black" />
-          </TouchableOpacity>
->>>>>>> main
         </View>
-
 
         <Text style={styles.subtitle}>Workouts:</Text>
         {currentPlan.workouts.map((workout) => (
@@ -96,12 +78,7 @@ const EachPlan = ({ navigation, route }) => {
                   <Text style={styles.setGoalButtonText}>Set Goal</Text>
                 </TouchableOpacity>
               </View>
-<<<<<<< HEAD
             </View>
-=======
-            ))}
-
->>>>>>> main
           </View>
         ))}
 
@@ -111,7 +88,7 @@ const EachPlan = ({ navigation, route }) => {
             onClose={() => setIsGoalFormVisible(false)}
             onSave={handleGoalFormSave}
             exercise={currentExercise}
-            workoutPlanId={currentPlan._id}  
+            workoutPlanId={planId}  
             workoutId={currentExercise._id} 
           />
         )}
@@ -122,7 +99,7 @@ const EachPlan = ({ navigation, route }) => {
             onClose={() => setIsCompletionFormVisible(false)}
             onSave={handleCompletionFormSave}
             exercise={currentExercise}
-            workoutPlanId={currentPlan._id}  
+            workoutPlanId={planId}  
             workoutId={currentExercise._id} 
           />
         )}
@@ -134,12 +111,13 @@ const EachPlan = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
   scrollContainer: {
-    flexGrow: 1,
-    padding: 20,
+    flexGrow: 1, // Ensure that the ScrollView fills the available space
   },
   container: {
     flex: 1,
     alignItems: 'center',
+    paddingHorizontal: 20, // Adjust padding as needed
+    paddingTop: 20, // Adjust padding as needed
   },
   titleContainer: {
     flexDirection: 'row',
@@ -154,6 +132,15 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 20,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    padding: 10,
+    flex: 1,
+  },
+  iconButton: {
+    marginLeft: 10,
   },
   workoutContainer: {
     width: '100%',

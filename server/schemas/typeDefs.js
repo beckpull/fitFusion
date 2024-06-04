@@ -52,8 +52,8 @@ const typeDefs = `
         equipment: String
         gifUrl: String
         target: String
-        secondary: String
-        instructions: String
+        secondary: [String]
+        instructions: [String]
     }
 
     input ProgressInput {
