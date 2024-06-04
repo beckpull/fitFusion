@@ -63,22 +63,24 @@ const resolvers = {
       throw new AuthenticationError('You need to be logged in!');
     },
 
-    updateUserImage: async (parent, { imageUrl }, context) => {
-      if (context.user) {
-        const updatedUser = await User.findOneAndUpdate(
+    updateProfilePic: async (parent, { profilePic }, context) => {
+      if(context.user){
+        const { data, contentType } = profilePic;
+
+        const user = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $set: { imageUrl: imageUrl } },
+          {
+            profilePic: {
+              data,
+              contentType,
+            },
+          },
           { new: true }
         );
-
-        if (!updatedUser) {
-          throw new Error('No user found with this id!');
-        }
-
-        return updatedUser;
+        return User;
       }
 
-      throw AuthenticationError;
+      throw AuthenticationError
     },
 
     login: async (parent, { email, password }) => {
