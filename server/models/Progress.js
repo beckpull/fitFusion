@@ -4,7 +4,7 @@ const progressSchema = new Schema(
     {
         date: {
             type: Date,
-            default: Date.now, // Pass the function reference
+            default: Date.now, 
         },
         sets: {
             type: Number,
