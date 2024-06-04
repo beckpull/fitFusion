@@ -235,7 +235,7 @@ See the [open issues](https://github.com/beckpull/fitFusion/issues) for a full l
 ## License
 
 <p align='center'>Distributed under the MIT License. See `LICENSE.txt` for more information.</p>
-<p align='center'>© fitFusion · All rights reserved.</p>
+<p align='center'>© Beck Feltman · All rights reserved.</p>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
