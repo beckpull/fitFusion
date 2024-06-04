@@ -16,17 +16,19 @@ const PlaceholderImage = require('../assets/images/persona-icon.jpg');
 
 export default function MyProfile() {
   const [modalVisible, setModalVisible] = useState(false);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState(PlaceholderImage);
   const [updateProfilePic] = useMutation(UPDATE_PROFILE_PIC);
   const { loading, error, data } = useQuery(GET_ME);
   console.log('Loading:', loading);
   console.log('Error:', error);
 
   console.log('Data:', data);
+  console.log("this is for the PROGILEPIC Property of data: ---> ", data.me.profilePic.data)
 
   useEffect(() => {
-    if(data && data.me && data.me.profilePic) {
-      setImage(data.me.profilePic.data)
+    if(data && data.me && data.me.profilePic.data) {
+      //{ uri: PlaceholderImage }
+      setImage({uri: `data:image/jpeg;base64,${data.me.profilePic.data}`})
     }
   }, [data]);
 
@@ -69,7 +71,7 @@ export default function MyProfile() {
       })
       .then(response => {
         console.log("profile picture updated", response.data);
-        setImage(profilePicData)
+        setImage({uri: `data:image/jpeg;base64,${profilePicData}`})
       })
       .catch(error => {
         console.error('Error updating picture:', error);
@@ -94,7 +96,7 @@ export default function MyProfile() {
       })
       .catch((err) => console.error('An error occurred', err));
   };
-
+  console.log("This is Image: ", image)
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -102,7 +104,7 @@ export default function MyProfile() {
           <View style={styles.imageWrapper}>
             {loading ? <Text>Loading...</Text> : image && (
             <Image
-              source={{ uri: `data:image/jpeg;base64,${image}` }}
+              source={image}
               style={{ width: 100, height: 100, borderRadius: 50 }}
               // placeholderImageSource={PlaceholderImage}
               // selectedImage={selectedImage}
