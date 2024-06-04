@@ -6,7 +6,7 @@ const workoutPlanSchema = new Schema(
         name: {
             type: String,
             required: true,
-            unique: true,
+            // unique: true,
         },
         goal: {
             type: String,

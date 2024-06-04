@@ -21,7 +21,7 @@ const ExerciseDetail = ({ route }) => {
         <Text style={styles.subtitle}>Secondary Muscles:</Text>
         <Text style={styles.description}>{secondaryMuscles}</Text>
         <View style={styles.instructionList}>
-          {instructions.map((instruction, index) => (
+          {instructions.split(', ').map((instruction, index) => (
             <View key={index} style={styles.instructionItem}>
               <Text style={styles.instruction}>{index + 1}.  {instruction}</Text>
             </View>

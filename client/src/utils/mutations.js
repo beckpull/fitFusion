@@ -52,3 +52,27 @@ mutation AddWorkoutPlan($name: String!, $goal: String!) {
   }
 }
 `;
+
+export const  ADD_WORKOUT_PROGRESS = gql`
+mutation AddWorkoutProgress($workoutPlanId: ID!, $workoutId: ID!, $progressInput: ProgressInput!) {
+  addWorkoutProgress(workoutPlanId: $workoutPlanId, workoutId: $workoutId, progressInput: $progressInput) {
+    _id
+    goal
+    name
+    workouts {
+      _id
+      name
+      bodyPart
+      progress {
+        _id
+        date
+        distance
+        duration
+        reps
+        sets
+        weight
+      }
+    }
+  }
+}
+`;
