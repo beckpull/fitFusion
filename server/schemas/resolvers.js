@@ -101,13 +101,14 @@ const resolvers = {
       return { token, user };
     },
 
-    addWorkoutPlan: async (parent, { name, goal }, context) => {
+    addWorkoutPlan: async (parent, { name, goal, date }, context) => {
 
       if (context.user) {
         const workoutPlan = await WorkoutPlan.create({
         
           name,
-          goal
+          goal,
+          date: date ? new Date(date) : undefined,
         });
 
         await User.findOneAndUpdate(

@@ -64,7 +64,7 @@ export default function LoginForm() {
       <View style={styles.container}>
         <Image
           source={icon}
-          style={{ width: 150, height: 80 }}
+          style={{ width: 120, height: 80 }}
         />
         <Text style={styles.h1}>Live the experience!</Text>
         <Text style={{ ...styles.label, marginTop: 100 }}>Email</Text>
@@ -108,6 +108,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
+    marginTop: 10,
   },
   container: {
     padding: 20,

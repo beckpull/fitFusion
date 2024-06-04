@@ -98,9 +98,6 @@ export default function MyProfile() {
             <Text>Your best Buddy to work out</Text>
           </View>
         </TouchableOpacity>
-
-        <VerticalTabs />
-
         <View>
           <Modal
             animationType="slide"
@@ -116,6 +113,9 @@ export default function MyProfile() {
             <Text style={styles.link}>Re-take Physical test</Text>
           </TouchableOpacity>
         </View>
+
+        <VerticalTabs />
+
       </ScrollView>
       <StatusBar style="auto" />
     </View>

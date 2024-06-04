@@ -3,6 +3,7 @@ const colors = {
     primaryVariant: '#e98168', // Dark Orange
     secondary: '#7F9AB2', // Light Blue
     secondaryVariant: '#003566', // Dark Blue
+    calendarCheck: '#4CAF50', // Green
     background: '#FFFFFF',
     surface: '#FFFFFF',
     error: '#B00020',
