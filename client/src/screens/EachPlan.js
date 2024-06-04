@@ -84,17 +84,19 @@ const EachPlan = ({ navigation }) => {
         {workoutPlans.map((plan) => (
           <View key={plan._id} style={styles.workoutContainer}>
             {plan.workouts.map((workout) => (
-              <View key={workout._id}>
+              <View key={workout._id} style={styles.workoutBlock}>
                 <TouchableOpacity onPress={() => handleExerciseClick(workout)} style={styles.workoutCard}>
                   <Text style={styles.workout}>{workout.name}</Text>
                   <Icon name="angle-right" size={24} color="black" />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handleComplete(workout, plan._id)} style={styles.completeButton}>
-                  <Text style={styles.completeButtonText}>Complete</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => handleSetGoal(workout, plan._id)} style={styles.setGoalButton}>
-                  <Text style={styles.setGoalButtonText}>Set Goal</Text>
-                </TouchableOpacity>
+                <View style={styles.buttonContainer}>
+                  <TouchableOpacity onPress={() => handleComplete(workout, plan._id)} style={styles.completeButton}>
+                    <Text style={styles.completeButtonText}>Complete</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => handleSetGoal(workout, plan._id)} style={styles.setGoalButton}>
+                    <Text style={styles.setGoalButtonText}>Set Goal</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             ))}
           </View>
@@ -122,7 +124,6 @@ const EachPlan = ({ navigation }) => {
           />
         )}
       </View>
-      <View style={styles.space}></View>
       <ButtonAddWorkout navigation={navigation} />
     </ScrollView>
   );
@@ -130,9 +131,8 @@ const EachPlan = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   scrollContainer: {
-    paddingVertical: 20,
-    paddingHorizontal: 20,
     flexGrow: 1,
+    padding: 20,
   },
   container: {
     flex: 1,
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 20,
   },
   title: {
     fontSize: 24,
@@ -150,13 +150,12 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginVertical: 20,
+    marginBottom: 20,
   },
   input: {
     borderWidth: 1,
     borderColor: '#ccc',
     padding: 10,
-    marginVertical: 10,
     flex: 1,
   },
   iconButton: {
@@ -164,6 +163,9 @@ const styles = StyleSheet.create({
   },
   workoutContainer: {
     width: '100%',
+    marginBottom: 20,
+  },
+  workoutBlock: {
     marginBottom: 20,
     alignItems: 'center',
   },
@@ -175,33 +177,38 @@ const styles = StyleSheet.create({
     padding: 15,
     width: '100%',
     borderRadius: 10,
-    marginBottom: 10,
   },
   workout: {
     fontSize: 18,
   },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    marginTop: 10,
+  },
   completeButton: {
     backgroundColor: '#4CAF50',
-    padding: 10,
+    padding: 8,
     borderRadius: 5,
-    marginTop: 10,
+    marginRight: 10,
+    flex: 1,
   },
   completeButtonText: {
     color: 'white',
-    fontSize: 16,
+    fontSize: 14,
+    textAlign: 'center',
   },
   setGoalButton: {
     backgroundColor: '#2196F3',
-    padding: 10,
+    padding: 8,
     borderRadius: 5,
-    marginTop: 10,
+    flex: 1,
   },
   setGoalButtonText: {
     color: 'white',
-    fontSize: 16,
-  },
-  space: {
-    height: 50,
+    fontSize: 14,
+    textAlign: 'center',
   },
 });
 
