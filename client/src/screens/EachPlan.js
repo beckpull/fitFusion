@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { GET_ME } from '../utils/queries';
+import { REMOVE_WORKOUT } from '../utils/mutations';
 import ExerciseForm from '../components/workoutPlans/ExerciseForm';
 import ExerciseCompletionForm from '../components/workoutPlans/ExerciseCompletionForm';
 import ButtonAddWorkout from '../components/workoutPlans/ButtonAddWorkout';
+import ButtonRemoveExercise from '../components/workoutPlans/ButtonRemoveExercise';
 
 import { WorkoutContext } from '../context/WorkoutContext';
-  
+
 const EachPlan = ({ navigation, route }) => {
   const { planId } = route.params;
   const [isGoalFormVisible, setIsGoalFormVisible] = useState(false);
@@ -17,6 +19,7 @@ const EachPlan = ({ navigation, route }) => {
   const { loading, error, data, refetch } = useQuery(GET_ME);
 
   const { setCurrentWorkoutId } = useContext(WorkoutContext);
+  const [removeWorkout] = useMutation(REMOVE_WORKOUT);
 
   useEffect(() => {
     refetch();
@@ -60,9 +63,23 @@ const EachPlan = ({ navigation, route }) => {
   };
 
   const handleAdd = () => {
-    console.log(planId);
     setCurrentWorkoutId(planId);
     navigation.navigate('SearchByNameScreen');
+  };
+
+  const handleRemove = async (exerciseId) => {
+    console.log(planId);
+    console.log(exerciseId);
+
+    try {
+      const { data } = await removeWorkout({
+        variables: { workoutPlanId: planId, workoutId: exerciseId },
+      });
+      refetch();
+    } catch (error) {
+      console.error(error);
+      Alert.alert('Error', 'Failed to remove exercise from workout plan');
+    }
   };
 
   return (
@@ -78,7 +95,7 @@ const EachPlan = ({ navigation, route }) => {
             <View style={styles.workoutBlock}>
               <TouchableOpacity onPress={() => handleExerciseClick(workout)} style={styles.workoutCard}>
                 <Text style={styles.workout}>{workout.name}</Text>
-                <Icon name="angle-right" size={24} color="black" />
+                <ButtonRemoveExercise onPress={() => handleRemove(workout._id)} />
               </TouchableOpacity>
               <View style={styles.buttonContainer}>
                 <TouchableOpacity onPress={() => handleComplete(workout)} style={styles.completeButton}>
@@ -98,8 +115,8 @@ const EachPlan = ({ navigation, route }) => {
             onClose={() => setIsGoalFormVisible(false)}
             onSave={handleGoalFormSave}
             exercise={currentExercise}
-            workoutPlanId={planId}  
-            workoutId={currentExercise._id} 
+            workoutPlanId={planId}
+            workoutId={currentExercise._id}
           />
         )}
 
@@ -109,8 +126,8 @@ const EachPlan = ({ navigation, route }) => {
             onClose={() => setIsCompletionFormVisible(false)}
             onSave={handleCompletionFormSave}
             exercise={currentExercise}
-            workoutPlanId={planId}  
-            workoutId={currentExercise._id} 
+            workoutPlanId={planId}
+            workoutId={currentExercise._id}
           />
         )}
       </View>
@@ -126,8 +143,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    paddingHorizontal: 20, 
-    paddingTop: 20, 
+    paddingHorizontal: 20,
+    paddingTop: 20,
   },
   titleContainer: {
     flexDirection: 'row',
