@@ -28,6 +28,7 @@ export default function MyProfile() {
   if (error) return <Text>Error: {error.message}</Text>;
 
   const { me: { username, workoutPlans } } = data;
+  console.log('Data after: ', data);
 
   const handleUpdateImage = async (imageUrl) => {
     console.log("URL Image: ", imageUrl);

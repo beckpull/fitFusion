@@ -13,6 +13,10 @@ const workoutPlanSchema = new Schema(
             required: true,         
         },
         workouts: [workoutSchema],
+        date: {
+            type: Date,
+            default: Date.now,
+        },
     }
 );
 

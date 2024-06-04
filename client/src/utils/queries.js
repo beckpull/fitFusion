@@ -12,6 +12,7 @@ query Query {
     username
     workoutPlans {
       _id
+      date
       goal
       name
       workouts {

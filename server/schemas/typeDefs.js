@@ -1,4 +1,7 @@
 const typeDefs = `
+
+    scalar Date
+    
     type User {
         _id: ID
         username: String!
@@ -15,6 +18,7 @@ const typeDefs = `
         name: String
         goal: String
         workouts: [Workout]
+        date: Date
     }
 
     type Workout {
@@ -80,7 +84,7 @@ const typeDefs = `
         login(email: String!, password: String!): Auth
         updateUserImage(imageUrl: String!): User
 
-        addWorkoutPlan(name: String!, goal: String): WorkoutPlan
+        addWorkoutPlan(name: String!, goal: String, date: Date): WorkoutPlan
         updateWorkoutPlan(workoutPlanId: ID!, name: String): WorkoutPlan
         removeWorkoutPlan(workoutPlanId: ID!): WorkoutPlan
 
