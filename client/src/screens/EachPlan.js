@@ -73,10 +73,10 @@ const EachPlan = ({ navigation, route }) => {
                 <Icon name="angle-right" size={24} color="black" />
               </TouchableOpacity>
               <View style={styles.buttonContainer}>
-                <TouchableOpacity onPress={() => handleComplete(workout)} style={styles.completeButton}>
+                <TouchableOpacity onPress={() => handleComplete(workout, planId)} style={styles.completeButton}>
                   <Text style={styles.completeButtonText}>Complete</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handleSetGoal(workout)} style={styles.setGoalButton}>
+                <TouchableOpacity onPress={() => handleSetGoal(workout, planId)} style={styles.setGoalButton}>
                   <Text style={styles.setGoalButtonText}>Set Goal</Text>
                 </TouchableOpacity>
               </View>
@@ -120,11 +120,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
-  // titleContainer: {
-  //   flex: 1,
-  //   alignItems: 'center',
-  //   // marginBottom: 20,
-  // },
+  titleContainer: {
+    flex: 1,
+    alignItems: 'center',
+    // marginBottom: 20,
+  },
   title: {
     fontSize: 24,
     fontWeight: 'bold',

@@ -10,6 +10,7 @@ const EachRecommendedPlan = ({ route, navigation }) => {
    const [isGoalFormVisible, setIsGoalFormVisible] = useState(false);
   const [isCompletionFormVisible, setIsCompletionFormVisible] = useState(false);
   const [currentExercise, setCurrentExercise] = useState(null);
+  // console.log(workouts);
 
   const handleExerciseClick = (exercise) => {
     setCurrentExercise(exercise);
@@ -66,6 +67,8 @@ const EachRecommendedPlan = ({ route, navigation }) => {
             onClose={() => setIsGoalFormVisible(false)}
             onSave={handleGoalFormSave}
             exercise={currentExercise}
+            workoutPlanId={planId}  
+            workoutId={currentExercise._id} 
           />
         )}
 
@@ -75,6 +78,8 @@ const EachRecommendedPlan = ({ route, navigation }) => {
             onClose={() => setIsCompletionFormVisible(false)}
             onSave={handleCompletionFormSave}
             exercise={currentExercise}
+            workoutPlanId={planId}  
+            workoutId={currentExercise._id} 
           />
         )}
       </View>

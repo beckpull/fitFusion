@@ -1,7 +1,16 @@
 
 export const recommendedPlans = [
   {
-    id: '1', name: 'Recommended Plan 1', goal: "Strengthen back muscles", workouts: [
+    id: '1', name: 'Recommended Plan 1: Arms', goal: "Strengthen arm muscles", workouts: []
+  },
+  {
+    id: '2', name: 'Recommended Plan 2: Legs', goal: "Strengthen leg muscles", workouts: []
+  },
+  {
+    id: '3', name: 'Recommended Plan 3: Core', goal: "Strengthen core muscles", workouts: []
+  },
+  {
+    id: '4', name: 'Recommended Plan 4: Back', goal: "Strengthen back muscles", workouts: [
       {
         bodyPart: "waist",
         equipment: "body weight",
@@ -194,7 +203,7 @@ export const recommendedPlans = [
     ],
   },
   {
-    id: '2', name: 'Recommended Plan 2', goal: "Improve cardio endurance", workouts: [
+    id: '5', name: 'Recommended Plan 5: Cardio', goal: "Improve cardio endurance", workouts: [
       {
         bodyPart: "upper legs",
         equipment: "body weight",
@@ -325,5 +334,6 @@ export const recommendedPlans = [
         target: "glutes",
       }
     ]
-  }
+  },
+
 ];
