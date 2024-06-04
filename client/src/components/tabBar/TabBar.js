@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MyProfile from '../../screens/MyProfile';
 import MyWorkouts from '../../screens/MyWorkouts';
-import AboutUs from '../../screens/AboutUs';
+import MyProgress from '../../screens/MyProgress';
 import Blog from '../../screens/Blog';
 import { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
@@ -33,8 +33,8 @@ export default function TabBar() {
             iconName = focused ? 'person' : 'person-outline';
           } else if (route.name === 'MyWorkouts') {
             iconName = focused ? 'fitness' : 'fitness-outline';
-          } else if (route.name === 'AboutUs') {
-            iconName = focused ? 'information-circle' : 'information-circle-outline';
+          } else if (route.name === 'MyProgress') {
+            iconName = focused ? 'trending-up' : 'stats-chart-outline';
           } else if (route.name === 'Blog') {
             iconName = focused ? 'newspaper' : 'newspaper-outline';
           }
@@ -48,7 +48,7 @@ export default function TabBar() {
     >
       <Tab.Screen name="MyWorkouts" component={MyWorkouts} />
       <Tab.Screen name="Blog" component={Blog} />
-      <Tab.Screen name="AboutUs" component={AboutUs} />
+      <Tab.Screen name="MyProgress" component={MyProgress} />
       <Tab.Screen name="MyProfile" component={MyProfile} options={{ headerShown: false }} />
     </Tab.Navigator>
   );

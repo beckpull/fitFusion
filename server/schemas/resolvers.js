@@ -7,8 +7,8 @@ const resolvers = {
       const foundUser = await User.findOne({
         _id: context.user._id
       })
-      // ADD THIS LINE IF WE WANT QUERY:ME TO RETURN WORKOUTPLAN NAMES
-      .populate('workoutPlans');
+        // ADD THIS LINE IF WE WANT QUERY:ME TO RETURN WORKOUTPLAN NAMES
+        .populate('workoutPlans');
       // ^^^^^^^^^
       // return User.findOne({ _id: context.user._id });
 
@@ -42,7 +42,7 @@ const resolvers = {
 
   Mutation: {
     addUser: async (parent, { username, email, password, country, birthDate, age, height, weight, gender, level, calories }) => {
-      const user = await User.create({ username, email, password, country, birthDate, age, height, weight, gender, level, calories});
+      const user = await User.create({ username, email, password, country, birthDate, age, height, weight, gender, level, calories });
       const token = signToken(user);
 
       return { token, user };
@@ -100,18 +100,20 @@ const resolvers = {
     },
 
     addWorkoutPlan: async (parent, { name, goal }, context) => {
-      
+
       if (context.user) {
         const workoutPlan = await WorkoutPlan.create({
+        
           name,
           goal
         });
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { workoutPlans: workoutPlan } }
+          { $addToSet: { workoutPlans: workoutPlan } },
+
         );
-        console.log(workoutPlan)
+     
         return workoutPlan;
 
       }

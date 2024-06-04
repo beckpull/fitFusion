@@ -59,8 +59,26 @@ const EachPlan = ({ navigation, route }) => {
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
         <View style={styles.titleContainer}>
+<<<<<<< HEAD
           <Text style={styles.title}>{currentPlan.name}</Text>
+=======
+          {isEditing ? (
+            <TextInput
+              style={styles.input}
+              value={planName}
+              onChangeText={setPlanName}
+            />
+          ) : (
+            <Text style={styles.title}>{planName}</Text>
+
+          )}
+          {console.log( )}
+          <TouchableOpacity onPress={isEditing ? handleSave : handleRename} style={styles.iconButton}>
+            <Icon name={isEditing ? "save" : "edit"} size={24} color="black" />
+          </TouchableOpacity>
+>>>>>>> main
         </View>
+
 
         <Text style={styles.subtitle}>Workouts:</Text>
         {currentPlan.workouts.map((workout) => (
@@ -78,7 +96,12 @@ const EachPlan = ({ navigation, route }) => {
                   <Text style={styles.setGoalButtonText}>Set Goal</Text>
                 </TouchableOpacity>
               </View>
+<<<<<<< HEAD
             </View>
+=======
+            ))}
+
+>>>>>>> main
           </View>
         ))}
 
