@@ -74,7 +74,7 @@ mutation AddWorkout($workoutPlanId: ID!, $workoutInput: WorkoutInput!) {
 }
 `;
 
-export const  ADD_WORKOUT_PROGRESS = gql`
+export const ADD_WORKOUT_PROGRESS = gql`
 mutation AddWorkoutProgress($workoutPlanId: ID!, $workoutId: ID!, $progressInput: ProgressInput!) {
   addWorkoutProgress(workoutPlanId: $workoutPlanId, workoutId: $workoutId, progressInput: $progressInput) {
     _id
@@ -108,3 +108,18 @@ export const UPDATE_WORKOUT_PLAN_NAME = gql`
   }
 `;
 
+export const REMOVE_WORKOUT_PLAN = gql`
+mutation RemoveWorkoutPlan($workoutPlanId: ID!) {
+  removeWorkoutPlan(workoutPlanId: $workoutPlanId) {
+    _id
+  }
+}
+`;
+
+export const REMOVE_WORKOUT = gql`
+mutation RemoveWorkout($workoutPlanId: ID!, $workoutId: ID!) {
+  removeWorkout(workoutPlanId: $workoutPlanId, workoutId: $workoutId) {
+    _id
+  }
+}
+`;

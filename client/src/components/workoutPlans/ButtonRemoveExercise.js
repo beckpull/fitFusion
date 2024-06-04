@@ -2,7 +2,7 @@ import React from 'react';
 import { Pressable, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const ButtonRemovePlan = ({ onPress }) => {
+const ButtonRemoveExercise = ({ onPress }) => {
   return (
     <Pressable style={styles.button} onPress={onPress}>
       <Icon name="trash" size={20} color="grey" />
@@ -24,4 +24,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ButtonRemovePlan;
+export default ButtonRemoveExercise;

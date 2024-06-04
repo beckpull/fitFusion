@@ -1,18 +1,54 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Alert } from 'react-native';
 import ButtonRemovePlan from './ButtonRemovePlan';
+import { useMutation } from '@apollo/client';
 import { useNavigation } from '@react-navigation/native';
+import { REMOVE_WORKOUT_PLAN } from '../../utils/mutations';
+import { GET_ME } from '../../utils/queries';
+
 
 const UserPlan = ({ planId, name, workouts }) => {
+  const [removeWorkoutPlan, { error }] = useMutation(REMOVE_WORKOUT_PLAN, {
+    refetchQueries: [{ query: GET_ME }]
+  });
+  
   const navigation = useNavigation();
 
   const handlePress = () => {
     navigation.navigate('EachPlan', { planId });
   };
 
+  const handleDelete = () => {
+    Alert.alert(
+      "Delete Workout Plan",
+      "Are you sure you want to delete this workout plan?",
+      [
+        {
+          text: "No",
+          onPress: () => console.log("Deletion cancelled by user."),
+          style: "cancel"
+        },
+        {
+          text: "Yes",
+          onPress: async () => {
+            console.log(`The current ID is ${planId}`);
+            try {
+              await removeWorkoutPlan({
+                variables: { workoutPlanId: planId },
+              });
+            } catch (error) {
+              console.error(error);
+            }
+          }
+        }
+      ],
+      { cancelable: false }
+    );
+  };
+
   return (
     <TouchableOpacity onPress={handlePress} style={styles.card}>
-      <ButtonRemovePlan />
+      <ButtonRemovePlan onPress={handleDelete}/>
       <Text style={styles.title}>{name}</Text>
       <Text style={styles.exercises}>{workouts.length} Workouts</Text>
     </TouchableOpacity>

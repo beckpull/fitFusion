@@ -19,7 +19,7 @@ const resolvers = {
       return foundUser;
     },
 
-    // DELETE THIS LATER
+    // OKAY TO DELETE THIS LATER
     allUsers: async () => {
       return await User.find({});
     },
@@ -37,7 +37,7 @@ const resolvers = {
 
       return foundUser.workoutPlans;
     },
-
+    // ^^^^^^^^^^^^^^^^^^^^^^^ //
   },
 
   Mutation: {
@@ -105,7 +105,7 @@ const resolvers = {
 
       if (context.user) {
         const workoutPlan = await WorkoutPlan.create({
-        
+
           name,
           goal
         });
@@ -115,7 +115,7 @@ const resolvers = {
           { $addToSet: { workoutPlans: workoutPlan } },
 
         );
-     
+
         return workoutPlan;
 
       }
@@ -143,7 +143,8 @@ const resolvers = {
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { workoutPlans: workoutPlan._id } }
+          { $pull: { workoutPlans: workoutPlan._id } },
+
         );
 
         return workoutPlan
