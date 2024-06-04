@@ -37,7 +37,7 @@ const WorkoutPlan = ({ navigation }) => {
           workoutPlans.map((plan) => (
             <UserPlan key={plan._id} planId={plan._id} name={plan.name} goal={plan.goal} workouts={plan.workouts} />
            ))
-        ) : <Text style={styles.noPlan}>You don't have any workout plans yet! Here are some recommended plans to get you started - or add one of your own!</Text>}
+        ) : <Text style={styles.noPlan}>You don't have any workout plans yet! Here are our recommended plans to get you started - or add one of your own!</Text>}
 
         {/* Render recommended plans */}
         <Text style={styles.recommendedPlans}>Recommended Plans</Text>
