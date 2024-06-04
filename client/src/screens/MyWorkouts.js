@@ -27,6 +27,7 @@ const WorkoutPlan = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+    
       {workoutPlans ? (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           {workoutPlans.map((plan) => (

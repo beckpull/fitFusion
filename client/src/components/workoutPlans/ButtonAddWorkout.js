@@ -2,9 +2,9 @@ import React from 'react';
 import { Pressable, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const ButtonAddWorkout = ({ navigation }) => {
+const ButtonAddWorkout = ({ onPress }) => {
   return (
-    <Pressable style={styles.button} onPress={() => navigation.navigate('SearchByNameScreen')}>
+    <Pressable style={styles.button} onPress={onPress}>
       <Icon name="plus" size={30} color="grey" />
     </Pressable>
   );
