@@ -151,7 +151,7 @@ export default function MyProfile() {
           >
             <ReTakeQuiz onClose={() => setModalVisible(false)} />
           </Modal>
-          <TouchableOpacity onPress={() => setModalVisible(prevState => !prevState)}>
+          <TouchableOpacity onPress={() => setModalVisible(true)}>
             <Text style={styles.link}>Re-take Physical test</Text>
           </TouchableOpacity>
         </View>
