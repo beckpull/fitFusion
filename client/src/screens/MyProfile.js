@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, StyleSheet, Text, ScrollView, TouchableOpacity, Alert, Linking, Modal } from 'react-native';
 import UserImage from '../components/profile/UserImage';
 import { StatusBar } from 'expo-status-bar';
@@ -11,6 +11,7 @@ import ReTakeQuiz from '../components/profile/ReTakeQuiz';
 import { useMutation, useQuery } from '@apollo/client';
 import { UPDATE_USER_IMAGE } from '../utils/mutations';
 import { GET_ME } from '../utils/queries';
+import { I18nContext } from '../../App';
 
 const PlaceholderImage = require('../assets/images/persona-icon.jpg');
 
@@ -19,10 +20,13 @@ export default function MyProfile() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [updateUserImage] = useMutation(UPDATE_USER_IMAGE);
   const { loading, error, data } = useQuery(GET_ME);
+  const { i18n } = useContext(I18nContext);
+
   console.log('Loading:', loading);
   console.log('Error:', error);
 
-  console.log('Data:', data);
+  // console.log('Data:', data);
+  console.log('from profile: ', i18n);
 
   if (loading) return <Text>Loading...</Text>;
   if (error) return <Text>Error: {error.message}</Text>;
@@ -87,8 +91,12 @@ export default function MyProfile() {
 
           <View style={styles.userInfoContainer}>
             <IconButton iconName="picture-o" onPress={pickImageAsync} />
-            <Text style={styles.userName}>Welcome {username}</Text>
-            <Text style={styles.userWorkouts}>Workouts: {workoutPlans.length}</Text>
+            <Text style={styles.userName}>
+              {`${i18n.t('welcome')} ${username}`}
+            </Text>
+            <Text style={styles.userWorkouts}>
+              {`${i18n.t('workouts')}: ${workoutPlans.length}`}
+            </Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.card} onPress={handleClick}>

@@ -33,6 +33,7 @@
     "expo-localization": "^15.0.3",
     "expo-status-bar": "~1.12.1",
     "graphql": "^15.8.0",
+    "i18n-js": "^4.4.3",
     "i18next": "^23.11.5",
     "jwt-decode": "^4.0.0",
     "os": "^0.1.2",
