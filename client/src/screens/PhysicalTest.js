@@ -9,7 +9,7 @@ import { ADD_USER_SECOND_SCREEN } from "../utils/mutations";
 import Auth from "../utils/auth";
 
 export default function PhysicalTest({ route }) {
-  const [age, setAge] = useState(0);
+  const [feetToInches, setFeetToInches] = useState(0);
   const [height, setHeight] = useState(0);
   const [weight, setWeight] = useState(0);
   const [gender, setGender] = useState('null');
@@ -78,33 +78,35 @@ export default function PhysicalTest({ route }) {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={styles.container}>
         <Text style={styles.h1}>Physical Test</Text>
-        <Text style={styles.label}>Age</Text>
-        <TextInput
-          style={styles.input}
-          value={age}
-          onChangeText={(value) => {
-            if (value >= 1 && value <= 100 || value === '') {
-              setAge(value);
-            }
-          }}
-          keyboardType="numeric"
-          placeholder="Enter your age"
-        />
-
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <View style={{ flex: 1, marginRight: 10 }}>
             <Text style={styles.label}>Height</Text>
+            <View style={{ flexDirection: 'row', justifyContent: 'left' }}>
             <TextInput
               style={styles.input}
               value={height}
               onChangeText={(value) => {
                 // Convert height from feet to inches
-                const heightInInches = value * 12;
-                setHeight(heightInInches);
+                const feetToInches = value * 12;
+                setFeetToInches(feetToInches);
               }}
               keyboardType="decimal-pad"
-              placeholder="Enter height in feet"
+              placeholder="feet"
             />
+            <TextInput
+              style={styles.input}
+              value={height}
+              onChangeText={(value) => {
+                // Convert height from feet to inches
+                const heightInInches = value + feetToInches;
+                setHeight(heightInInches);
+                console.log(heightInInches);
+                console.log(height)
+              }}
+              keyboardType="decimal-pad"
+              placeholder="in."
+            />
+            </View>
           </View>
           <View style={{ flex: 1 }}>
             <Text style={styles.label}>Weight</Text>
