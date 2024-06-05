@@ -21,6 +21,7 @@ query Me {
     }
     recommendedPlans {
       _id
+      date
       goal
       isRecommended
       name

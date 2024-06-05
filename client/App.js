@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext, useState } from 'react';
 import { ApolloProvider } from '@apollo/client';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -8,6 +8,7 @@ import SignUpForm from './src/screens/SignUpForm';
 import PhysicalTest from './src/screens/PhysicalTest';
 import ForgotPassword from './src/screens/ForgotPassword';
 import Testimonials from './src/components/AboutUs/Testimonials';
+import CalendarProgress from './src/components/MyProgress/CalendarProgress';
 // import MyProfile from './src/screens/MyProfile';
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
@@ -26,6 +27,26 @@ import AboutUs from './src/screens/AboutUs';
 import SearchByNameScreen from './src/screens/SearchWorkout/SearchByNameScreen';
 // import SearchByMuscleScreen from './src/screens/SearchWorkout/SearchByMuscleScreen';
 import NewWorkoutForm from './src/screens/NewWorkoutForm';
+// Languages support:
+import { I18n } from 'i18n-js';
+import en from './locales/en';
+import es from './locales/es';
+import pt from './locales/pt';
+
+
+const i18n = new I18n({ en, es, pt });
+console.log('i18n: ', i18n);
+// i18n.translations = { en, es, pt };
+console.log(i18n.t('welcome'))
+i18n._defaultLocale = 'es';
+i18n._locale = 'es';
+
+
+export const I18nContext = createContext();
+
+console.log('I18nContext: ', I18nContext);
+
+
 
 const Stack = createStackNavigator();
 
@@ -52,7 +73,15 @@ const client = new ApolloClient({
 
 export default function App() {
 
+  const [locale, setLocale] = useState(i18n.locale);
+
+  const changeLocale = (newLocale) => {
+    i18n.locale = newLocale;
+    setLocale(newLocale); // Trigger re-render by updating state
+  };
+
   return (
+    <I18nContext.Provider value={{ i18n, changeLocale }}>
     <ApolloProvider client={client}>
       <WorkoutProvider>
         <NavigationContainer>
@@ -77,13 +106,21 @@ export default function App() {
             <Stack.Screen name="ExerciseDetail" component={ExerciseDetail} />
 
 
-            <Stack.Screen name="TabBar" component={TabBar} />
+            <Stack.Screen
+              name="TabBar"
+            // component={() => <TabBar />} 
+            >
+              {() => <TabBar i18n={i18n} />}
+
+            </Stack.Screen>
             <Stack.Screen name="Testimonials" component={Testimonials} />
+            <Stack.Screen name="CalendarProgress" component={CalendarProgress} />
 
 
           </Stack.Navigator>
         </NavigationContainer>
       </WorkoutProvider>
     </ApolloProvider>
+    </I18nContext.Provider>
   );
 };

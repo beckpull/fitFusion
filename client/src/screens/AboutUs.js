@@ -5,6 +5,7 @@ import image1 from '../assets/images/about_us_1.jpg';
 import image2 from '../assets/images/about_us_2.jpg';
 import image3 from '../assets/images/about_us_3.jpg';
 import Testimonials from '../components/AboutUs/Testimonials';
+import Footer from '../components/AboutUs/Footer';
 
 const { width } = Dimensions.get('window');
 const height = width * 0.6; // 60%
@@ -39,14 +40,17 @@ const AboutUs = ({ navigation }) => {
           ))}
 
         </ScrollView>
+        <View style={styles.mainText}>
+          <Text style={styles.text}>Welcome to <Text style={styles.bold}>FitFusion</Text> – your ultimate companion
+            for personalized fitness training. At FitFusion, we believe that every fitness journey is unique, and we are
+            dedicated to helping you achieve your individual goals through tailored workout regimens that suit your
+            preferences and lifestyle.
+          </Text>
+        </View>
 
-        <Text style={styles.text}>Welcome to <Text style={styles.bold}>FitFusion</Text> – your ultimate companion
-          for personalized fitness training. At FitFusion, we believe that every fitness journey is unique, and we are
-          dedicated to helping you achieve your individual goals through tailored workout regimens that suit your
-          preferences and lifestyle.
-        </Text>
 
         <Testimonials />
+        <Footer />
       </ScrollView>
     </SafeAreaView>
   );
@@ -54,7 +58,8 @@ const AboutUs = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    marginEnd: 5,
+    // flex: 1,
     paddingHorizontal: 10,
     paddingTop: Platform.OS === 'ios' ? 40 : 50,
 
@@ -68,6 +73,9 @@ const styles = StyleSheet.create({
   bold: {
     fontWeight: 'bold',
   },
+  mainText: {
+    padding: 10,
+  }
 });
 
 export default AboutUs;

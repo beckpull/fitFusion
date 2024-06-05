@@ -1,4 +1,7 @@
 const typeDefs = `
+
+    scalar Date
+    
     type User {
         _id: ID
         username: String!
@@ -27,6 +30,7 @@ const typeDefs = `
         name: String!
         goal: String
         workouts: [Workout]
+        date: Date
         isRecommended: Boolean
     }
 
@@ -94,7 +98,7 @@ const typeDefs = `
         addUserSecondScreen(age: Int!, height: Int!, weight: Int!, gender: String!, level: String!, calories: Int!): User
         login(email: String!, password: String!): Auth
 
-        addWorkoutPlan(name: String!, goal: String): WorkoutPlan
+        addWorkoutPlan(name: String!, goal: String, date: Date): WorkoutPlan
         updateWorkoutPlan(workoutPlanId: ID!, name: String): WorkoutPlan
         removeWorkoutPlan(workoutPlanId: ID!): WorkoutPlan
 
