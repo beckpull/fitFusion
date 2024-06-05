@@ -35,7 +35,6 @@ const resolvers = {
 
       return foundUser.workoutPlans;
     },
-    // ^^^^^^^^^^^^^^^^^^^^^^^ //
   },
 
   Mutation: {
