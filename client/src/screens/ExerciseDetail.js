@@ -1,11 +1,34 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Image, ScrollView, Button, Modal } from 'react-native';
+import { LineChart } from 'react-native-chart-kit';
+import { useQuery } from '@apollo/client';
+import { GET_WORKOUT_PROGRESS } from '../utils/queries';
+// import { gql } from 'apollo-boost';
+
 
 const ExerciseDetail = ({ route }) => {
-  const { exercise } = route.params;
+  const { exercise, workoutPlanId } = route.params;
+  const [modalVisible, setModalVisible] = useState(false);
+  const { data, loading, error } = useQuery(GET_WORKOUT_PROGRESS, {
+    variables: { workoutPlanId, workoutId: exercise._id }
+  });
 
   const { name, gifUrl, equipment, bodyPart, target, secondary, instructions } = exercise;
-  console.log(instructions);
+
+  if (loading) return <Text>Loading...</Text>;
+  if (error) return <Text>Error loading progress data</Text>;
+
+  const progressData = data?.workoutProgress || [];
+
+  const chartData = {
+    labels: progressData.map(item => new Date(item.date).toLocaleDateString()),
+    datasets: [
+      {
+        data: progressData.map(item => item.weight || 0),
+        strokeWidth: 2,
+      },
+    ],
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -20,17 +43,52 @@ const ExerciseDetail = ({ route }) => {
         <Text style={styles.description}>{target}</Text>
         <Text style={styles.subtitle}>Secondary Muscles:</Text>
         <Text style={styles.description}>
-        {secondary.map((muscle, index) => (
-          <View key={index} style={styles.instructionItem}>
-            <Text style={styles.instruction}>{muscle}</Text>
-          </View>))}</Text>
+          {secondary.map((muscle, index) => (
+            <View key={index} style={styles.instructionItem}>
+              <Text style={styles.instruction}>{muscle}</Text>
+            </View>
+          ))}
+        </Text>
         <Text style={styles.subtitle}>Instructions:</Text>
         <View style={styles.instructionList}>
-            {instructions.map((instruction, index) => (
-              <View key={index} style={styles.instructionItem}>
-                <Text style={styles.instruction}>{index + 1}. {instruction}</Text>
-              </View>))}
+          {instructions.map((instruction, index) => (
+            <View key={index} style={styles.instructionItem}>
+              <Text style={styles.instruction}>{index + 1}. {instruction}</Text>
+            </View>
+          ))}
         </View>
+        <Button title="View Progress" onPress={() => setModalVisible(true)} />
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={modalVisible}
+          onRequestClose={() => setModalVisible(false)}
+        >
+          <View style={styles.modalContainer}>
+            <Text style={styles.modalTitle}>Progress Over Time</Text>
+            <LineChart
+              data={chartData}
+              width={400}
+              height={400}
+              yAxisLabel=""
+              chartConfig={{
+                backgroundColor: '#e26a00',
+                backgroundGradientFrom: '#fb8c00',
+                backgroundGradientTo: '#ffa726',
+                decimalPlaces: 2,
+                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                style: {
+                  borderRadius: 16
+                }
+              }}
+              style={{
+                marginVertical: 8,
+                borderRadius: 16
+              }}
+            />
+            <Button title="Close" onPress={() => setModalVisible(false)} />
+          </View>
+        </Modal>
       </View>
     </ScrollView>
   );
@@ -91,6 +149,16 @@ const styles = StyleSheet.create({
   instruction: {
     fontSize: 16,
     color: '#333',
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
   },
 });
 
