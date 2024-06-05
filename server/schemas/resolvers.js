@@ -1,7 +1,9 @@
 const { User, WorkoutPlan } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
+const { DateResolver } = require ('graphql-scalars');
 
 const resolvers = {
+  Date: DateResolver,
   Query: {
     me: async (parent, args, context) => {
       const foundUser = await User.findOne({ _id: context.user._id })
@@ -122,7 +124,7 @@ const resolvers = {
       return { token, user };
     },
 
-    addWorkoutPlan: async (parent, { name, goal }, context) => {
+    addWorkoutPlan: async (parent, { name, goal, date }, context) => {
 
       if (context.user) {
         const workoutPlan = await WorkoutPlan.create({

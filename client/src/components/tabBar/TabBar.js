@@ -4,25 +4,39 @@ import MyProfile from '../../screens/MyProfile';
 import MyWorkouts from '../../screens/MyWorkouts';
 import MyProgress from '../../screens/MyProgress';
 import Blog from '../../screens/Blog';
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Colors from '../../styles/colors';
 import LogoutButton from './LogoutButton';
+import LanguageToggle from './LanguagesToggle';
+import { I18nContext } from '../../../App';
 
 const Tab = createBottomTabNavigator();
 
 export default function TabBar() {
   const navigation = useNavigation();
+
+  const { i18n } = useContext(I18nContext);
+  // console.log('i18n from the TabBar : ', i18n);
+  // console.log(i18n.t('welcome'));
+  // console.log(i18n.t('workouts'));
+  // console.log('calling useEffect from outside the TabBar');
   useEffect(() => {
-    navigation.setOptions({
-      headerTitle: '',
-      headerStyle: {
-        backgroundColor: '#FFF',
-        shadowColor: 'transparent',
-      },
-      headerRight: () => <LogoutButton />,
-    });
-  }, [navigation]);
+    console.log('calling useEffect from TabBar inside the useEffect');
+
+    if(i18n){
+      console.log('i18n.locale: ', i18n.locale);
+      navigation.setOptions({
+        headerTitle: '',
+        headerStyle: {
+          backgroundColor: '#FFF',
+          shadowColor: 'transparent',
+        },
+        headerRight: () => <LogoutButton />,
+        headerLeft: () => <LanguageToggle i18n={i18n} />,
+      });
+    }
+    }, [i18n, navigation]);
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -46,10 +60,26 @@ export default function TabBar() {
         tabBarStyle: { display: 'flex' },
       })}
     >
-      <Tab.Screen name="MyWorkouts" component={MyWorkouts} />
-      <Tab.Screen name="Blog" component={Blog} />
-      <Tab.Screen name="MyProgress" component={MyProgress} />
-      <Tab.Screen name="MyProfile" component={MyProfile} options={{ headerShown: false }} />
+      <Tab.Screen 
+        name="MyWorkouts" 
+        component={MyWorkouts} 
+        options={{ headerLeft: () => <LanguageToggle i18n={i18n} /> }}
+        />
+      <Tab.Screen 
+        name="Blog" 
+        component={Blog} 
+        options={{ headerLeft: () => <LanguageToggle i18n={i18n} /> }}
+        />
+      <Tab.Screen 
+        name="MyProgress" 
+        component={MyProgress}
+        options={{ headerLeft: () => <LanguageToggle i18n={i18n} /> }} 
+        />
+      <Tab.Screen 
+        name="MyProfile" 
+        component={MyProfile} 
+        options={{ headerLeft: () => <LanguageToggle i18n={i18n} />, headerShown: false }} 
+        />
     </Tab.Navigator>
   );
 }

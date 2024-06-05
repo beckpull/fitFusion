@@ -15,6 +15,7 @@ query Me{
     }
     workoutPlans {
       _id
+      date
       goal
       isRecommended
       name

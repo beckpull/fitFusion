@@ -51,6 +51,7 @@ mutation AddWorkoutPlan($name: String!, $goal: String!) {
     _id
     name
     goal
+    date
   }
 }
 `;
