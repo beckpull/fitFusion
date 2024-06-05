@@ -8,10 +8,12 @@ import { useMutation } from "@apollo/client";
 import { ADD_USER_SECOND_SCREEN } from "../utils/mutations";
 import Auth from "../utils/auth";
 import { I18nContext } from "../../App";
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
 export default function PhysicalTest({ route }) {
   const { i18n } = useContext(I18nContext);
-  const [age, setAge] = useState(0);
+  const [feet, setFeet] = useState(0);
+  const [inches, setInches] = useState(0);
   const [height, setHeight] = useState(0);
   const [weight, setWeight] = useState(0);
   const [gender, setGender] = useState('null');
@@ -31,22 +33,32 @@ export default function PhysicalTest({ route }) {
     navigation.navigate('LoginForm');
   };
 
+  const getHeightInInches = () => {
+    const feetToInches = parseInt(feet) * 12;
+    const inchesValue = parseInt(inches);
+    const heightValue = feetToInches + inchesValue;
+    setHeight(heightValue);
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!age || !height || !weight || gender === 'null' || level === 'null'|| (isCalorieGoalEnabled && !calories)) {
+
+    if (!height || !weight || gender === 'null' || level === 'null'|| (isCalorieGoalEnabled && !calories)) {
       Alert.alert(i18n.t('Error'), i18n.t('All fields are required'));
+
       return;
     }
     if (isCalorieGoalEnabled && !calories) {
       Alert.alert(i18n.t('Error'), i18n.t('Calories field is required if setting a calorie goal'));
       return;
     }
-    // Alert.alert('Form submitted', `Age: ${age}, Height: ${height}, Weight: ${weight}, Gender: ${gender}, Level: ${level}, Calories: ${calories}`);
+
+    Alert.alert('Form submitted', `Height: ${height}, Weight: ${weight}, Gender: ${gender}, Level: ${level}, Calories: ${calories}`);
+
     try {
       const { data } = await addUserSecondScreen({
         variables: {
           id: route.params.userId,
-          age: parseInt(age),
           height: parseInt(height),
           weight: parseInt(weight),
           gender,
@@ -79,34 +91,35 @@ export default function PhysicalTest({ route }) {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={styles.container}>
-        <Text style={styles.h1}>{i18n.t('Physical Test')}</Text>
-        <Text style={styles.label}>{i18n.t('Age')}</Text>
-        <TextInput
-          style={styles.input}
-          value={age}
-          onChangeText={(value) => {
-            if (value >= 1 && value <= 100 || value === '') {
-              setAge(value);
-            }
-          }}
-          keyboardType="numeric"
-          placeholder={i18n.t("Enter your age")}
-        />
 
+        <Text style={styles.h1}>{i18n.t('Physical Test')}</Text>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <View style={{ flex: 1, marginRight: 10 }}>
             <Text style={styles.label}>{i18n.t('Height')}</Text>
+            <View style={{ flexDirection: 'row', justifyContent: 'left' }}>
             <TextInput
               style={styles.input}
-              value={height}
+              value={feet}
               onChangeText={(value) => {
-                // Convert height from feet to inches
-                const heightInInches = value * 12;
-                setHeight(heightInInches);
+               setFeet(value);
+               getHeightInInches();
               }}
               keyboardType="decimal-pad"
-              placeholder={i18n.t("Enter height in feet")}
+              placeholder={i18n.t("feet")}
             />
+
+            <TextInput
+              style={styles.input}
+              value={inches}
+              onChangeText={(value) => {
+                setInches(value);
+                getHeightInInches();
+              }}
+              keyboardType="decimal-pad"
+              placeholder="in."
+
+            />
+            </View>
           </View>
           <View style={{ flex: 1 }}>
             <Text style={styles.label}>{i18n.t('Weight')}</Text>

@@ -3,8 +3,6 @@ import { View, Text, TextInput, Pressable, StyleSheet, TouchableWithoutFeedback,
 import { useMutation } from '@apollo/client';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { UPDATE_WORKOUT_PLAN } from '../utils/mutations';
-// import { WorkoutContext } from '../context/WorkoutContext';
-
 
 export default function EditWorkoutForm() {
     const route = useRoute();
@@ -13,7 +11,6 @@ export default function EditWorkoutForm() {
     const workoutPlanId = id;
     const [name, setName] = useState(workoutPlanName);
     const [goal, setGoal] = useState(workoutPlanGoal);
-    // const { setCurrentWorkoutId } = useContext(WorkoutContext);
 
     const [updateWorkoutPlan, { error, data }] = useMutation(UPDATE_WORKOUT_PLAN);
 

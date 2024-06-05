@@ -38,10 +38,10 @@ const resolvers = {
   },
 
   Mutation: {
-    addUser: async (parent, { username, email, password, country, birthDate, age, height, weight, gender, level, calories }) => {
+    addUser: async (parent, { username, email, password, country, birthDate, height, weight, gender, level, calories }) => {
       try {
         // Create the user
-        const user = await User.create({ username, email, password, country, birthDate, age, height, weight, gender, level, calories });
+        const user = await User.create({ username, email, password, country, birthDate, height, weight, gender, level, calories });
     
         // Find recommended plans
         const recommendedPlans = await WorkoutPlan.find({ isRecommended: true }).select('_id');
@@ -70,11 +70,11 @@ const resolvers = {
     },
     
 
-    addUserSecondScreen: async (parent, { age, height, weight, gender, level, calories }, context) => {
+    addUserSecondScreen: async (parent, { height, weight, gender, level, calories }, context) => {
       if (context.user) {
         const updatedUserFromForm = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $set: { age, height, weight, gender, level, calories } },
+          { $set: { height, weight, gender, level, calories } },
           { new: true }
         );
         if (!updatedUserFromForm) {
