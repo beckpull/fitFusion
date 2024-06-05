@@ -3,40 +3,61 @@ import { View, Text, StyleSheet, Image, ScrollView, Button, Modal } from 'react-
 import { LineChart } from 'react-native-chart-kit';
 import { useQuery } from '@apollo/client';
 import { GET_WORKOUT_PROGRESS } from '../utils/queries';
-// import { gql } from 'apollo-boost';
-
 
 export default function ExerciseDetail({ route }) {
-  const { exercise, workoutPlanId } = route.params;
+  const { exercise, planId } = route.params;
   const [modalVisible, setModalVisible] = useState(false);
   const { data, loading, error } = useQuery(GET_WORKOUT_PROGRESS, {
-    variables: { workoutPlanId, workoutId: exercise._id }
+    variables: { workoutPlanId: planId, workoutId: exercise._id },
   });
 
   const { name, gifUrl, equipment, bodyPart, target, secondary, instructions } = exercise;
-  console.log(instructions);
 
   if (loading) return <Text>Loading...</Text>;
   if (error) {
-    console.log(error)
+    console.log(error);
   }
 
-  const progressData = data?.workoutProgress || [];
+  const progressData = data?.getWorkoutProgress || [];
 
-  const chartData = {
-    labels: progressData.map(item => new Date(item.date).toLocaleDateString()),
-    datasets: [
-      {
-        data: progressData.map(item => item.weight || 0),
-        strokeWidth: 2,
-      },
-    ],
+  const processData = (progressData) => {
+    const dates = progressData.map(item => {
+      const date = new Date(item.date);
+      return `${date.getMonth() + 1}/${date.getDate()}`; // Format MM/DD
+    });
+    const sets = progressData.map(item => item.sets || 0);
+    const reps = progressData.map(item => item.reps || 0);
+    const weight = progressData.map(item => item.weight || 0);
+    const duration = progressData.map(item => item.duration || 0);
+    const distance = progressData.map(item => item.distance || 0);
+
+    return {
+      labels: dates,
+      datasets: [
+        { data: sets, color: () => `#ff0000`, strokeWidth: 2, label: 'Sets' },
+        { data: reps, color: () => `#00ff00`, strokeWidth: 2, label: 'Reps' },
+        { data: weight, color: () => `#0000ff`, strokeWidth: 2, label: 'Weight' },
+        { data: duration, color: () => `#ff00ff`, strokeWidth: 2, label: 'Duration' },
+        { data: distance, color: () => `#00ffff`, strokeWidth: 2, label: 'Distance' },
+      ],
+    };
+  };
+
+  const chartData = processData(progressData);
+
+  const renderCustomLabel = (value, index) => {
+    return (
+      <View key={index} style={{ transform: [{ rotate: '90deg' }], marginTop: 15 }}>
+        <Text style={{ color: '#fff', fontSize: 7 }}>{value}</Text>
+      </View>
+    );
   };
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
         <Text style={styles.title}>{name}</Text>
+        <Button title="View Progress" onPress={() => setModalVisible(true)} />
         <Image source={{ uri: gifUrl }} style={styles.image} />
         <Text style={styles.subtitle}>Equipment:</Text>
         <Text style={styles.description}>{equipment}</Text>
@@ -60,7 +81,6 @@ export default function ExerciseDetail({ route }) {
             </View>
           ))}
         </View>
-        <Button title="View Progress" onPress={() => setModalVisible(true)} />
         <Modal
           animationType="slide"
           transparent={false}
@@ -69,26 +89,48 @@ export default function ExerciseDetail({ route }) {
         >
           <View style={styles.modalContainer}>
             <Text style={styles.modalTitle}>Progress Over Time</Text>
-            <LineChart
-              data={chartData}
-              width={400}
-              height={400}
-              yAxisLabel=""
-              chartConfig={{
-                backgroundColor: '#e26a00',
-                backgroundGradientFrom: '#fb8c00',
-                backgroundGradientTo: '#ffa726',
-                decimalPlaces: 2,
-                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                style: {
-                  borderRadius: 16
-                }
-              }}
-              style={{
-                marginVertical: 8,
-                borderRadius: 16
-              }}
-            />
+            <View style={styles.chartContainer}>
+              <LineChart
+                data={chartData}
+                width={400}
+                height={500}
+                // yAxisLabel=""
+                // withHorizontalLabels={true}
+                chartConfig={{
+                  backgroundColor: '#e26a00',
+                  backgroundGradientFrom: '#fb8c00',
+                  backgroundGradientTo: '#ffa726',
+                  decimalPlaces: 2,
+                  color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                  style: {
+                    borderRadius: 16,
+                  },
+                  propsForDots: {
+                    r: '6',
+                    strokeWidth: '2',
+                    stroke: '#ffa726',
+                  },
+                  fromZero: true, // Ensure the chart starts from zero
+                  labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`, // Color of the labels
+                  renderLabel: renderCustomLabel,
+                }}
+                bezier
+                showLegends={false} // Disable built-in legend
+              />
+              {/* Manual Legend */}
+              <View style={styles.legendContainer}>
+                <View style={[styles.legendItem, { backgroundColor: '#ff0000' }]} />
+                <Text style={styles.legendText}>Sets</Text>
+                <View style={[styles.legendItem, { backgroundColor: '#00ff00' }]} />
+                <Text style={styles.legendText}>Reps</Text>
+                <View style={[styles.legendItem, { backgroundColor: '#0000ff' }]} />
+                <Text style={styles.legendText}>Weight</Text>
+                <View style={[styles.legendItem, { backgroundColor: '#ff00ff' }]} />
+                <Text style={styles.legendText}>Duration</Text>
+                <View style={[styles.legendItem, { backgroundColor: '#00ffff' }]} />
+                <Text style={styles.legendText}>Distance</Text>
+              </View>
+            </View>
             <Button title="Close" onPress={() => setModalVisible(false)} />
           </View>
         </Modal>
@@ -99,9 +141,9 @@ export default function ExerciseDetail({ route }) {
 
 const styles = StyleSheet.create({
   scrollContainer: {
+    flexGrow: 1,
     paddingVertical: 20,
     paddingHorizontal: 20,
-    flexGrow: 1,
     backgroundColor: '#f5f5f5',
   },
   container: {
@@ -155,13 +197,34 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
   modalTitle: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginTop: 90,
+  },
+  chartContainer: {
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  legendContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 10,
+    marginBottom: 20
+  },
+  legendItem: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    marginHorizontal: 5,
+  },
+  legendText: {
+    marginLeft: 5,
+    color: '#333',
   },
 });
-

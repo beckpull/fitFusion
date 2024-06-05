@@ -82,6 +82,7 @@ export default function PhysicalTest({ route }) {
         Auth.login(data.addUserSecondScreen.token);
         navigation.navigate('TabBar');
 
+      } 
     } catch (error) {
       console.error('Error signing up:', error.message);
     }
