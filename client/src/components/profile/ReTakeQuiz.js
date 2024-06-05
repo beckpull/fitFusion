@@ -10,16 +10,17 @@ import Auth from "../../utils/auth";
 // import { Button } from "react-native-elements";
 
 export default function ReTakeQuiz({ userId, onClose }) {
-    const [age, setAge] = useState(0);
+    const [feet, setFeet] = useState(0);
+    const [inches, setInches] = useState(0);
     const [height, setHeight] = useState(0);
     const [weight, setWeight] = useState(0);
     const [gender, setGender] = useState('null');
     const [level, setLevel] = useState('null');
     const [open, setOpen] = useState(false);
     const [items, setItems] = useState([
-        { label: `It's been a while since I've been to the gym🏋️‍♂️❌`, value: `It's been a while since I've been to the gym🏋️‍♂️❌` },
-        { label: `I'm fairly active, but there's always room for improvement💪🔄`, value: `I'm fairly active, but there's always room for improvement💪🔄` },
-        { label: 'I live for the gym!🏋️‍♂️❤️', value: 'I live for the gym!🏋️‍♂️❤️' }
+        { label: `It's been a while since I've been to the gym🏋️‍♂️❌`, value: `Beginner` },
+        { label: `I'm fairly active, but there's always room for improvement💪🔄`, value: `Intermediate` },
+        { label: 'I live for the gym!🏋️‍♂️❤️', value: 'Advanced' }
     ]);
 
     // Make sure this onClose() function is called when the component is mounted or rendered
@@ -32,18 +33,24 @@ export default function ReTakeQuiz({ userId, onClose }) {
     const [addUserSecondScreen, { error, data }] = useMutation(ADD_USER_SECOND_SCREEN);
     const navigation = useNavigation();
 
+    const getHeightInInches = () => {
+        const feetToInches = parseInt(feet) * 12;
+        const inchesValue = parseInt(inches);
+        const heightValue = feetToInches + inchesValue;
+        setHeight(heightValue);
+      }
+
     const handleSubmit = async (event) => {
         event.preventDefault();
-        if (!age || !height || !weight || !gender || !level) {
+        if (!height || !weight || !gender || !level) {
             Alert.alert('Error', 'All fields are required');
             return;
         }
-        Alert.alert('Form submitted', `Age: ${age}, Height: ${height}, Weight: ${weight}, Gender: ${gender}, Level: ${level}, Calories: ${calories}`);
+        Alert.alert('Form submitted', `Height: ${height}, Weight: ${weight}, Gender: ${gender}, Level: ${level}, Calories: ${calories}`);
         try {
             const { data } = await addUserSecondScreen({
                 variables: {
                     id: userId,
-                    age: parseInt(age),
                     height: parseInt(height),
                     weight: parseInt(weight),
                     gender,
@@ -59,8 +66,7 @@ export default function ReTakeQuiz({ userId, onClose }) {
             }
 
             Auth.login(data.addUserSecondScreen.token);
-            console.log("User added successfully!");
-            setAge('');
+            console.log("User updated successfully!");
             setHeight('');
             setWeight('');
             setGender('');
@@ -69,7 +75,7 @@ export default function ReTakeQuiz({ userId, onClose }) {
             setIsCalorieGoalEnabled(false);
             navigation.navigate('TabBar');
         } catch (error) {
-            console.error('Error signing up:', error.message);
+            console.error('Error updating:', error.message);
         }
     };
 
@@ -84,33 +90,31 @@ export default function ReTakeQuiz({ userId, onClose }) {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
             <View style={styles.container}>
                 <Text style={styles.h1}>Physical Test</Text>
-                <Text style={styles.label}>Age</Text>
-                <TextInput
-                    style={styles.input}
-                    value={age}
-                    onChangeText={(value) => {
-                        if (value >= 1 && value <= 100 || value === '') {
-                            setAge(value);
-                        }
-                    }}
-                    keyboardType="numeric"
-                    placeholder="Enter your age"
-                />
-
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <View style={{ flex: 1, marginRight: 10 }}>
                         <Text style={styles.label}>Height</Text>
-                        <TextInput
-                            style={styles.input}
-                            value={height}
-                            onChangeText={(value) => {
-                                // Convert height from feet to inches
-                                const heightInInches = value * 12;
-                                setHeight(heightInInches);
-                            }}
-                            keyboardType="decimal-pad"
-                            placeholder="Enter height in feet"
-                        />
+                        <View style={{ flexDirection: 'row', justifyContent: 'left' }}>
+                            <TextInput
+                                style={styles.input}
+                                value={feet}
+                                onChangeText={(value) => {
+                                    setFeet(value);
+                                    getHeightInInches();
+                                }}
+                                keyboardType="decimal-pad"
+                                placeholder="feet"
+                            />
+                            <TextInput
+                                style={styles.input}
+                                value={inches}
+                                onChangeText={(value) => {
+                                    setInches(value);
+                                    getHeightInInches();
+                                }}
+                                keyboardType="decimal-pad"
+                                placeholder="in."
+                            />
+                        </View>
                     </View>
                     <View style={{ flex: 1 }}>
                         <Text style={styles.label}>Weight</Text>

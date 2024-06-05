@@ -7,9 +7,11 @@ import TabBar from "../components/tabBar/TabBar";
 import { useMutation } from "@apollo/client";
 import { ADD_USER_SECOND_SCREEN } from "../utils/mutations";
 import Auth from "../utils/auth";
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
 export default function PhysicalTest({ route }) {
-  const [feetToInches, setFeetToInches] = useState(0);
+  const [feet, setFeet] = useState(0);
+  const [inches, setInches] = useState(0);
   const [height, setHeight] = useState(0);
   const [weight, setWeight] = useState(0);
   const [gender, setGender] = useState('null');
@@ -29,9 +31,16 @@ export default function PhysicalTest({ route }) {
     navigation.navigate('LoginForm');
   };
 
+  const getHeightInInches = () => {
+    const feetToInches = parseInt(feet) * 12;
+    const inchesValue = parseInt(inches);
+    const heightValue = feetToInches + inchesValue;
+    setHeight(heightValue);
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!age || !height || !weight || gender === 'null' || level === 'null'|| (isCalorieGoalEnabled && !calories)) {
+    if (!height || !weight || gender === 'null' || level === 'null'|| (isCalorieGoalEnabled && !calories)) {
       Alert.alert('Error', 'All fields are required');
       return;
     }
@@ -39,12 +48,11 @@ export default function PhysicalTest({ route }) {
       Alert.alert('Error', 'Calories field is required if setting a calorie goal');
       return;
     }
-    Alert.alert('Form submitted', `Age: ${age}, Height: ${height}, Weight: ${weight}, Gender: ${gender}, Level: ${level}, Calories: ${calories}`);
+    Alert.alert('Form submitted', `Height: ${height}, Weight: ${weight}, Gender: ${gender}, Level: ${level}, Calories: ${calories}`);
     try {
       const { data } = await addUserSecondScreen({
         variables: {
           id: route.params.userId,
-          age: parseInt(age),
           height: parseInt(height),
           weight: parseInt(weight),
           gender,
@@ -84,24 +92,20 @@ export default function PhysicalTest({ route }) {
             <View style={{ flexDirection: 'row', justifyContent: 'left' }}>
             <TextInput
               style={styles.input}
-              value={height}
+              value={feet}
               onChangeText={(value) => {
-                // Convert height from feet to inches
-                const feetToInches = value * 12;
-                setFeetToInches(feetToInches);
+               setFeet(value);
+               getHeightInInches();
               }}
               keyboardType="decimal-pad"
               placeholder="feet"
             />
             <TextInput
               style={styles.input}
-              value={height}
+              value={inches}
               onChangeText={(value) => {
-                // Convert height from feet to inches
-                const heightInInches = value + feetToInches;
-                setHeight(heightInInches);
-                console.log(heightInInches);
-                console.log(height)
+                setInches(value);
+                getHeightInInches();
               }}
               keyboardType="decimal-pad"
               placeholder="in."
