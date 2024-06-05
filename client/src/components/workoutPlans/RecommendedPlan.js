@@ -10,6 +10,8 @@ const RecommendedPlan = ({ planId, name, goal, workouts }) => {
     navigation.navigate('EachRecommendedPlan', { planId, name, goal, workouts });
   };
 
+  console.log(planId);
+
   return (
     <TouchableOpacity onPress={handlePress} style={styles.card}>
       <ButtonRemovePlan />

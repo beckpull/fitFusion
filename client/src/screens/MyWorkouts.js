@@ -26,7 +26,7 @@ const WorkoutPlan = ({ navigation }) => {
   }
 
   const { me: { workoutPlans, recommendedPlans } } = data;
-  console.log('recommended plans: ', recommendedPlans);
+  // console.log(recommendedPlans[0]._id);
 
   return (
     <View style={styles.container}>

@@ -43,7 +43,7 @@ const EachRecommendedPlan = ({ route, navigation }) => {
 
         <Text style={styles.subtitle}>Workouts:</Text>
         {workouts.map((workout) => (
-          <View key={workout.workoutId} style={styles.workoutContainer}>
+          <View key={workout._id} style={styles.workoutContainer}>
             <View style={styles.workoutBlock}>
               <TouchableOpacity onPress={() => handleExerciseClick(workout)} style={styles.workoutCard}>
                 <Text style={styles.workout}>{workout.name}</Text>
@@ -68,7 +68,7 @@ const EachRecommendedPlan = ({ route, navigation }) => {
             onSave={handleGoalFormSave}
             exercise={currentExercise}
             workoutPlanId={planId}  
-            workoutId={currentExercise.workoutId} 
+            workoutId={currentExercise._id} 
           />
         )}
 
@@ -79,7 +79,7 @@ const EachRecommendedPlan = ({ route, navigation }) => {
             onSave={handleCompletionFormSave}
             exercise={currentExercise}
             workoutPlanId={planId}  
-            workoutId={currentExercise.workoutId} 
+            workoutId={currentExercise._id} 
           />
         )}
       </View>
