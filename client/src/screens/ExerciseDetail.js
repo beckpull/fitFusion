@@ -9,7 +9,7 @@ export default function ExerciseDetail({ route }) {
   // console.log('workoutPlanId', workoutPlanId);
   const [modalVisible, setModalVisible] = useState(false);
   const { data, loading, error } = useQuery(GET_WORKOUT_PROGRESS, {
-    variables: { planId, workoutId: exercise._id },
+    variables: { workoutPlanId: planId, workoutId: exercise._id },
   });
 
   const { name, gifUrl, equipment, bodyPart, target, secondary, instructions } = exercise;
@@ -19,7 +19,10 @@ export default function ExerciseDetail({ route }) {
     console.log(error);
   }
 
-  const progressData = data?.workoutProgress || [];
+  console.log(data[1]);
+
+  const progressData = data?.getWorkoutProgress || [];
+  console.log(progressData);
 
   const processData = (progressData) => {
     const dates = progressData.map(item => new Date(item.date).toLocaleDateString());
@@ -79,32 +82,47 @@ export default function ExerciseDetail({ route }) {
         >
           <View style={styles.modalContainer}>
             <Text style={styles.modalTitle}>Progress Over Time</Text>
-            <LineChart
-              data={chartData}
-              width={400}
-              height={400}
-              yAxisLabel=""
-              chartConfig={{
-                backgroundColor: '#e26a00',
-                backgroundGradientFrom: '#fb8c00',
-                backgroundGradientTo: '#ffa726',
-                decimalPlaces: 2,
-                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                style: {
-                  borderRadius: 16,
-                },
-                propsForDots: {
-                  r: '6',
-                  strokeWidth: '2',
-                  stroke: '#ffa726',
-                },
-              }}
-              style={{
-                marginVertical: 8,
-                borderRadius: 16,
-              }}
-              bezier
-            />
+            <View style={styles.chartContainer}>
+              <LineChart
+                data={chartData}
+                width={400}
+                height={500}
+                yAxisLabel="Date"
+                withHorizontalLabels={true}
+                chartConfig={{
+                  backgroundColor: '#e26a00',
+                  backgroundGradientFrom: '#fb8c00',
+                  backgroundGradientTo: '#ffa726',
+                  decimalPlaces: 2,
+                  color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                  style: {
+                    borderRadius: 16,
+                  },
+                  propsForDots: {
+                    r: '6',
+                    strokeWidth: '2',
+                    stroke: '#ffa726',
+                  },
+                  fromZero: true, // Ensure the chart starts from zero
+                  labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`, // Color of the labels
+                }}
+                bezier
+                showLegends={false} // Disable built-in legend
+              />
+              {/* Manual Legend */}
+              <View style={styles.legendContainer}>
+                <View style={[styles.legendItem, { backgroundColor: '#ff0000' }]} />
+                <Text style={styles.legendText}>Sets</Text>
+                <View style={[styles.legendItem, { backgroundColor: '#00ff00' }]} />
+                <Text style={styles.legendText}>Reps</Text>
+                <View style={[styles.legendItem, { backgroundColor: '#0000ff' }]} />
+                <Text style={styles.legendText}>Weight</Text>
+                <View style={[styles.legendItem, { backgroundColor: '#ff00ff' }]} />
+                <Text style={styles.legendText}>Duration</Text>
+                <View style={[styles.legendItem, { backgroundColor: '#00ffff' }]} />
+                <Text style={styles.legendText}>Distance</Text>
+              </View>
+            </View>
             <Button title="Close" onPress={() => setModalVisible(false)} />
           </View>
         </Modal>
@@ -172,13 +190,36 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
   modalTitle: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 20,
+    // marginBottom: 20,
+    marginTop: 90,
+  },
+  chartContainer: {
+    marginTop: 20, // Adjust as needed
+    alignItems: 'center',
+  },
+  legendContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 10,
+    marginBottom: 20
+  },
+  legendItem: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    marginHorizontal: 5,
+  },
+  legendText: {
+    marginLeft: 5,
+    color: '#333',
   },
 });
 
