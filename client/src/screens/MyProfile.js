@@ -90,7 +90,7 @@ export default function MyProfile() {
   };
 
   const handleClick = () => {
-    const url = 'https://open.spotify.com/playlist/6n7bvpS89XxLR7rMLaIpwi?si=89cc0abf12a14737&nd=1&dlsi=66de112c7a1a4d29';
+    const url = 'https://open.spotify.com/playlist/1Tq5PyQCvmwFUW17fxcabR?si=20af5756d6e04664';
 
     Linking.canOpenURL(url)
       .then((supported) => {
