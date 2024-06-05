@@ -3,35 +3,45 @@ import { View, Text, StyleSheet, Image, ScrollView, Button, Modal } from 'react-
 import { LineChart } from 'react-native-chart-kit';
 import { useQuery } from '@apollo/client';
 import { GET_WORKOUT_PROGRESS } from '../utils/queries';
-// import { gql } from 'apollo-boost';
-
 
 export default function ExerciseDetail({ route }) {
   const { exercise, workoutPlanId } = route.params;
+  console.log(workoutPlanId);
   const [modalVisible, setModalVisible] = useState(false);
   const { data, loading, error } = useQuery(GET_WORKOUT_PROGRESS, {
-    variables: { workoutPlanId, workoutId: exercise._id }
+    variables: { workoutPlanId: workoutPlanId, workoutId: exercise._id },
   });
 
   const { name, gifUrl, equipment, bodyPart, target, secondary, instructions } = exercise;
-  console.log(instructions);
 
   if (loading) return <Text>Loading...</Text>;
   if (error) {
-    console.log(error)
+    console.log(error);
   }
 
   const progressData = data?.workoutProgress || [];
 
-  const chartData = {
-    labels: progressData.map(item => new Date(item.date).toLocaleDateString()),
-    datasets: [
-      {
-        data: progressData.map(item => item.weight || 0),
-        strokeWidth: 2,
-      },
-    ],
+  const processData = (progressData) => {
+    const dates = progressData.map(item => new Date(item.date).toLocaleDateString());
+    const sets = progressData.map(item => item.sets || 0);
+    const reps = progressData.map(item => item.reps || 0);
+    const weight = progressData.map(item => item.weight || 0);
+    const duration = progressData.map(item => item.duration || 0);
+    const distance = progressData.map(item => item.distance || 0);
+
+    return {
+      labels: dates,
+      datasets: [
+        { data: sets, color: () => `#ff0000`, strokeWidth: 2, label: 'Sets' },
+        { data: reps, color: () => `#00ff00`, strokeWidth: 2, label: 'Reps' },
+        { data: weight, color: () => `#0000ff`, strokeWidth: 2, label: 'Weight' },
+        { data: duration, color: () => `#ff00ff`, strokeWidth: 2, label: 'Duration' },
+        { data: distance, color: () => `#00ffff`, strokeWidth: 2, label: 'Distance' },
+      ],
+    };
   };
+
+  const chartData = processData(progressData);
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -81,13 +91,19 @@ export default function ExerciseDetail({ route }) {
                 decimalPlaces: 2,
                 color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
                 style: {
-                  borderRadius: 16
-                }
+                  borderRadius: 16,
+                },
+                propsForDots: {
+                  r: '6',
+                  strokeWidth: '2',
+                  stroke: '#ffa726',
+                },
               }}
               style={{
                 marginVertical: 8,
-                borderRadius: 16
+                borderRadius: 16,
               }}
+              bezier
             />
             <Button title="Close" onPress={() => setModalVisible(false)} />
           </View>
@@ -97,11 +113,12 @@ export default function ExerciseDetail({ route }) {
   );
 };
 
+
 const styles = StyleSheet.create({
   scrollContainer: {
+    flexGrow: 1,
     paddingVertical: 20,
     paddingHorizontal: 20,
-    flexGrow: 1,
     backgroundColor: '#f5f5f5',
   },
   container: {
@@ -164,4 +181,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 });
+
+
 

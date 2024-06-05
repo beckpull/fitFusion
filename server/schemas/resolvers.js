@@ -35,13 +35,33 @@ const resolvers = {
 
       return foundUser.workoutPlans;
     },
+
+    getWorkoutProgress: async (parent, { workoutPlanId, workoutId }, context) => {
+      if (!context.user) {
+        throw new AuthenticationError('You must be logged in');
+      }
+
+      const workoutPlan = await WorkoutPlan.findOne({ _id: workoutPlanId });
+
+      if (!workoutPlan) {
+        throw new Error('Workout Plan not found');
+      }
+
+      const workout = workoutPlan.workouts.id(workoutId);
+
+      if (!workout) {
+        throw new Error('Workout not found');
+      }
+
+      return workout.progress;
+    }
   },
 
   Mutation: {
-    addUser: async (parent, { username, email, password, country, birthDate, height, weight, gender, level, calories }) => {
+    addUser: async (parent, { username, email, password, country, birthDate, age, height, weight, gender, level, calories }) => {
       try {
         // Create the user
-        const user = await User.create({ username, email, password, country, birthDate, height, weight, gender, level, calories });
+        const user = await User.create({ username, email, password, country, birthDate, age, height, weight, gender, level, calories });
     
         // Find recommended plans
         const recommendedPlans = await WorkoutPlan.find({ isRecommended: true }).select('_id');
@@ -70,11 +90,11 @@ const resolvers = {
     },
     
 
-    addUserSecondScreen: async (parent, { height, weight, gender, level, calories }, context) => {
+    addUserSecondScreen: async (parent, { age, height, weight, gender, level, calories }, context) => {
       if (context.user) {
         const updatedUserFromForm = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $set: { height, weight, gender, level, calories } },
+          { $set: { age, height, weight, gender, level, calories } },
           { new: true }
         );
         if (!updatedUserFromForm) {
