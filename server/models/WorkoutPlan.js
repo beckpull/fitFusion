@@ -12,6 +12,10 @@ const workoutPlanSchema = new Schema(
             type: String,
             required: true,         
         },
+        isRecommended: {
+            type: Boolean,
+            default: false,
+        },
         workouts: [workoutSchema],
     }
 );

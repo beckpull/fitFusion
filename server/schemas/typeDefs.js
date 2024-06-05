@@ -8,6 +8,7 @@ const typeDefs = `
         birthDate: String!
         profilePic: ProfilePic
         workoutPlans: [WorkoutPlan]
+        recommendedPlans: [WorkoutPlan]
     }
 
     type ProfilePic {
@@ -17,9 +18,10 @@ const typeDefs = `
 
     type WorkoutPlan {
         _id: ID
-        name: String
+        name: String!
         goal: String
         workouts: [Workout]
+        isRecommended: Boolean
     }
 
     type Workout {

@@ -4,18 +4,14 @@ const { signToken, AuthenticationError } = require('../utils/auth');
 const resolvers = {
   Query: {
     me: async (parent, args, context) => {
-      const foundUser = await User.findOne({
-        _id: context.user._id
-      })
-        // ADD THIS LINE IF WE WANT QUERY:ME TO RETURN WORKOUTPLAN NAMES
-        .populate('workoutPlans');
-      // ^^^^^^^^^
-      // return User.findOne({ _id: context.user._id });
+      const foundUser = await User.findOne({ _id: context.user._id })
+        .populate('workoutPlans')
+        .populate('recommendedPlans');
 
       if (!foundUser) {
         console.log("no found user");
       }
-
+      console.log(foundUser);
       return foundUser;
     },
 
@@ -42,11 +38,36 @@ const resolvers = {
 
   Mutation: {
     addUser: async (parent, { username, email, password, country, birthDate, age, height, weight, gender, level, calories }) => {
-      const user = await User.create({ username, email, password, country, birthDate, age, height, weight, gender, level, calories });
-      const token = signToken(user);
-
-      return { token, user };
+      try {
+        // Create the user
+        const user = await User.create({ username, email, password, country, birthDate, age, height, weight, gender, level, calories });
+    
+        // Find recommended plans
+        const recommendedPlans = await WorkoutPlan.find({ isRecommended: true }).select('_id');
+        recommendedPlans && recommendedPlans.length > 0 ? console.log(recommendedPlans) : console.log("No plans found to seed");
+        // Extract plan IDs
+        const recommendedPlanIds = recommendedPlans.map(plan => plan._id);
+    
+        // Attach recommended plans to the user
+        user.recommendedPlans = recommendedPlanIds;
+    
+        // Save the user
+        await user.save();
+    
+        console.log('User created successfully with recommended plans attached.');
+        
+        // Generate token for the user
+        const token = signToken(user);
+    
+        // Return token and user object
+        return { token, user };
+      } catch (error) {
+        console.error('Error creating user:', error);
+        // Handle error appropriately, maybe throw an error or return an error message
+        throw new Error('Failed to create user');
+      }
     },
+    
 
     addUserSecondScreen: async (parent, { age, height, weight, gender, level, calories }, context) => {
       if (context.user) {
@@ -107,7 +128,8 @@ const resolvers = {
         const workoutPlan = await WorkoutPlan.create({
 
           name,
-          goal
+          goal,
+          isRecommended: false
         });
 
         await User.findOneAndUpdate(

@@ -15,6 +15,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // import MyWorkouts from './src/screens/MyWorkouts';
 import EachPlan from './src/screens/EachPlan';
+import EachRecommendedPlan from './src/screens/EachRecommendedPlan';
 import ExerciseDetail from './src/screens/ExerciseDetail';
 import { WorkoutProvider } from './src/context/WorkoutContext';
 import TabBar from './src/components/tabBar/TabBar';
@@ -72,6 +73,7 @@ export default function App() {
 
             {/* <Stack.Screen name="MyWorkouts" component={MyWorkouts} /> */}
             <Stack.Screen name="EachPlan" component={EachPlan} />
+            <Stack.Screen name="EachRecommendedPlan" component={EachRecommendedPlan} />
             <Stack.Screen name="ExerciseDetail" component={ExerciseDetail} />
 
 
