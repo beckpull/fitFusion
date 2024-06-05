@@ -1,19 +1,25 @@
 import { gql } from '@apollo/client';
 
 export const GET_ME = gql`
-query Me{
+query Me {
   me {
     _id
+    age
     birthDate
+    calories
     country
     email
+    gender
+    height
+    level
     password
     username
+    weight
     profilePic {
-      data
       contentType
+      data
     }
-    workoutPlans {
+    recommendedPlans {
       _id
       date
       goal
@@ -40,7 +46,7 @@ query Me{
         }
       }
     }
-    recommendedPlans {
+    workoutPlans {
       _id
       goal
       isRecommended
