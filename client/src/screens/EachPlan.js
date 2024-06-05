@@ -34,7 +34,6 @@ const EachPlan = ({ navigation, route }) => {
 
   const { me: { workoutPlans } } = data;
   const currentPlan = workoutPlans.find(plan => plan._id === planId);
-  // console.log(currentPlan.workouts);
 
   if (!currentPlan) {
     return <Text>Workout Plan not found</Text>;
@@ -119,12 +118,7 @@ const EachPlan = ({ navigation, route }) => {
           <Text style={styles.subtitle}>Goal: {currentPlan.goal}</Text>
         </View>
 
-        <View style={styles.titleContainer}>
-          <Text style={styles.subtitle}>Workout Goal: </Text>
-
-          <Text style={styles.workoutBlock}>{currentPlan.goal}</Text>
-
-        </View>
+       
 
         <Text style={styles.subtitle}>Workouts:</Text>
         {currentPlan.workouts.map((workout) => (
