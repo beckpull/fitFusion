@@ -77,8 +77,8 @@ export default function ReTakeQuiz({ userId, onClose }) {
             setLevel('');
             setCalories('');
             setIsCalorieGoalEnabled(false);
-            
-            navigation.navigate('TabBar');
+
+            navigation.navigate('TabBar'); // doesn't navigate anywhere
 
         } catch (error) {
             console.error('Error updating:', error.message);

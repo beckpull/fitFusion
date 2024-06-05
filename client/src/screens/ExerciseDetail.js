@@ -6,7 +6,7 @@ import { GET_WORKOUT_PROGRESS } from '../utils/queries';
 // import { gql } from 'apollo-boost';
 
 
-const ExerciseDetail = ({ route }) => {
+export default function ExerciseDetail({ route }) {
   const { exercise, workoutPlanId } = route.params;
   const [modalVisible, setModalVisible] = useState(false);
   const { data, loading, error } = useQuery(GET_WORKOUT_PROGRESS, {
@@ -14,9 +14,12 @@ const ExerciseDetail = ({ route }) => {
   });
 
   const { name, gifUrl, equipment, bodyPart, target, secondary, instructions } = exercise;
+  console.log(instructions);
 
   if (loading) return <Text>Loading...</Text>;
-  if (error) return <Text>Error loading progress data</Text>;
+  if (error) {
+    console.log(error)
+  }
 
   const progressData = data?.workoutProgress || [];
 
@@ -51,7 +54,7 @@ const ExerciseDetail = ({ route }) => {
         </Text>
         <Text style={styles.subtitle}>Instructions:</Text>
         <View style={styles.instructionList}>
-          {instructions.map((instruction, index) => (
+          {instructions[0].split(', ').map((instruction, index) => (
             <View key={index} style={styles.instructionItem}>
               <Text style={styles.instruction}>{index + 1}. {instruction}</Text>
             </View>
@@ -162,4 +165,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ExerciseDetail;
