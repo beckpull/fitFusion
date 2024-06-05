@@ -63,22 +63,24 @@ export default function TabBar() {
       <Tab.Screen 
         name="MyWorkouts" 
         component={MyWorkouts} 
-        options={{ headerLeft: () => <LanguageToggle i18n={i18n} /> }}
+        // options={{ headerLeft: () => <LanguageToggle i18n={i18n} /> }}
+        options={{ headerShown: false }} 
         />
       <Tab.Screen 
         name="Blog" 
         component={Blog} 
-        options={{ headerLeft: () => <LanguageToggle i18n={i18n} /> }}
+        // options={{ headerLeft: () => <LanguageToggle i18n={i18n} /> }}
+        options={{ headerShown: false }} 
         />
       <Tab.Screen 
         name="MyProgress" 
         component={MyProgress}
-        options={{ headerLeft: () => <LanguageToggle i18n={i18n} /> }} 
+        // options={{ headerLeft: () => <LanguageToggle i18n={i18n} /> }} 
         />
       <Tab.Screen 
         name="MyProfile" 
         component={MyProfile} 
-        options={{ headerLeft: () => <LanguageToggle i18n={i18n} />, headerShown: false }} 
+        options={{ headerShown: false }} 
         />
     </Tab.Navigator>
   );

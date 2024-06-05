@@ -22,7 +22,6 @@ export default function MyProfile() {
   const [updateProfilePic] = useMutation(UPDATE_PROFILE_PIC);
   const { loading, error, data } = useQuery(GET_ME);
   const { i18n } = useContext(I18nContext);
-
   console.log('Loading:', loading);
   console.log('Error:', error);
 
@@ -30,32 +29,20 @@ export default function MyProfile() {
   // console.log('Data:', data);
   // console.log("this is for the PROGILEPIC Property of data: ---> ", data.me.profilePic.data)
 
+
   useEffect(() => {
-    if(data && data.me && data.me.profilePic.data) {
+    if (data && data.me && data.me.profilePic.data) {
       //{ uri: PlaceholderImage }
-      setImage({uri: `data:image/jpeg;base64,${data.me.profilePic.data}`})
+      setImage({ uri: `data:image/jpeg;base64,${data.me.profilePic.data}` })
     }
   }, [data]);
-
+  
   if (loading) return <Text>Loading...</Text>;
   if (error) return <Text>Error: {error.message}</Text>;
-
+  
   const { me: { username, level, workoutPlans } } = data;
-
-
-  // const handleUpdateImage = async (imageUrl) => {
-  //   console.log("URL Image: ", imageUrl);
-  //   try {
-  //     const { data } = await updateUserImage({
-  //       variables: {
-  //         imageUrl: imageUrl,
-  //       },
-  //     });
-  //     console.log('Updated user image:', data);
-  //   } catch (error) {
-  //     console.error('Error updating user image:', error);
-  //   }
-  // };
+  
+  const levelTranslationKey = `level${level}`;
 
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -78,6 +65,7 @@ export default function MyProfile() {
           }
         }
       })
+
       .then(response => {
         console.log("profile picture updated");
         setImage({uri: `data:${profilePicContentType};base64,${profilePicData}`})
@@ -87,23 +75,23 @@ export default function MyProfile() {
         Alert.alert("Error updating profile picture, please try again");
       })
     } else {
+
       Alert.alert('You did not select any image.');
     }
-    // handleUpdateImage();
   };
-
+  
   const handleClick = () => {
     const url = 'https://open.spotify.com/playlist/1Tq5PyQCvmwFUW17fxcabR?si=20af5756d6e04664';
-
+    
     Linking.canOpenURL(url)
-      .then((supported) => {
-        if (supported) {
-          return Linking.openURL(url);
-        } else {
-          console.log(`Don't know how to open this URL: ${url}`);
-        }
-      })
-      .catch((err) => console.error('An error occurred', err));
+    .then((supported) => {
+      if (supported) {
+        return Linking.openURL(url);
+      } else {
+        console.log(`Don't know how to open this URL: ${url}`);
+      }
+    })
+    .catch((err) => console.error('An error occurred', err));
   };
   // console.log("This is Image: ", image)
   return (
@@ -111,25 +99,25 @@ export default function MyProfile() {
       <ScrollView>
         <TouchableOpacity style={styles.card}>
           <View style={styles.imageWrapper}>
-            {loading ? <Text>Loading...</Text> : image && (
-            <Image
+            {loading ? <Text>{i18n.t('Loading')}...</Text> : image && (
+              <Image
               source={image}
               style={{ width: 100, height: 100, borderRadius: 50 }}
               // placeholderImageSource={PlaceholderImage}
               // selectedImage={selectedImage}
-            />
-          )}
+              />
+            )}
           </View>
 
           <View style={styles.userInfoContainer}>
             <IconButton iconName="picture-o" onPress={pickImageAsync} />
             <Text style={styles.userName}>
-              {`${i18n.t('welcome')} ${username}`}
+              {i18n.t('welcome')}: {username}
             </Text>
 
-            <Text style={styles.userWorkouts}>Lvl: {level}</Text>
+            <Text style={styles.userWorkouts}>{i18n.t('Level')} : {level}</Text>
             <Text style={styles.userWorkouts}>
-              {`${i18n.t('workouts')}: ${workoutPlans.length}`}
+              {i18n.t('workouts')}: {workoutPlans.length}
             </Text>
           </View>
         </TouchableOpacity>
@@ -137,7 +125,7 @@ export default function MyProfile() {
           <Icon name="music" size={30} color={Colors.primaryVariant} />
           <View style={styles.cont}>
             <Text style={{ fontWeight: 'bold', marginBottom: 5 }}>FitFusion Music</Text>
-            <Text>Your best Buddy to work out</Text>
+            <Text>{i18n.t('Your best Buddy to work out')}</Text>
           </View>
         </TouchableOpacity>
         <View>
@@ -151,8 +139,9 @@ export default function MyProfile() {
           >
             <ReTakeQuiz onClose={() => setModalVisible(false)} />
           </Modal>
+
           <TouchableOpacity onPress={() => setModalVisible(true)}>
-            <Text style={styles.link}>Re-take Physical test</Text>
+            <Text style={styles.link}>{i18n.t('Re-take Physical test')}</Text>
           </TouchableOpacity>
         </View>
 
