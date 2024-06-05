@@ -11,6 +11,7 @@ const resolvers = {
       if (!foundUser) {
         console.log("no found user");
       }
+      console.log(foundUser);
       return foundUser;
     },
 
