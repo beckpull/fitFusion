@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { ScrollView, Text, StyleSheet, View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { I18nContext } from '../../../App';
 
 export default function Footer() {
+
+  const { i18n } = useContext(I18nContext);
+
   const handleIconPress = (iconName) => {
     // Placeholder function to handle icon press
     console.log(`${iconName} icon pressed`);
@@ -12,9 +16,9 @@ export default function Footer() {
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.footer}>
         <Text style={styles.text}>© 2024 FitFusion</Text>
-        <Text style={styles.text2}>Thanks to: </Text>
+        <Text style={styles.text2}>{i18n.t('Thanks to')}: </Text>
         <Text style={styles.names}>Rebecca Feltman, Silvia Reyes, Jordan Heersink, William Kalish, Zach Cook</Text>
-        <Text style={styles.text}>Contact: support@fitfusion.com</Text>
+        <Text style={styles.text}>{i18n.t('Contact')}: support@fitfusion.com</Text>
         <View style={styles.iconContainer}>
           <TouchableOpacity onPress={() => handleIconPress('facebook')}>
             <Icon name='logo-facebook' size={24} color='white' style={styles.icon} />
@@ -46,7 +50,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 40,
+    paddingTop: 20,
     paddingVertical: 20,
     backgroundColor: '#333',
   },
@@ -67,6 +71,7 @@ const styles = StyleSheet.create({
     color: 'white',
     marginBottom: 10,
     textAlign: 'center',
+    fontSize: 12,
   },
   iconContainer: {
     flexDirection: 'row',

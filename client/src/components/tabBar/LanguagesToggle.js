@@ -1,8 +1,7 @@
 import React, { useState, useContext } from 'react';
-import { View } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
-// import i18n from 'i18n-js';
+import { View, ScrollView, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { I18nContext } from '../../../App';
+import Colors from '../../styles/colors';
 
 
 export default function LanguageToggle() {
@@ -13,21 +12,39 @@ export default function LanguageToggle() {
     const changeLanguage = (value) => {
         setSelectedLanguage(value);
         changeLocale(value);
-        // i18n.locale = value;
-        console.log('i18n.locale: ', i18n.locale);
+        // console.log('i18n.locale: ', i18n.locale);
     };
 
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Picker
-                selectedValue={selectedLanguage}
-                onValueChange={changeLanguage}
-                style={{ height: 50, width: 150 }}
-            >
-                <Picker.Item label="English" value="en" />
-                <Picker.Item label="Español" value="es" />
-                <Picker.Item label="Português" value="pt" />
-            </Picker>
+        <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginLeft:20 }}>
+            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                <TouchableOpacity onPress={() => changeLanguage('en')} style={styles.languageButton}>
+                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: selectedLanguage === 'en' ? Colors.primaryVariant : 'black' }}>EN</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => changeLanguage('es')} style={styles.languageButton}>
+                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: selectedLanguage === 'es' ? Colors.primaryVariant : 'black' }}>ES</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => changeLanguage('pt')} style={styles.languageButton}>
+                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: selectedLanguage === 'pt' ? Colors.primaryVariant : 'black' }}>PT</Text>
+                </TouchableOpacity>
+            </ScrollView>
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    languageButton: {
+      backgroundColor: '##e5e8e8',
+      borderRadius: 5,
+      padding: 5,
+      margin: 5,
+    },
+    languageText: {
+      fontSize: 12,
+      color: 'black',
+    },
+    selectedLanguageText: {
+      fontSize: 12,
+      color: 'blue',
+    },
+  });

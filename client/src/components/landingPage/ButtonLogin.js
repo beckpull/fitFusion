@@ -1,16 +1,20 @@
 import { Text, Pressable, StyleSheet } from 'react-native';
+import { I18nContext } from '../../../App';
+import { useContext } from 'react';
 
 export default function ButtonLogin({ navigation }) {
+  const { i18n } = useContext(I18nContext);
+
   return (
     <Pressable style={styles.button} onPress={() => navigation.navigate('LoginForm')}>
-      <Text style={styles.buttonText}>Login</Text>
+      <Text style={styles.buttonText}>{i18n.t('Login')}</Text>
     </Pressable>
   )
 }
 
 const styles = StyleSheet.create({
   button: {
-    width: 100,
+    width: 150,
     height: 50,
     backgroundColor: 'black',
     alignItems: 'center',

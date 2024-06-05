@@ -17,15 +17,10 @@ export default function TabBar() {
   const navigation = useNavigation();
 
   const { i18n } = useContext(I18nContext);
-  // console.log('i18n from the TabBar : ', i18n);
-  // console.log(i18n.t('welcome'));
-  // console.log(i18n.t('workouts'));
-  // console.log('calling useEffect from outside the TabBar');
   useEffect(() => {
-    console.log('calling useEffect from TabBar inside the useEffect');
 
     if(i18n){
-      console.log('i18n.locale: ', i18n.locale);
+      // console.log('i18n.locale: ', i18n.locale);
       navigation.setOptions({
         headerTitle: '',
         headerStyle: {
@@ -63,22 +58,24 @@ export default function TabBar() {
       <Tab.Screen 
         name="MyWorkouts" 
         component={MyWorkouts} 
-        options={{ headerLeft: () => <LanguageToggle i18n={i18n} /> }}
+        // options={{ headerLeft: () => <LanguageToggle i18n={i18n} /> }}
+        options={{ headerShown: false }} 
         />
       <Tab.Screen 
         name="Blog" 
         component={Blog} 
-        options={{ headerLeft: () => <LanguageToggle i18n={i18n} /> }}
+        // options={{ headerLeft: () => <LanguageToggle i18n={i18n} /> }}
+        options={{ headerShown: false }} 
         />
       <Tab.Screen 
         name="MyProgress" 
         component={MyProgress}
-        options={{ headerLeft: () => <LanguageToggle i18n={i18n} /> }} 
+        // options={{ headerLeft: () => <LanguageToggle i18n={i18n} /> }} 
         />
       <Tab.Screen 
         name="MyProfile" 
         component={MyProfile} 
-        options={{ headerLeft: () => <LanguageToggle i18n={i18n} />, headerShown: false }} 
+        options={{ headerShown: false }} 
         />
     </Tab.Navigator>
   );
