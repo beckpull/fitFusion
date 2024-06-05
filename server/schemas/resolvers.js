@@ -4,18 +4,13 @@ const { signToken, AuthenticationError } = require('../utils/auth');
 const resolvers = {
   Query: {
     me: async (parent, args, context) => {
-      const foundUser = await User.findOne({
-        _id: context.user._id
-      })
-        // ADD THIS LINE IF WE WANT QUERY:ME TO RETURN WORKOUTPLAN NAMES
-        .populate('workoutPlans').populate('recommendedPlans');
-      // ^^^^^^^^^
-      // return User.findOne({ _id: context.user._id });
+      const foundUser = await User.findOne({ _id: context.user._id })
+        .populate('workoutPlans')
+        .populate('recommendedPlans');
 
       if (!foundUser) {
         console.log("no found user");
       }
-
       return foundUser;
     },
 
@@ -130,7 +125,8 @@ const resolvers = {
         const workoutPlan = await WorkoutPlan.create({
         
           name,
-          goal
+          goal,
+          isRecommended: false
         });
 
         await User.findOneAndUpdate(
