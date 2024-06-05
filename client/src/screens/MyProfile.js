@@ -27,8 +27,8 @@ export default function MyProfile() {
   console.log('Error:', error);
 
 
-  console.log('Data:', data);
-  console.log("this is for the PROGILEPIC Property of data: ---> ", data.me.profilePic.data)
+  // console.log('Data:', data);
+  // console.log("this is for the PROGILEPIC Property of data: ---> ", data.me.profilePic.data)
 
   useEffect(() => {
     if(data && data.me && data.me.profilePic.data) {
@@ -62,22 +62,25 @@ export default function MyProfile() {
       allowsEditing: true,
       quality: 1,
       base64: true,
+      mimeType: true,
     });
+    console.log("this is result:", result)
 
     if (!result.canceled) {
       const profilePicData = result.assets[0].base64;
+      const profilePicContentType = result.assets[0].mimeType;
 
       updateProfilePic({
         variables: {
           profilePic: {
             data: profilePicData,
-            contentType: 'image/jpeg'
+            contentType: profilePicContentType,
           }
         }
       })
       .then(response => {
-        console.log("profile picture updated", response.data);
-        setImage({uri: `data:image/jpeg;base64,${profilePicData}`})
+        console.log("profile picture updated");
+        setImage({uri: `data:${profilePicContentType};base64,${profilePicData}`})
       })
       .catch(error => {
         console.error('Error updating picture:', error);
@@ -102,7 +105,7 @@ export default function MyProfile() {
       })
       .catch((err) => console.error('An error occurred', err));
   };
-  console.log("This is Image: ", image)
+  // console.log("This is Image: ", image)
   return (
     <View style={styles.container}>
       <ScrollView>
