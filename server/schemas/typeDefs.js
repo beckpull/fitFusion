@@ -49,7 +49,7 @@ const typeDefs = `
 
     type Progress {
         _id: ID
-        date: String!
+        date: Date
         sets: Int
         reps: Int
         weight: Int
