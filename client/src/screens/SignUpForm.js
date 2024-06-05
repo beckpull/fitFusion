@@ -51,9 +51,8 @@ export default function SignUpForm() {
     navigation.navigate('LoginForm'); // Replace 'Login' with the name of your Login screen in your navigation stack
   };
 
-  const handleSubmit = async(event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("User Signing up", username, email, password, country, birthDate);
     if (!username || !email || !password || !country || !birthDate) {
       Alert.alert('Error', 'All fields are required');
       return;
@@ -61,7 +60,7 @@ export default function SignUpForm() {
       Alert.alert('Error', 'Please enter a valid email address');
       return;
     }
-
+  
     setUsername('');
     setEmail('');
     setPassword('');
@@ -72,14 +71,14 @@ export default function SignUpForm() {
       const { data } = await addUser({
         variables: { username, email, password, country, birthDate },
       });
-
+  
       console.log('This is the data: ', data);
-
+  
       if (error) {
         console.error('Server error:', error);
         return;
       }
-
+  
       Auth.login(data.addUser.token);
       console.log("User added successfully!", data.addUser);
       // console.log("User added successfully!");
@@ -88,6 +87,7 @@ export default function SignUpForm() {
       console.error('something happened!!', err.message);
     }
   };
+  
 
 
   useEffect(() => {

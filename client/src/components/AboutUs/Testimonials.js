@@ -83,7 +83,7 @@ function Testimonials() {
 
 const styles = StyleSheet.create({
     container: {
-        padding: 16,
+        padding: 10,
     },
     heading: {
         fontSize: 24,

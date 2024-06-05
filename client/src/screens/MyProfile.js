@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+
+import UserImage from '../components/profile/UserImage';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, StyleSheet, Text, ScrollView, TouchableOpacity, Alert, Linking, Modal, Image } from 'react-native';
-// import UserImage from '../components/profile/UserImage';
 import { StatusBar } from 'expo-status-bar';
 import * as ImagePicker from 'expo-image-picker';
 import IconButton from '../components/profile/IconButton';
@@ -11,6 +12,7 @@ import ReTakeQuiz from '../components/profile/ReTakeQuiz';
 import { useMutation, useQuery } from '@apollo/client';
 import { UPDATE_PROFILE_PIC } from '../utils/mutations';
 import { GET_ME } from '../utils/queries';
+import { I18nContext } from '../../App';
 
 const PlaceholderImage = require('../assets/images/persona-icon.jpg');
 
@@ -19,8 +21,11 @@ export default function MyProfile() {
   const [image, setImage] = useState(PlaceholderImage);
   const [updateProfilePic] = useMutation(UPDATE_PROFILE_PIC);
   const { loading, error, data } = useQuery(GET_ME);
+  const { i18n } = useContext(I18nContext);
+
   console.log('Loading:', loading);
   console.log('Error:', error);
+
 
   console.log('Data:', data);
   console.log("this is for the PROGILEPIC Property of data: ---> ", data.me.profilePic.data)
@@ -35,7 +40,8 @@ export default function MyProfile() {
   if (loading) return <Text>Loading...</Text>;
   if (error) return <Text>Error: {error.message}</Text>;
 
-  const { me: { username, workoutPlans } } = data;
+  const { me: { username, level, workoutPlans } } = data;
+
 
   // const handleUpdateImage = async (imageUrl) => {
   //   console.log("URL Image: ", imageUrl);
@@ -84,7 +90,7 @@ export default function MyProfile() {
   };
 
   const handleClick = () => {
-    const url = 'https://open.spotify.com/playlist/6n7bvpS89XxLR7rMLaIpwi?si=89cc0abf12a14737&nd=1&dlsi=66de112c7a1a4d29';
+    const url = 'https://open.spotify.com/playlist/1Tq5PyQCvmwFUW17fxcabR?si=20af5756d6e04664';
 
     Linking.canOpenURL(url)
       .then((supported) => {
@@ -114,8 +120,14 @@ export default function MyProfile() {
 
           <View style={styles.userInfoContainer}>
             <IconButton iconName="picture-o" onPress={pickImageAsync} />
-            <Text style={styles.userName}>Welcome {username}</Text>
-            <Text style={styles.userWorkouts}>Workouts: {workoutPlans.length}</Text>
+            <Text style={styles.userName}>
+              {`${i18n.t('welcome')} ${username}`}
+            </Text>
+
+            <Text style={styles.userWorkouts}>Lvl: {level}</Text>
+            <Text style={styles.userWorkouts}>
+              {`${i18n.t('workouts')}: ${workoutPlans.length}`}
+            </Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.card} onPress={handleClick}>
@@ -125,9 +137,6 @@ export default function MyProfile() {
             <Text>Your best Buddy to work out</Text>
           </View>
         </TouchableOpacity>
-
-        <VerticalTabs />
-
         <View>
           <Modal
             animationType="slide"
@@ -143,6 +152,9 @@ export default function MyProfile() {
             <Text style={styles.link}>Re-take Physical test</Text>
           </TouchableOpacity>
         </View>
+
+        <VerticalTabs />
+
       </ScrollView>
       <StatusBar style="auto" />
     </View>

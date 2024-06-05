@@ -34,6 +34,7 @@ const EachPlan = ({ navigation, route }) => {
 
   const { me: { workoutPlans } } = data;
   const currentPlan = workoutPlans.find(plan => plan._id === planId);
+  // console.log(currentPlan.workouts);
 
   if (!currentPlan) {
     return <Text>Workout Plan not found</Text>;
@@ -115,6 +116,7 @@ const EachPlan = ({ navigation, route }) => {
 
         <View style={styles.titleContainer}>
           <Text style={styles.title}>{currentPlan.name}</Text>
+          <Text style={styles.subtitle}>Goal: {currentPlan.goal}</Text>
         </View>
 
         <View style={styles.titleContainer}>
@@ -133,10 +135,10 @@ const EachPlan = ({ navigation, route }) => {
                 <ButtonRemoveExercise onPress={() => handleRemove(currentPlan.name, workout.name, workout._id)} />
               </TouchableOpacity>
               <View style={styles.buttonContainer}>
-                <TouchableOpacity onPress={() => handleComplete(workout)} style={styles.completeButton}>
+                <TouchableOpacity onPress={() => handleComplete(workout, planId)} style={styles.completeButton}>
                   <Text style={styles.completeButtonText}>Complete</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handleSetGoal(workout)} style={styles.setGoalButton}>
+                <TouchableOpacity onPress={() => handleSetGoal(workout, planId)} style={styles.setGoalButton}>
                   <Text style={styles.setGoalButtonText}>Set Goal</Text>
                 </TouchableOpacity>
               </View>
@@ -174,21 +176,21 @@ const EachPlan = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   scrollContainer: {
     flexGrow: 1,
+    padding: 15,
   },
   container: {
     flex: 1,
     alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingTop: 20,
   },
   titleContainer: {
-    flexDirection: 'row',
+    // flex: 1,
     alignItems: 'center',
-    marginBottom: 20,
+    // marginBottom: 20,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
+    marginBottom: 20,
   },
   subtitle: {
     fontSize: 18,

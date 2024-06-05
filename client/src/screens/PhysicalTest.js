@@ -16,9 +16,9 @@ export default function PhysicalTest({ route }) {
   const [level, setLevel] = useState('null');
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState([
-    { label: `It's been a while since I've been to the gym🏋️‍♂️❌`, value: `It's been a while since I've been to the gym🏋️‍♂️❌` },
-    { label: `I'm fairly active, but there's always room for improvement💪🔄`, value: `I'm fairly active, but there's always room for improvement💪🔄` },
-    { label: 'I live for the gym!🏋️‍♂️❤️', value: 'I live for the gym!🏋️‍♂️❤️' }
+    { label: `It's been a while since I've been to the gym🏋️‍♂️❌`, value: `Beginner` },
+    { label: `I'm fairly active, but there's always room for improvement💪🔄`, value: `Intermediate` },
+    { label: 'I live for the gym!🏋️‍♂️❤️', value: 'Advanced' }
   ]);
 
   const [calories, setCalories] = useState('');
@@ -31,8 +31,12 @@ export default function PhysicalTest({ route }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!age || !height || !weight || !gender || !level) {
+    if (!age || !height || !weight || gender === 'null' || level === 'null'|| (isCalorieGoalEnabled && !calories)) {
       Alert.alert('Error', 'All fields are required');
+      return;
+    }
+    if (isCalorieGoalEnabled && !calories) {
+      Alert.alert('Error', 'Calories field is required if setting a calorie goal');
       return;
     }
     Alert.alert('Form submitted', `Age: ${age}, Height: ${height}, Weight: ${weight}, Gender: ${gender}, Level: ${level}, Calories: ${calories}`);
@@ -45,7 +49,7 @@ export default function PhysicalTest({ route }) {
           weight: parseInt(weight),
           gender,
           level,
-          calories: parseInt(calories),
+          calories: isCalorieGoalEnabled ? parseInt(calories) : null,
         },
       });
       console.log('This is the data: ', data);
@@ -53,7 +57,7 @@ export default function PhysicalTest({ route }) {
         console.error('Server error:', error);
         return;
       }
-
+    
       Auth.login(data.addUserSecondScreen.token);
       console.log("User added successfully!");
       navigation.navigate('TabBar');
@@ -61,6 +65,7 @@ export default function PhysicalTest({ route }) {
       console.error('Error signing up:', error.message);
     }
   };
+  
 
 
   useEffect(() => {

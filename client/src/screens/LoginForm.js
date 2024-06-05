@@ -11,47 +11,51 @@ import Auth from "../utils/auth";
 export default function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const [userFormData, setUserFormData] = useState({ email: '', password: '' });
   const [login, { error, data }] = useMutation(LOGIN_USER);
-  const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  
-  
-  const navigation = useNavigation();
+  const [isEmailValid, setIsEmailValid] = useState(true);
+  const [isPasswordValid, setIsPasswordValid] = useState(true);
 
-  // const handleInputChange = (event) => {
-  //   const { name, value } = event.target;
-  //   setUserFormData({ 
-  //     ...userFormData, 
-  //     [name]: value });
-  // }
+  const navigation = useNavigation();
 
   const handleSubmit = async(event) => {
     event.preventDefault();
-    console.log("user: ", email, password);
-
+    
+    // Check if any field is empty
+    if (!email.trim() || !password.trim()) {
+      Alert.alert('Error', 'Please fill out all fields.');
+      return;
+    }
+  
     try {
       console.log("Attempting login...");
       const { data } = await login({
         variables: { email, password },
       });
-
+  
       console.log('This is the data: ', data);
-
+  
       if (error) {
         console.error('Server error:', error);
         setShowAlert(true);
         return;
       }
-
+  
       Auth.login(data.login.token);
       console.log("Login successful!");
       navigation.navigate('TabBar');
     } catch (err) {
       console.error('something happened!!', err.message);
-      setShowAlert(true);
+      // Check if authentication error
+      if (err.message.toLowerCase().includes('authenticate')) {
+        Alert.alert('Error', 'Incorrect email or password.');
+      } else {
+        setShowAlert(true);
+      }
     }
   };
+  
+  
 
   useEffect(() => {
     navigation.setOptions({
@@ -64,27 +68,31 @@ export default function LoginForm() {
       <View style={styles.container}>
         <Image
           source={icon}
-          style={{ width: 150, height: 80 }}
+          style={{ width: 120, height: 80 }}
         />
         <Text style={styles.h1}>Live the experience!</Text>
         <Text style={{ ...styles.label, marginTop: 100 }}>Email</Text>
         <TextInput
           id='email'
-          style={styles.input}
+          style={[styles.input, !isEmailValid && styles.inputError]}
           name="email"
           value={email}
           onChangeText={setEmail}
           placeholder="Enter your email address"
+          onBlur={() => setIsEmailValid(email.trim() !== '')}
         />
+        {!isEmailValid && <Text style={styles.errorText}>Email is required.</Text>}
         <Text style={styles.label}>Password</Text>
         <TextInput
-          style={styles.input}
+          style={[styles.input, !isPasswordValid && styles.inputError]}
           name="password"
           value={password}
           onChangeText={setPassword}
           placeholder="Enter your password"
           secureTextEntry={true}
+          onBlur={() => setIsPasswordValid(password.trim() !== '')}
         />
+        {!isPasswordValid && <Text style={styles.errorText}>Password is required.</Text>}
         <Pressable style={styles.button} onPress={handleSubmit}>
           <Text style={styles.buttonText}>Login</Text>
         </Pressable>
@@ -108,6 +116,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
+    marginTop: 10,
   },
   container: {
     padding: 20,
@@ -122,6 +131,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 15,
     paddingHorizontal: 10,
+  },
+  inputError: {
+    borderColor: 'red',
+  },
+  errorText: {
+    color: 'red',
+    marginBottom: 10,
   },
   button: {
     backgroundColor: '#003566',
