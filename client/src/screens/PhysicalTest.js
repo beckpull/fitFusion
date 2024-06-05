@@ -16,9 +16,9 @@ export default function PhysicalTest({ route }) {
   const [level, setLevel] = useState('null');
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState([
-    { label: `It's been a while since I've been to the gym🏋️‍♂️❌`, value: `It's been a while since I've been to the gym🏋️‍♂️❌` },
-    { label: `I'm fairly active, but there's always room por improvement💪🔄`, value: `I'm fairly active, but there's always room por improvement💪🔄` },
-    { label: 'I live for the gym!🏋️‍♂️❤️', value: 'I live for the gym!🏋️‍♂️❤️' }
+    { label: `It's been a while since I've been to the gym🏋️‍♂️❌`, value: `Beginner` },
+    { label: `I'm fairly active, but there's always room for improvement💪🔄`, value: `Intermediate` },
+    { label: 'I live for the gym!🏋️‍♂️❤️', value: 'Advanced' }
   ]);
 
   const [calories, setCalories] = useState('');

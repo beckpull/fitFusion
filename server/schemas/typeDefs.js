@@ -6,6 +6,12 @@ const typeDefs = `
         password: String!
         country: String!
         birthDate: String!
+        age: Int
+        height: Int
+        weight: Int
+        gender: String
+        level: String
+        calories: Int
         profilePic: ProfilePic
         workoutPlans: [WorkoutPlan]
         recommendedPlans: [WorkoutPlan]
