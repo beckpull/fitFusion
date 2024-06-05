@@ -15,7 +15,7 @@ const UserPlan = ({ planId, name, workouts }) => {
   const navigation = useNavigation();
 
   const handlePress = () => {
-    navigation.navigate('EachPlan', { planId });
+     navigation.navigate('EachPlan', { planId });
   };
 
   const handleDelete = () => {

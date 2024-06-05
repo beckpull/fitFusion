@@ -9,10 +9,7 @@ import { UPDATE_WORKOUT_PLAN } from '../utils/mutations';
 export default function EditWorkoutForm() {
     const route = useRoute();
     const { id, workoutPlanName, workoutPlanGoal } = route.params;
-    console.log(id)
-    console.log(workoutPlanName)
-    console.log(workoutPlanGoal)
-    
+
     const workoutPlanId = id;
     const [name, setName] = useState(workoutPlanName);
     const [goal, setGoal] = useState(workoutPlanGoal);
@@ -32,20 +29,21 @@ export default function EditWorkoutForm() {
 
         };
 
-        setName('');
-        setGoal('');
+        setName(name);
+        setGoal(goal);
         try {
             const { data } = await updateWorkoutPlan({
                 variables: { workoutPlanId, name, goal },
             });
-  
+
             Alert.alert('Workout Plan Edited!');
-    
-            setName('');
-            setGoal('');
 
+            setName(name);
+            setGoal(goal);
 
-            navigation.navigate('SearchByNameScreen');
+            console.log(workoutPlanId);
+
+            navigation.navigate('EachPlan', { planId: workoutPlanId });
 
         } catch (error) {
             console.error(error);
