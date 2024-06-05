@@ -41,7 +41,7 @@ const EachPlan = ({ navigation, route }) => {
 
   const handleExerciseClick = (exercise) => {
     setCurrentExercise(exercise);
-    navigation.navigate('ExerciseDetail', { exercise });
+    navigation.navigate('ExerciseDetail', { exercise, planId });
   };
 
   const handleComplete = (exercise) => {

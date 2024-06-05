@@ -5,11 +5,11 @@ import { useQuery } from '@apollo/client';
 import { GET_WORKOUT_PROGRESS } from '../utils/queries';
 
 export default function ExerciseDetail({ route }) {
-  const { exercise, workoutPlanId } = route.params;
-  console.log(workoutPlanId);
+  const { exercise, planId } = route.params;
+  // console.log('workoutPlanId', workoutPlanId);
   const [modalVisible, setModalVisible] = useState(false);
   const { data, loading, error } = useQuery(GET_WORKOUT_PROGRESS, {
-    variables: { workoutPlanId: workoutPlanId, workoutId: exercise._id },
+    variables: { planId, workoutId: exercise._id },
   });
 
   const { name, gifUrl, equipment, bodyPart, target, secondary, instructions } = exercise;
