@@ -24,9 +24,9 @@ export default function ReTakeQuiz({ userId, onClose }) {
     ]);
 
     // Make sure this onClose() function is called when the component is mounted or rendered
-    useEffect(() => {
-        onClose();
-    }, []);
+    // useEffect(() => {
+    //     onClose();
+    // }, []);
 
     const [calories, setCalories] = useState('');
     const [isCalorieGoalEnabled, setIsCalorieGoalEnabled] = useState(false);
