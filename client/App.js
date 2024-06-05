@@ -27,6 +27,7 @@ import AboutUs from './src/screens/AboutUs';
 import SearchByNameScreen from './src/screens/SearchWorkout/SearchByNameScreen';
 // import SearchByMuscleScreen from './src/screens/SearchWorkout/SearchByMuscleScreen';
 import NewWorkoutForm from './src/screens/NewWorkoutForm';
+import EditWorkoutForm from './src/screens/EditWorkoutForm';
 // Languages support:
 import { I18n } from 'i18n-js';
 import en from './locales/en';
@@ -97,7 +98,7 @@ export default function App() {
             {/* <Stack.Screen name="SearchByMuscleScreen" component={SearchByMuscleScreen} options={{ title: 'Search by Targeted Muscle' }} /> */}
 
             <Stack.Screen name="NewWorkoutForm" component={NewWorkoutForm} options={{ title: 'New Workout Form' }} />
-
+            <Stack.Screen name="EditWorkoutForm" component={EditWorkoutForm} options={{ title: 'Edit Workout Form' }} />
             <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
 
             {/* <Stack.Screen name="MyWorkouts" component={MyWorkouts} /> */}

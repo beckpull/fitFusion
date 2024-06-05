@@ -35,7 +35,6 @@ const resolvers = {
 
       return foundUser.workoutPlans;
     },
-    // ^^^^^^^^^^^^^^^^^^^^^^^ //
   },
 
   Mutation: {
@@ -87,7 +86,7 @@ const resolvers = {
     },
 
     updateProfilePic: async (parent, { profilePic }, context) => {
-      if(context.user){
+      if (context.user) {
         const { data, contentType } = profilePic;
 
         const user = await User.findOneAndUpdate(
@@ -146,11 +145,11 @@ const resolvers = {
       throw AuthenticationError;
     },
 
-    updateWorkoutPlan: async (parent, { workoutPlanId, name }, context) => {
+    updateWorkoutPlan: async (parent, { workoutPlanId, name, goal }, context) => {
       if (context.user) {
         const workoutPlan = await WorkoutPlan.findOneAndUpdate(
           { _id: workoutPlanId },
-          { name },
+          { name, goal },
           { new: true }
         )
 
