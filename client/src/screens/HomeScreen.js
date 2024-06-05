@@ -65,11 +65,8 @@ const styles = StyleSheet.create({
     color: '#fff',
     textDecorationLine: 'underline',
     fontSize: 16,
-
-
   },
   toggle: {
-    // position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,

@@ -78,7 +78,7 @@ export default {
   "Workout you have already done it will show in green": "Workout you have already done it will show in green",
   "Your best Buddy to work out": "Your best Buddy to work out",
   "Re-take Physical test": "Re-take Physical test",
-
+  "Exercises": "Exercises",
 
 
 };

@@ -20,7 +20,6 @@ export default function LoginForm() {
 
   const handleSubmit = async(event) => {
     event.preventDefault();
-    
     // Check if any field is empty
     if (!email.trim() || !password.trim()) {
       Alert.alert('Error', 'Please fill out all fields.');
@@ -33,7 +32,6 @@ export default function LoginForm() {
         variables: { email, password },
       });
   
-      console.log('This is the data: ', data);
   
       if (error) {
         console.error('Server error:', error);

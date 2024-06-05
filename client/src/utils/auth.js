@@ -30,7 +30,7 @@ class AuthService {
   }
 
   async login(idToken) {
-    console.log(idToken);
+    // console.log(idToken);
     // Saves user token to AsyncStorage
     await AsyncStorage.setItem('id_token', idToken);
     // window.location.assign('/');

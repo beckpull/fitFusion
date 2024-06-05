@@ -1,5 +1,5 @@
 export default {
-    "welcome": "Bienvenido",
+    "welcome": "Bienvenido/a",
     "workouts": "Entrenamientos",
     "Learn more about us": "Conozca más sobre nosotros",
     "Login": "Iniciar sesión",
@@ -78,5 +78,5 @@ export default {
     "Workout you have already done it will show in green": "El entrenamiento que ya has hecho se mostrará en verde",
     "Your best Buddy to work out": "Tu mejor compañero para hacer ejercicio",
     "Re-take Physical test": "Volver a tomar el test físico",
-
+    "Exercises": "Ejercicios",
 };
