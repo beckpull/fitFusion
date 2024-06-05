@@ -87,7 +87,7 @@ const typeDefs = `
         login(email: String!, password: String!): Auth
 
         addWorkoutPlan(name: String!, goal: String): WorkoutPlan
-        updateWorkoutPlan(workoutPlanId: ID!, name: String): WorkoutPlan
+        updateWorkoutPlan(workoutPlanId: ID!, name: String, goal: String): WorkoutPlan
         removeWorkoutPlan(workoutPlanId: ID!): WorkoutPlan
 
         addWorkout(workoutPlanId: ID!, workoutInput: WorkoutInput!): WorkoutPlan

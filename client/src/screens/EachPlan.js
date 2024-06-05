@@ -68,7 +68,6 @@ const EachPlan = ({ navigation, route }) => {
   };
 
   const handleRemove = async (workoutPlanName, exerciseName, exerciseId) => {
-    console.log(workoutPlanName)
     Alert.alert(
       "Delete exercise from workout plan",
       `Are you sure you want to delete ${exerciseName} from the ${workoutPlanName} workout plan?`,
@@ -100,15 +99,16 @@ const EachPlan = ({ navigation, route }) => {
 
   };
 
-  const handleRename = () => {
-    console.log("CLICKED EDIT")
+  const handleRename = (id, workoutPlanName, workoutPlanGoal) => {
+    navigation.navigate('EditWorkoutForm', { id, workoutPlanName, workoutPlanGoal });
+
   };
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
         <TouchableOpacity
-          onPress={isEditing ? handleSave : handleRename}
+          onPress={() => handleRename(currentPlan._id, currentPlan.name, currentPlan.goal)}
           style={styles.iconButton}>
           <Icon name={isEditing ? "save" : "edit"} size={24} color="black" />
         </TouchableOpacity>
