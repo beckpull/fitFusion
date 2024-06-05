@@ -11,7 +11,7 @@ const UserPlan = ({ planId, name, workouts }) => {
   const [removeWorkoutPlan, { error }] = useMutation(REMOVE_WORKOUT_PLAN, {
     refetchQueries: [{ query: GET_ME }]
   });
-  
+
   const navigation = useNavigation();
 
   const handlePress = () => {
@@ -21,7 +21,7 @@ const UserPlan = ({ planId, name, workouts }) => {
   const handleDelete = () => {
     Alert.alert(
       "Delete Workout Plan",
-      "Are you sure you want to delete this workout plan?",
+      `Are you sure you want to delete the ${name} workout plan?`,
       [
         {
           text: "No",
@@ -48,7 +48,7 @@ const UserPlan = ({ planId, name, workouts }) => {
 
   return (
     <TouchableOpacity onPress={handlePress} style={styles.card}>
-      <ButtonRemovePlan onPress={handleDelete}/>
+      <ButtonRemovePlan onPress={handleDelete} />
       <Text style={styles.title}>{name}</Text>
       <Text style={styles.exercises}>{workouts.length} Workouts</Text>
     </TouchableOpacity>
