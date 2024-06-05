@@ -76,5 +76,18 @@ query Me {
 }
 `;
 
+export const GET_WORKOUT_PROGRESS = gql`
+  query GetWorkoutProgress($workoutPlanId: ID!, $workoutId: ID!) {
+    workoutProgress(workoutPlanId: $workoutPlanId, workoutId: $workoutId) {
+      date
+      sets
+      reps
+      weight
+      duration
+      distance
+    }
+  }
+`;
+
 
 
