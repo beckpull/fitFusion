@@ -141,19 +141,11 @@ const EachPlan = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   scrollContainer: {
     flexGrow: 1,
-<<<<<<< HEAD
-    padding: 20,
-=======
->>>>>>> main
+    padding: 15,
   },
   container: {
     flex: 1,
     alignItems: 'center',
-<<<<<<< HEAD
-=======
-    paddingHorizontal: 20,
-    paddingTop: 20,
->>>>>>> main
   },
   titleContainer: {
     // flex: 1,
