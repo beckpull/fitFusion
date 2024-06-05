@@ -4,6 +4,7 @@ const { expressMiddleware } = require('@apollo/server/express4');
 const path = require('path');
 const { authMiddleware } = require('./utils/auth');
 const cors = require('cors');
+// const bodyParser = require('body-parser');
 
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
@@ -22,6 +23,10 @@ const startApolloServer = async () => {
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
   app.use(cors());
+
+  // Increase the request size limit
+  // app.use(bodyParser.json({ limit: '50mb' }));
+  // app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
   app.use('/graphql', expressMiddleware(server, {
     context: authMiddleware
