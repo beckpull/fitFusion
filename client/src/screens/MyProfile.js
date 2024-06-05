@@ -35,7 +35,7 @@ export default function MyProfile() {
   if (loading) return <Text>Loading...</Text>;
   if (error) return <Text>Error: {error.message}</Text>;
 
-  const { me: { username, workoutPlans } } = data;
+  const { me: { username, level, workoutPlans } } = data;
 
   // const handleUpdateImage = async (imageUrl) => {
   //   console.log("URL Image: ", imageUrl);
@@ -115,6 +115,7 @@ export default function MyProfile() {
           <View style={styles.userInfoContainer}>
             <IconButton iconName="picture-o" onPress={pickImageAsync} />
             <Text style={styles.userName}>Welcome {username}</Text>
+            <Text style={styles.userWorkouts}>Lvl: {level}</Text>
             <Text style={styles.userWorkouts}>Workouts: {workoutPlans.length}</Text>
           </View>
         </TouchableOpacity>
