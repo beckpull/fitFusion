@@ -89,6 +89,13 @@ const EachPlan = ({ navigation, route }) => {
           <Text style={styles.title}>{currentPlan.name}</Text>
         </View>
 
+        <View style={styles.titleContainer}>
+          <Text style={styles.subtitle}>Workout Goal: </Text>
+
+          <Text style={styles.workoutBlock}>{currentPlan.goal}</Text>
+
+        </View>
+
         <Text style={styles.subtitle}>Workouts:</Text>
         {currentPlan.workouts.map((workout) => (
           <View key={workout._id} style={styles.workoutContainer}>

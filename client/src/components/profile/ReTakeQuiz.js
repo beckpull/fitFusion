@@ -18,7 +18,7 @@ export default function ReTakeQuiz({ userId, onClose }) {
     const [open, setOpen] = useState(false);
     const [items, setItems] = useState([
         { label: `It's been a while since I've been to the gym🏋️‍♂️❌`, value: `It's been a while since I've been to the gym🏋️‍♂️❌` },
-        { label: `I'm fairly active, but there's always room por improvement💪🔄`, value: `I'm fairly active, but there's always room por improvement💪🔄` },
+        { label: `I'm fairly active, but there's always room for improvement💪🔄`, value: `I'm fairly active, but there's always room for improvement💪🔄` },
         { label: 'I live for the gym!🏋️‍♂️❤️', value: 'I live for the gym!🏋️‍♂️❤️' }
     ]);
 
