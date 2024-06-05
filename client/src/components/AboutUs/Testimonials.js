@@ -1,27 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
-// import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-// import { faFlag } from '@fortawesome/free-solid-svg-icons';
+import { I18nContext } from '../../../App';
 
 function Testimonials() {
+
+    const { i18n } = useContext(I18nContext);
+
     const recommendations = [
         {
             name: 'Nick Johnson',
             country: 'United States',
             image: 'test1',
-            text: "FitFusion makes home workouts easy with customized routines that fit my busy schedule. I love achieving my fitness goals without needing a gym membership.",
+            text: "testimonial1",
         },
         {
             name: 'Mary Smith',
             country: 'Canada',
             image: 'test2',
-            text: "FitFusion transformed my gym workouts with tailored plans that keep me motivated and track my progress. It is incredibly rewarding!",
+            text: "testimonial2",
         },
         {
             name: 'Andreia Silva',
             country: 'Brazil',
             image: 'test3',
-            text: "FitFusion’s outdoor plans are fantastic. I enjoy nature while staying fit, and the app ensures effective workouts wherever I am.",
+            text: "testimonial3",
         }
     ]
 
@@ -52,10 +54,10 @@ function Testimonials() {
                 </View>
                 <View style={styles.textContainer}>
                     <Text style={styles.name}>
-                    <Text style={styles.bold}>{name}</Text> in <Image source={flagImages[country]} style={{width: 20, height: 15}} />
+                    <Text style={styles.bold}>{name}</Text> {i18n.t('in')} <Image source={flagImages[country]} style={{width: 20, height: 15}} />
                     </Text>
                     <Text style={styles.text}>
-                        "{text}"
+                        "{i18n.t(text)}"
                     </Text>
                     <Text>⭐⭐⭐⭐⭐</Text>
                 </View>
@@ -65,7 +67,7 @@ function Testimonials() {
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <Text style={styles.heading}>Success Stories:</Text>
+            <Text style={styles.heading}>{i18n.t('Success Stories')}:</Text>
             {recommendations.map((recommendation, index) => (
                 <FitFusionTestimonials
                     key={index}
