@@ -17,15 +17,10 @@ export default function TabBar() {
   const navigation = useNavigation();
 
   const { i18n } = useContext(I18nContext);
-  // console.log('i18n from the TabBar : ', i18n);
-  // console.log(i18n.t('welcome'));
-  // console.log(i18n.t('workouts'));
-  // console.log('calling useEffect from outside the TabBar');
   useEffect(() => {
-    console.log('calling useEffect from TabBar inside the useEffect');
 
     if(i18n){
-      console.log('i18n.locale: ', i18n.locale);
+      // console.log('i18n.locale: ', i18n.locale);
       navigation.setOptions({
         headerTitle: '',
         headerStyle: {

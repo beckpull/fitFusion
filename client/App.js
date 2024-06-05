@@ -36,17 +36,11 @@ import pt from './locales/pt';
 
 
 const i18n = new I18n({ en, es, pt });
-console.log('i18n: ', i18n);
-// i18n.translations = { en, es, pt };
-console.log(i18n.t('welcome'))
-i18n._defaultLocale = 'es';
-i18n._locale = 'es';
+i18n._defaultLocale = 'en';
+i18n._locale = 'en';
 
 
 export const I18nContext = createContext();
-
-console.log('I18nContext: ', I18nContext);
-
 
 
 const Stack = createStackNavigator();
@@ -55,7 +49,7 @@ const httpLink = createHttpLink({
   uri: `http://${process.env.HTTP_URI}:3001/graphql`,
 });
 
-console.log(httpLink)
+// console.log(httpLink)
 
 const authLink = setContext(async (_, { headers }) => {
   const token = await AsyncStorage.getItem('id_token');
@@ -109,7 +103,6 @@ export default function App() {
 
             <Stack.Screen
               name="TabBar"
-            // component={() => <TabBar />} 
             >
               {() => <TabBar i18n={i18n} />}
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useQuery } from '@apollo/client';
 import { GET_ME } from '../../utils/queries';
 import { StyleSheet, View, Text, Modal, TouchableOpacity, Image } from "react-native";
@@ -6,8 +6,10 @@ import Colors from '../../styles/colors';
 import { Calendar } from 'react-native-calendars';
 import { ScrollView } from 'react-native-gesture-handler';
 import goodJobImage from '../../assets/images/good_job.png';
+import { I18nContext } from '../../../App';
 
 export default function CalendarProgress() {
+  const { i18n } = useContext(I18nContext);
 
   const { loading, error, data } = useQuery(GET_ME);
   const [selectedDate, setSelectedDate] = useState(null);
@@ -15,7 +17,6 @@ export default function CalendarProgress() {
 
   if (loading) return <Text>Loading...</Text>;
   if (error) return <Text>Error :(</Text>;
-  console.log("Workouts data: ", data);
 
 
   const workoutData = data.me.workoutPlans.reduce((acc, workoutPlan) => {
@@ -58,7 +59,7 @@ export default function CalendarProgress() {
     });
     return workoutsForDate.map((item, index) => (
       <View key={index} style={styles.workoutContainer}>
-        <Text>Group of muscles: </Text>
+        <Text>{i18n.t('Exercises')}: </Text>
         <Text style={styles.workoutName}>{item.workout.name} </Text>
         <View style={styles.content}>
           <Text>Reps: {item.progress.reps}</Text>
