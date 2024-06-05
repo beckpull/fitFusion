@@ -6,7 +6,6 @@ import { GET_WORKOUT_PROGRESS } from '../utils/queries';
 
 export default function ExerciseDetail({ route }) {
   const { exercise, planId } = route.params;
-  // console.log('workoutPlanId', workoutPlanId);
   const [modalVisible, setModalVisible] = useState(false);
   const { data, loading, error } = useQuery(GET_WORKOUT_PROGRESS, {
     variables: { workoutPlanId: planId, workoutId: exercise._id },
@@ -19,13 +18,13 @@ export default function ExerciseDetail({ route }) {
     console.log(error);
   }
 
-  console.log(data[1]);
-
   const progressData = data?.getWorkoutProgress || [];
-  console.log(progressData);
 
   const processData = (progressData) => {
-    const dates = progressData.map(item => new Date(item.date).toLocaleDateString());
+    const dates = progressData.map(item => {
+      const date = new Date(item.date);
+      return `${date.getMonth() + 1}/${date.getDate()}`; // Format MM/DD
+    });
     const sets = progressData.map(item => item.sets || 0);
     const reps = progressData.map(item => item.reps || 0);
     const weight = progressData.map(item => item.weight || 0);
@@ -46,10 +45,19 @@ export default function ExerciseDetail({ route }) {
 
   const chartData = processData(progressData);
 
+  const renderCustomLabel = (value, index) => {
+    return (
+      <View key={index} style={{ transform: [{ rotate: '90deg' }], marginTop: 15 }}>
+        <Text style={{ color: '#fff', fontSize: 7 }}>{value}</Text>
+      </View>
+    );
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
         <Text style={styles.title}>{name}</Text>
+        <Button title="View Progress" onPress={() => setModalVisible(true)} />
         <Image source={{ uri: gifUrl }} style={styles.image} />
         <Text style={styles.subtitle}>Equipment:</Text>
         <Text style={styles.description}>{equipment}</Text>
@@ -73,7 +81,6 @@ export default function ExerciseDetail({ route }) {
             </View>
           ))}
         </View>
-        <Button title="View Progress" onPress={() => setModalVisible(true)} />
         <Modal
           animationType="slide"
           transparent={false}
@@ -87,8 +94,8 @@ export default function ExerciseDetail({ route }) {
                 data={chartData}
                 width={400}
                 height={500}
-                yAxisLabel="Date"
-                withHorizontalLabels={true}
+                // yAxisLabel=""
+                // withHorizontalLabels={true}
                 chartConfig={{
                   backgroundColor: '#e26a00',
                   backgroundGradientFrom: '#fb8c00',
@@ -105,6 +112,7 @@ export default function ExerciseDetail({ route }) {
                   },
                   fromZero: true, // Ensure the chart starts from zero
                   labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`, // Color of the labels
+                  renderLabel: renderCustomLabel,
                 }}
                 bezier
                 showLegends={false} // Disable built-in legend
@@ -130,7 +138,6 @@ export default function ExerciseDetail({ route }) {
     </ScrollView>
   );
 };
-
 
 const styles = StyleSheet.create({
   scrollContainer: {
@@ -196,11 +203,10 @@ const styles = StyleSheet.create({
   modalTitle: {
     fontSize: 24,
     fontWeight: 'bold',
-    // marginBottom: 20,
     marginTop: 90,
   },
   chartContainer: {
-    marginTop: 20, // Adjust as needed
+    marginTop: 20,
     alignItems: 'center',
   },
   legendContainer: {
@@ -222,6 +228,3 @@ const styles = StyleSheet.create({
     color: '#333',
   },
 });
-
-
-

@@ -14,7 +14,7 @@ const EachRecommendedPlan = ({ route, navigation }) => {
 
   const handleExerciseClick = (exercise) => {
     setCurrentExercise(exercise);
-    navigation.navigate('ExerciseDetail', { exercise });
+    navigation.navigate('ExerciseDetail', { exercise, planId: planId });
   };
 
   const handleComplete = (exercise, planId) => {
