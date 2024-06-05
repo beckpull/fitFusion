@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { View, Text, StyleSheet, TextInput, Pressable, Alert, Keyboard, Switch, TouchableWithoutFeedback, Button } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -27,6 +27,10 @@ export default function ReTakeQuiz({ userId, onClose }) {
     // useEffect(() => {
     //     onClose();
     // }, []);
+    useEffect(() => {
+      getHeightInInches();
+    }, [feet, inches, getHeightInInches]);
+
 
     const [calories, setCalories] = useState('');
     const [isCalorieGoalEnabled, setIsCalorieGoalEnabled] = useState(false);
@@ -40,7 +44,7 @@ export default function ReTakeQuiz({ userId, onClose }) {
         setHeight(heightValue);
       }
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = useCallback(async (event) => {
         event.preventDefault();
         if (!height || !weight || !gender || !level) {
             Alert.alert('Error', 'All fields are required');
@@ -73,11 +77,13 @@ export default function ReTakeQuiz({ userId, onClose }) {
             setLevel('');
             setCalories('');
             setIsCalorieGoalEnabled(false);
+            
             navigation.navigate('TabBar');
+
         } catch (error) {
             console.error('Error updating:', error.message);
         }
-    };
+    }, [height, weight, gender, level, isCalorieGoalEnabled, calories, addUserSecondScreen, userId, navigation]);
 
 
     useEffect(() => {
@@ -99,7 +105,7 @@ export default function ReTakeQuiz({ userId, onClose }) {
                                 value={feet}
                                 onChangeText={(value) => {
                                     setFeet(value);
-                                    getHeightInInches();
+                                    // getHeightInInches();
                                 }}
                                 keyboardType="decimal-pad"
                                 placeholder="feet"
@@ -109,7 +115,7 @@ export default function ReTakeQuiz({ userId, onClose }) {
                                 value={inches}
                                 onChangeText={(value) => {
                                     setInches(value);
-                                    getHeightInInches();
+                                    // getHeightInInches();
                                 }}
                                 keyboardType="decimal-pad"
                                 placeholder="in."
