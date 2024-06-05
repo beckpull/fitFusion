@@ -55,7 +55,7 @@ export default {
     "Enter your calorie goal": "Digite sua meta de calorias",
     "Level": "Nível",
     "Select your level": "Selecione seu nível",
-    "Enter height in feet": "Digite a altura em pés",
+    "feet": "Em pés",
     "beginner": "Sou novo no mundo do fitness👶🏋️‍♂️",
     "intermediate": "Eu me exercito regularmente💪🏋️‍♂️",
     "advanced": "Eu sou um atleta profissional🏋️‍♂️🏆",

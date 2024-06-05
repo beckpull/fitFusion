@@ -55,7 +55,7 @@ export default {
   "Enter your calorie goal": "Enter your calorie goal",
   "Level": "Lvl",
   "Select your level": "Select your level",
-  "Enter height in feet": "Enter height in feet",
+  "feet": "feet",
   "beginner": "It's been a while since I've been to the gym🏋️‍♂️❌",
   "intermediate": "I'm fairly active, but there's always room for improvement💪🔄",
   "advanced": "I live for the gym!🏋️‍♂️❤️",
