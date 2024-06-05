@@ -124,3 +124,13 @@ mutation RemoveWorkout($workoutPlanId: ID!, $workoutId: ID!) {
   }
 }
 `;
+
+export const UPDATE_WORKOUT_PLAN = gql`
+mutation UpdateWorkoutPlan($workoutPlanId: ID!, $name: String, $goal: String) {
+  updateWorkoutPlan(workoutPlanId: $workoutPlanId, name: $name, goal: $goal) {
+    _id
+    name
+    goal
+  }
+}
+`;

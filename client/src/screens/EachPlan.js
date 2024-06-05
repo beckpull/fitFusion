@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_ME } from '../utils/queries';
@@ -17,7 +17,7 @@ const EachPlan = ({ navigation, route }) => {
   const [isCompletionFormVisible, setIsCompletionFormVisible] = useState(false);
   const [currentExercise, setCurrentExercise] = useState(null);
   const { loading, error, data, refetch } = useQuery(GET_ME);
-
+  const [isEditing, setIsEditing] = useState(false);
   const { setCurrentWorkoutId } = useContext(WorkoutContext);
   const [removeWorkout] = useMutation(REMOVE_WORKOUT);
 
@@ -68,27 +68,62 @@ const EachPlan = ({ navigation, route }) => {
     navigation.navigate('SearchByNameScreen');
   };
 
-  const handleRemove = async (exerciseId) => {
-    console.log(planId);
-    console.log(exerciseId);
+  const handleRemove = async (workoutPlanName, exerciseName, exerciseId) => {
+    Alert.alert(
+      "Delete exercise from workout plan",
+      `Are you sure you want to delete ${exerciseName} from the ${workoutPlanName} workout plan?`,
+      [
+        {
+          text: "No",
+          onPress: () => console.log("Deletion cancelled by user."),
+          style: "cancel"
+        },
+        {
+          text: "Yes",
+          onPress: async () => {
 
-    try {
-      const { data } = await removeWorkout({
-        variables: { workoutPlanId: planId, workoutId: exerciseId },
-      });
-      refetch();
-    } catch (error) {
-      console.error(error);
-      Alert.alert('Error', 'Failed to remove exercise from workout plan');
-    }
+            try {
+              const { data } = await removeWorkout({
+                variables: { workoutPlanId: planId, workoutId: exerciseId },
+              });
+              refetch();
+            } catch (error) {
+              console.error(error);
+              Alert.alert('Error', 'Failed to remove exercise from workout plan');
+            }
+          }
+        }
+      ],
+      { cancelable: false }
+    );
+
+
+  };
+
+  const handleRename = (id, workoutPlanName, workoutPlanGoal) => {
+    navigation.navigate('EditWorkoutForm', { id, workoutPlanName, workoutPlanGoal });
+
   };
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
+        <TouchableOpacity
+          onPress={() => handleRename(currentPlan._id, currentPlan.name, currentPlan.goal)}
+          style={styles.iconButton}>
+          <Icon name={isEditing ? "save" : "edit"} size={24} color="black" />
+        </TouchableOpacity>
+
         <View style={styles.titleContainer}>
           <Text style={styles.title}>{currentPlan.name}</Text>
           <Text style={styles.subtitle}>Goal: {currentPlan.goal}</Text>
+        </View>
+
+        <View style={styles.titleContainer}>
+          <Text style={styles.subtitle}>Workout Goal: </Text>
+
+          <Text style={styles.workoutBlock}>{currentPlan.goal}</Text>
+
         </View>
 
         <Text style={styles.subtitle}>Workouts:</Text>
@@ -97,7 +132,7 @@ const EachPlan = ({ navigation, route }) => {
             <View style={styles.workoutBlock}>
               <TouchableOpacity onPress={() => handleExerciseClick(workout)} style={styles.workoutCard}>
                 <Text style={styles.workout}>{workout.name}</Text>
-                <ButtonRemoveExercise onPress={() => handleRemove(workout._id)} />
+                <ButtonRemoveExercise onPress={() => handleRemove(currentPlan.name, workout.name, workout._id)} />
               </TouchableOpacity>
               <View style={styles.buttonContainer}>
                 <TouchableOpacity onPress={() => handleComplete(workout, planId)} style={styles.completeButton}>
