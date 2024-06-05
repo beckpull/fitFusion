@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import { View, Text, StyleSheet, TextInput, Pressable, Alert, Keyboard, Switch, TouchableWithoutFeedback } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -35,12 +35,23 @@ export default function PhysicalTest({ route }) {
 
   const getHeightInInches = () => {
     const feetToInches = parseInt(feet) * 12;
+    // console.log(feetToInches);
+
     const inchesValue = parseInt(inches);
+    // console.log(inchesValue);
+
     const heightValue = feetToInches + inchesValue;
+    // console.log(heightValue);
+
     setHeight(heightValue);
+    console.log(height);
   }
 
-  const handleSubmit = async (event) => {
+  useEffect(() => {
+    getHeightInInches();
+  }, [feet, inches, getHeightInInches]);
+
+  const handleSubmit = useCallback(async (event) => {
     event.preventDefault();
 
     if (!height || !weight || gender === 'null' || level === 'null'|| (isCalorieGoalEnabled && !calories)) {
@@ -66,19 +77,16 @@ export default function PhysicalTest({ route }) {
           calories: isCalorieGoalEnabled ? parseInt(calories) : null,
         },
       });
-      // console.log('This is the data: ', data);
-      if (error) {
-        console.error('Server error:', error);
-        return;
-      }
-    
-      Auth.login(data.addUserSecondScreen.token);
-      // console.log("User added successfully!");
-      navigation.navigate('TabBar');
+
+      if (data) {
+        Auth.login(data.addUserSecondScreen.token);
+        navigation.navigate('TabBar');
+
     } catch (error) {
       console.error('Error signing up:', error.message);
     }
-  };
+  }, [height, weight, gender, level, isCalorieGoalEnabled, calories, addUserSecondScreen, route.params.userId, navigation]);
+
   
 
 
@@ -102,7 +110,6 @@ export default function PhysicalTest({ route }) {
               value={feet}
               onChangeText={(value) => {
                setFeet(value);
-               getHeightInInches();
               }}
               keyboardType="decimal-pad"
               placeholder={i18n.t("feet")}
@@ -113,7 +120,6 @@ export default function PhysicalTest({ route }) {
               value={inches}
               onChangeText={(value) => {
                 setInches(value);
-                getHeightInInches();
               }}
               keyboardType="decimal-pad"
               placeholder="in."
@@ -303,3 +309,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
+
