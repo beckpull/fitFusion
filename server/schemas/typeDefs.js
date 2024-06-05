@@ -6,9 +6,14 @@ const typeDefs = `
         password: String!
         country: String!
         birthDate: String!
-        imageUrl: String
+        profilePic: ProfilePic
         workoutPlans: [WorkoutPlan]
         recommendedPlans: [WorkoutPlan]
+    }
+
+    type ProfilePic {
+        data: String
+        contentType: String
     }
 
     type WorkoutPlan {
@@ -66,6 +71,11 @@ const typeDefs = `
         distance: Int
     }
 
+    input ProfilePicInput {
+        data: String!
+        contentType: String!
+    }
+
     type Query {
         me: User
 
@@ -77,7 +87,6 @@ const typeDefs = `
         addUser(username: String!, email: String!, password: String!, country: String!, birthDate: String!): Auth
         addUserSecondScreen(age: Int!, height: Int!, weight: Int!, gender: String!, level: String!, calories: Int!): User
         login(email: String!, password: String!): Auth
-        updateUserImage(imageUrl: String!): User
 
         addWorkoutPlan(name: String!, goal: String): WorkoutPlan
         updateWorkoutPlan(workoutPlanId: ID!, name: String): WorkoutPlan
@@ -87,6 +96,8 @@ const typeDefs = `
         removeWorkout(workoutPlanId: ID!, workoutId: ID!): WorkoutPlan
 
         addWorkoutProgress(workoutPlanId: ID!, workoutId: ID!, progressInput: ProgressInput!): WorkoutPlan
+
+        updateProfilePic(profilePic: ProfilePicInput!): User
     }
 `
 

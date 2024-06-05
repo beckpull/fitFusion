@@ -1,7 +1,7 @@
 
 import { ScrollView, View, StyleSheet } from 'react-native';
 import Workouts from '../../components/searchResults/ExerciseResults';
-import prototypeObject from '../../components/searchResults/prototypeObject';
+import prototypeObject from '../../components/searchResults/WorkoutsJSON';
 
 export default SearchByNameScreen = () => {
     return (
