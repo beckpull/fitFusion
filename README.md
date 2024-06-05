@@ -246,7 +246,7 @@ See the [open issues](https://github.com/beckpull/fitFusion/issues) for a full l
 - **Silvia Reyes** - [Email her](mailto:snrvdevelopment@gmail.com) - or check her out on [GitHub](https://github.com/NathaliaReyes) or [LinkedIn!](https://www.linkedin.com/in/silviareyes23/)
 - **Jordan Heersink** - [Email him](mailto:jheersink8@gmail.com) - or check him out on [GitHub](https://github.com/jheersink8) or [LinkedIn!](https://www.linkedin.com/in/jordan-heersink/)
 - **William Kalish** - [Email him](mailto:williamk31@gmail.com) - or check him out on [GitHub](https://github.com/williamk31) or [LinkedIn!](https://www.linkedin.com/in/william-kalish/)
-- **Zach Cook** - [Email him](mailto:zjclaw@gmail.com) - or check him out on [GitHub](https://github.com/ZachCook23) or [LinkedIn!]()
+- **Zach Cook** - [Email him](mailto:zjclaw@gmail.com) - or check him out on [GitHub](https://github.com/ZachCook23) or [LinkedIn!](https://www.linkedin.com/in/zacharyjcookjd/)
 - **Rebecca Feltman** - [Email me](mailto:beckpull@icloud.com) - or check me out on [GitHub](https://github.com/beckpull) or [LinkedIn!](https://www.linkedin.com/in/beckpull)
 
 > Repository Link: [https://github.com/beckpull/fitFusion](https://github.com/beckpull/fitFusion)
