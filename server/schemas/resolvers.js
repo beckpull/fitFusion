@@ -6,22 +6,18 @@ const resolvers = {
   Date: DateResolver,
   Query: {
     me: async (parent, args, context) => {
-      const foundUser = await User.findOne({
-        _id: context.user._id
-      })
-        // ADD THIS LINE IF WE WANT QUERY:ME TO RETURN WORKOUTPLAN NAMES
-        .populate('workoutPlans');
-      // ^^^^^^^^^
-      // return User.findOne({ _id: context.user._id });
+      const foundUser = await User.findOne({ _id: context.user._id })
+        .populate('workoutPlans')
+        .populate('recommendedPlans');
 
       if (!foundUser) {
         console.log("no found user");
       }
-
+      console.log(foundUser);
       return foundUser;
     },
 
-    // DELETE THIS LATER
+    // OKAY TO DELETE THIS LATER
     allUsers: async () => {
       return await User.find({});
     },
@@ -39,16 +35,41 @@ const resolvers = {
 
       return foundUser.workoutPlans;
     },
-
+    // ^^^^^^^^^^^^^^^^^^^^^^^ //
   },
 
   Mutation: {
     addUser: async (parent, { username, email, password, country, birthDate, age, height, weight, gender, level, calories }) => {
-      const user = await User.create({ username, email, password, country, birthDate, age, height, weight, gender, level, calories });
-      const token = signToken(user);
-
-      return { token, user };
+      try {
+        // Create the user
+        const user = await User.create({ username, email, password, country, birthDate, age, height, weight, gender, level, calories });
+    
+        // Find recommended plans
+        const recommendedPlans = await WorkoutPlan.find({ isRecommended: true }).select('_id');
+        recommendedPlans && recommendedPlans.length > 0 ? console.log(recommendedPlans) : console.log("No plans found to seed");
+        // Extract plan IDs
+        const recommendedPlanIds = recommendedPlans.map(plan => plan._id);
+    
+        // Attach recommended plans to the user
+        user.recommendedPlans = recommendedPlanIds;
+    
+        // Save the user
+        await user.save();
+    
+        console.log('User created successfully with recommended plans attached.');
+        
+        // Generate token for the user
+        const token = signToken(user);
+    
+        // Return token and user object
+        return { token, user };
+      } catch (error) {
+        console.error('Error creating user:', error);
+        // Handle error appropriately, maybe throw an error or return an error message
+        throw new Error('Failed to create user');
+      }
     },
+    
 
     addUserSecondScreen: async (parent, { age, height, weight, gender, level, calories }, context) => {
       if (context.user) {
@@ -65,22 +86,24 @@ const resolvers = {
       throw new AuthenticationError('You need to be logged in!');
     },
 
-    updateUserImage: async (parent, { imageUrl }, context) => {
-      if (context.user) {
-        const updatedUser = await User.findOneAndUpdate(
+    updateProfilePic: async (parent, { profilePic }, context) => {
+      if(context.user){
+        const { data, contentType } = profilePic;
+
+        const user = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $set: { imageUrl: imageUrl } },
+          {
+            profilePic: {
+              data,
+              contentType,
+            },
+          },
           { new: true }
         );
-
-        if (!updatedUser) {
-          throw new Error('No user found with this id!');
-        }
-
-        return updatedUser;
+        return User;
       }
 
-      throw AuthenticationError;
+      throw AuthenticationError
     },
 
     login: async (parent, { email, password }) => {
@@ -105,10 +128,10 @@ const resolvers = {
 
       if (context.user) {
         const workoutPlan = await WorkoutPlan.create({
-        
+
           name,
           goal,
-          date: date ? new Date(date) : undefined,
+          isRecommended: false
         });
 
         await User.findOneAndUpdate(
@@ -116,7 +139,7 @@ const resolvers = {
           { $addToSet: { workoutPlans: workoutPlan } },
 
         );
-     
+
         return workoutPlan;
 
       }
@@ -144,7 +167,8 @@ const resolvers = {
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { workoutPlans: workoutPlan._id } }
+          { $pull: { workoutPlans: workoutPlan._id } },
+
         );
 
         return workoutPlan

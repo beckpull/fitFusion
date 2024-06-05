@@ -49,16 +49,22 @@ const userSchema = new Schema(
     calories: {
         type: Number,
     },
-    imageUrl: {
-      type: String,
-      default: ''
+    profilePic: {
+      data: String,
+      contentType: String,
     },
     workoutPlans: [
       {
         type: Schema.Types.ObjectId,
         ref: 'WorkoutPlan'
       }
-    ]
+    ],
+    recommendedPlans: [
+      {
+          type: Schema.Types.ObjectId,
+          ref: 'WorkoutPlan'
+      }
+  ]
   },
   {
     toJSON: {

@@ -1,57 +1,29 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { useQuery, useMutation } from '@apollo/client';
-import { GET_ME } from '../utils/queries';
-import { REMOVE_WORKOUT } from '../utils/mutations';
 import ExerciseForm from '../components/workoutPlans/ExerciseForm';
 import ExerciseCompletionForm from '../components/workoutPlans/ExerciseCompletionForm';
 import ButtonAddWorkout from '../components/workoutPlans/ButtonAddWorkout';
-import ButtonRemoveExercise from '../components/workoutPlans/ButtonRemoveExercise';
 
-import { WorkoutContext } from '../context/WorkoutContext';
-
-const EachPlan = ({ navigation, route }) => {
-  const { planId } = route.params;
-  const [isGoalFormVisible, setIsGoalFormVisible] = useState(false);
+const EachRecommendedPlan = ({ route, navigation }) => {
+  const { planId, name, goal, workouts } = route.params;
+   const [isGoalFormVisible, setIsGoalFormVisible] = useState(false);
   const [isCompletionFormVisible, setIsCompletionFormVisible] = useState(false);
   const [currentExercise, setCurrentExercise] = useState(null);
-  const { loading, error, data, refetch } = useQuery(GET_ME);
-
-  const { setCurrentWorkoutId } = useContext(WorkoutContext);
-  const [removeWorkout] = useMutation(REMOVE_WORKOUT);
-
-  useEffect(() => {
-    refetch();
-  }, [refetch]);
-
-  if (loading) return <Text>Loading...</Text>;
-
-  if (error) {
-    console.log(error);
-    return <Text>Error: {error.message}</Text>;
-  }
-
-  const { me: { workoutPlans } } = data;
-  const currentPlan = workoutPlans.find(plan => plan._id === planId);
-  // console.log(currentPlan.workouts);
-
-  if (!currentPlan) {
-    return <Text>Workout Plan not found</Text>;
-  }
+  // console.log(workouts);
 
   const handleExerciseClick = (exercise) => {
     setCurrentExercise(exercise);
     navigation.navigate('ExerciseDetail', { exercise });
   };
 
-  const handleComplete = (exercise) => {
-    setCurrentExercise(exercise);
+  const handleComplete = (exercise, planId) => {
+    setCurrentExercise({ ...exercise, planId });
     setIsCompletionFormVisible(true);
   };
 
-  const handleSetGoal = (exercise) => {
-    setCurrentExercise(exercise);
+  const handleSetGoal = (exercise, planId) => {
+    setCurrentExercise({ ...exercise, planId });
     setIsGoalFormVisible(true);
   };
 
@@ -63,41 +35,19 @@ const EachPlan = ({ navigation, route }) => {
     setIsCompletionFormVisible(false);
   };
 
-  const handleAdd = () => {
-    setCurrentWorkoutId(planId);
-    navigation.navigate('SearchByNameScreen');
-  };
-
-  const handleRemove = async (exerciseId) => {
-    console.log(planId);
-    console.log(exerciseId);
-
-    try {
-      const { data } = await removeWorkout({
-        variables: { workoutPlanId: planId, workoutId: exerciseId },
-      });
-      refetch();
-    } catch (error) {
-      console.error(error);
-      Alert.alert('Error', 'Failed to remove exercise from workout plan');
-    }
-  };
-
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.container}>
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>{currentPlan.name}</Text>
-          <Text style={styles.subtitle}>Goal: {currentPlan.goal}</Text>
-        </View>
+        <Text style={styles.title}>{name}</Text>
+        <Text style={styles.subtitle}>Goal: {goal}</Text>
 
         <Text style={styles.subtitle}>Workouts:</Text>
-        {currentPlan.workouts.map((workout) => (
+        {workouts.map((workout) => (
           <View key={workout._id} style={styles.workoutContainer}>
             <View style={styles.workoutBlock}>
               <TouchableOpacity onPress={() => handleExerciseClick(workout)} style={styles.workoutCard}>
                 <Text style={styles.workout}>{workout.name}</Text>
-                <ButtonRemoveExercise onPress={() => handleRemove(workout._id)} />
+                <Icon name="angle-right" size={24} color="black" />
               </TouchableOpacity>
               <View style={styles.buttonContainer}>
                 <TouchableOpacity onPress={() => handleComplete(workout, planId)} style={styles.completeButton}>
@@ -117,8 +67,8 @@ const EachPlan = ({ navigation, route }) => {
             onClose={() => setIsGoalFormVisible(false)}
             onSave={handleGoalFormSave}
             exercise={currentExercise}
-            workoutPlanId={planId}
-            workoutId={currentExercise._id}
+            workoutPlanId={planId}  
+            workoutId={currentExercise._id} 
           />
         )}
 
@@ -128,12 +78,12 @@ const EachPlan = ({ navigation, route }) => {
             onClose={() => setIsCompletionFormVisible(false)}
             onSave={handleCompletionFormSave}
             exercise={currentExercise}
-            workoutPlanId={planId}
-            workoutId={currentExercise._id}
+            workoutPlanId={planId}  
+            workoutId={currentExercise._id} 
           />
         )}
       </View>
-      <ButtonAddWorkout onPress={handleAdd} />
+      <ButtonAddWorkout navigation={navigation} />
     </ScrollView>
   );
 };
@@ -141,16 +91,11 @@ const EachPlan = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   scrollContainer: {
     flexGrow: 1,
-    padding: 15,
+    padding: 20,
   },
   container: {
     flex: 1,
     alignItems: 'center',
-  },
-  titleContainer: {
-    // flex: 1,
-    alignItems: 'center',
-    // marginBottom: 20,
   },
   title: {
     fontSize: 24,
@@ -161,15 +106,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 20,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    padding: 10,
-    flex: 1,
-  },
-  iconButton: {
-    marginLeft: 10,
   },
   workoutContainer: {
     width: '100%',
@@ -222,4 +158,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EachPlan;
+export default EachRecommendedPlan;

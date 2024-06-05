@@ -1,6 +1,7 @@
-import React, { useContext, useState } from 'react';
-import { View, StyleSheet, Text, ScrollView, TouchableOpacity, Alert, Linking, Modal } from 'react-native';
+
 import UserImage from '../components/profile/UserImage';
+import React, { useState, useEffect, useContext } from 'react';
+import { View, StyleSheet, Text, ScrollView, TouchableOpacity, Alert, Linking, Modal, Image } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import * as ImagePicker from 'expo-image-picker';
 import IconButton from '../components/profile/IconButton';
@@ -9,7 +10,7 @@ import Colors from '../styles/colors';
 import VerticalTabs from '../components/profile/VerticalTabs';
 import ReTakeQuiz from '../components/profile/ReTakeQuiz';
 import { useMutation, useQuery } from '@apollo/client';
-import { UPDATE_USER_IMAGE } from '../utils/mutations';
+import { UPDATE_PROFILE_PIC } from '../utils/mutations';
 import { GET_ME } from '../utils/queries';
 import { I18nContext } from '../../App';
 
@@ -17,16 +18,24 @@ const PlaceholderImage = require('../assets/images/persona-icon.jpg');
 
 export default function MyProfile() {
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [updateUserImage] = useMutation(UPDATE_USER_IMAGE);
+  const [image, setImage] = useState(PlaceholderImage);
+  const [updateProfilePic] = useMutation(UPDATE_PROFILE_PIC);
   const { loading, error, data } = useQuery(GET_ME);
   const { i18n } = useContext(I18nContext);
 
   console.log('Loading:', loading);
   console.log('Error:', error);
 
-  // console.log('Data:', data);
-  console.log('from profile: ', i18n);
+
+  console.log('Data:', data);
+  console.log("this is for the PROGILEPIC Property of data: ---> ", data.me.profilePic.data)
+
+  useEffect(() => {
+    if(data && data.me && data.me.profilePic.data) {
+      //{ uri: PlaceholderImage }
+      setImage({uri: `data:image/jpeg;base64,${data.me.profilePic.data}`})
+    }
+  }, [data]);
 
   if (loading) return <Text>Loading...</Text>;
   if (error) return <Text>Error: {error.message}</Text>;
@@ -34,30 +43,46 @@ export default function MyProfile() {
   const { me: { username, workoutPlans } } = data;
   console.log('Data after: ', data);
 
-  const handleUpdateImage = async (imageUrl) => {
-    console.log("URL Image: ", imageUrl);
-    try {
-      const { data } = await updateUserImage({
-        variables: {
-          imageUrl: imageUrl,
-        },
-      });
-      console.log('Updated user image:', data);
-    } catch (error) {
-      console.error('Error updating user image:', error);
-    }
-  };
+  // const handleUpdateImage = async (imageUrl) => {
+  //   console.log("URL Image: ", imageUrl);
+  //   try {
+  //     const { data } = await updateUserImage({
+  //       variables: {
+  //         imageUrl: imageUrl,
+  //       },
+  //     });
+  //     console.log('Updated user image:', data);
+  //   } catch (error) {
+  //     console.error('Error updating user image:', error);
+  //   }
+  // };
 
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       quality: 1,
+      base64: true,
     });
 
     if (!result.canceled) {
-      const imageUri = result.assets[0].uri;
-      setSelectedImage(imageUri);
-      handleUpdateImage(imageUri);
+      const profilePicData = result.assets[0].base64;
+
+      updateProfilePic({
+        variables: {
+          profilePic: {
+            data: profilePicData,
+            contentType: 'image/jpeg'
+          }
+        }
+      })
+      .then(response => {
+        console.log("profile picture updated", response.data);
+        setImage({uri: `data:image/jpeg;base64,${profilePicData}`})
+      })
+      .catch(error => {
+        console.error('Error updating picture:', error);
+        Alert.alert("Error updating profile picture, please try again");
+      })
     } else {
       Alert.alert('You did not select any image.');
     }
@@ -77,16 +102,20 @@ export default function MyProfile() {
       })
       .catch((err) => console.error('An error occurred', err));
   };
-
+  console.log("This is Image: ", image)
   return (
     <View style={styles.container}>
       <ScrollView>
         <TouchableOpacity style={styles.card}>
           <View style={styles.imageWrapper}>
-            <UserImage
-              placeholderImageSource={PlaceholderImage}
-              selectedImage={selectedImage}
+            {loading ? <Text>Loading...</Text> : image && (
+            <Image
+              source={image}
+              style={{ width: 100, height: 100, borderRadius: 50 }}
+              // placeholderImageSource={PlaceholderImage}
+              // selectedImage={selectedImage}
             />
+          )}
           </View>
 
           <View style={styles.userInfoContainer}>

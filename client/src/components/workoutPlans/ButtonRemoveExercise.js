@@ -2,27 +2,26 @@ import React from 'react';
 import { Pressable, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const ButtonAddWorkout = ({ onPress }) => {
+const ButtonRemoveExercise = ({ onPress }) => {
   return (
     <Pressable style={styles.button} onPress={onPress}>
-      <Icon name="plus" size={30} color="grey" />
+      <Icon name="trash" size={20} color="grey" />
     </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
   button: {
-    width: 50,
-    height: 50,
-    // backgroundColor: '#0f0',
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    width: 30,
+    height: 30,
+    // backgroundColor: 'red',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 25,
-    position: 'absolute',
-    bottom: 20,
-    right: 20,
-    
+    borderRadius: 15,
   },
 });
 
-export default ButtonAddWorkout;
+export default ButtonRemoveExercise;
