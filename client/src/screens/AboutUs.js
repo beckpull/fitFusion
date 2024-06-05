@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, SafeAreaView, Platform } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import image1 from '../assets/images/about_us_1.jpg';
@@ -6,6 +6,7 @@ import image2 from '../assets/images/about_us_2.jpg';
 import image3 from '../assets/images/about_us_3.jpg';
 import Testimonials from '../components/AboutUs/Testimonials';
 import Footer from '../components/AboutUs/Footer';
+import { I18nContext } from '../../App';
 
 const { width } = Dimensions.get('window');
 const height = width * 0.6; // 60%
@@ -15,6 +16,8 @@ const images = [
 ];
 
 const AboutUs = ({ navigation }) => {
+  const { i18n } = useContext(I18nContext);
+
   useEffect(() => {
     navigation.setOptions({
       headerTitle: '',
@@ -41,10 +44,7 @@ const AboutUs = ({ navigation }) => {
 
         </ScrollView>
         <View style={styles.mainText}>
-          <Text style={styles.text}>Welcome to <Text style={styles.bold}>FitFusion</Text> – your ultimate companion
-            for personalized fitness training. At FitFusion, we believe that every fitness journey is unique, and we are
-            dedicated to helping you achieve your individual goals through tailored workout regimens that suit your
-            preferences and lifestyle.
+          <Text style={styles.text}>{i18n.t('Welcome to')} <Text style={styles.bold}>FitFusion</Text> {i18n.t('fitFusionDescription')}
           </Text>
         </View>
 
