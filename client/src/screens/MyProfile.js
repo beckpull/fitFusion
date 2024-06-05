@@ -40,12 +40,8 @@ export default function MyProfile() {
   if (loading) return <Text>Loading...</Text>;
   if (error) return <Text>Error: {error.message}</Text>;
 
-<<<<<<< workout-integration
   const { me: { username, level, workoutPlans } } = data;
-=======
-  const { me: { username, workoutPlans } } = data;
-  console.log('Data after: ', data);
->>>>>>> main
+
 
   // const handleUpdateImage = async (imageUrl) => {
   //   console.log("URL Image: ", imageUrl);
@@ -124,18 +120,14 @@ export default function MyProfile() {
 
           <View style={styles.userInfoContainer}>
             <IconButton iconName="picture-o" onPress={pickImageAsync} />
-<<<<<<< workout-integration
-            <Text style={styles.userName}>Welcome {username}</Text>
-            <Text style={styles.userWorkouts}>Lvl: {level}</Text>
-            <Text style={styles.userWorkouts}>Workouts: {workoutPlans.length}</Text>
-=======
             <Text style={styles.userName}>
               {`${i18n.t('welcome')} ${username}`}
             </Text>
+
+            <Text style={styles.userWorkouts}>Lvl: {level}</Text>
             <Text style={styles.userWorkouts}>
               {`${i18n.t('workouts')}: ${workoutPlans.length}`}
             </Text>
->>>>>>> main
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.card} onPress={handleClick}>
