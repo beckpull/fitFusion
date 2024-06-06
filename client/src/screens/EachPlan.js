@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useLayoutEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useQuery, useMutation } from '@apollo/client';
@@ -8,6 +8,7 @@ import ExerciseForm from '../components/workoutPlans/ExerciseForm';
 import ExerciseCompletionForm from '../components/workoutPlans/ExerciseCompletionForm';
 import ButtonAddWorkout from '../components/workoutPlans/ButtonAddWorkout';
 import ButtonRemoveExercise from '../components/workoutPlans/ButtonRemoveExercise';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { WorkoutContext } from '../context/WorkoutContext';
 
@@ -27,6 +28,19 @@ const EachPlan = ({ navigation, route }) => {
     refetch();
   }, [refetch]);
 
+
+  useLayoutEffect(() => {
+
+    navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity onPress={() => navigation.navigate('MyWorkouts')}>
+          <Ionicons style={styles.arrow} name="arrow-back" size={24} color="black" marginBottom="200" />
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation]);
+
+
   if (loading) return <Text>Loading...</Text>;
 
   if (error) {
@@ -41,6 +55,9 @@ const EachPlan = ({ navigation, route }) => {
   if (!currentPlan) {
     return <Text>Workout Plan not found</Text>;
   }
+
+
+
 
   const handleExerciseClick = (exercise) => {
     setCurrentExercise(exercise);
@@ -151,13 +168,13 @@ const EachPlan = ({ navigation, route }) => {
           <Text style={styles.subtitle}>Goal: {currentPlan.goal}</Text>
         </View>
 
-       
+
 
         <Text style={styles.subtitle}>Workouts:</Text>
         {currentPlan.workouts.map((workout) => (
           <View key={workout._id} style={styles.workoutContainer}>
             <View style={styles.workoutBlock}>
-            <TouchableOpacity onPress={() => handleExerciseClick(workout, currentPlan._id)} style={styles.workoutCard}>
+              <TouchableOpacity onPress={() => handleExerciseClick(workout, currentPlan._id)} style={styles.workoutCard}>
                 <Text style={styles.workout}>{workout.name}</Text>
                 <ButtonRemoveExercise onPress={() => handleRemove(currentPlan.name, workout.name, workout._id)} />
               </TouchableOpacity>
@@ -314,6 +331,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     textAlign: 'center',
   },
+  arrow: {
+    marginLeft: 20,
+},
 });
 
 export default EachPlan;
