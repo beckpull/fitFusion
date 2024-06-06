@@ -112,6 +112,7 @@ const styles = StyleSheet.create({
 
   },
   modalContainer: {
+    marginTop: 40,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
