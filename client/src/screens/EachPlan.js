@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'rea
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_ME } from '../utils/queries';
-import { REMOVE_WORKOUT } from '../utils/mutations';
+import { REMOVE_WORKOUT, UPDATE_WORKOUT_GOAL, ADD_WORKOUT_PROGRESS } from '../utils/mutations';
 import ExerciseForm from '../components/workoutPlans/ExerciseForm';
 import ExerciseCompletionForm from '../components/workoutPlans/ExerciseCompletionForm';
 import ButtonAddWorkout from '../components/workoutPlans/ButtonAddWorkout';
@@ -20,6 +20,8 @@ const EachPlan = ({ navigation, route }) => {
   const [isEditing, setIsEditing] = useState(false);
   const { setCurrentWorkoutId } = useContext(WorkoutContext);
   const [removeWorkout] = useMutation(REMOVE_WORKOUT);
+  const [updateGoal] = useMutation(UPDATE_WORKOUT_GOAL);
+  const [saveProgress] = useMutation(ADD_WORKOUT_PROGRESS);
 
   useEffect(() => {
     refetch();
@@ -34,6 +36,7 @@ const EachPlan = ({ navigation, route }) => {
 
   const { me: { workoutPlans } } = data;
   const currentPlan = workoutPlans.find(plan => plan._id === planId);
+  console.log("This is currentPlan", currentPlan);
 
   if (!currentPlan) {
     return <Text>Workout Plan not found</Text>;
@@ -44,9 +47,39 @@ const EachPlan = ({ navigation, route }) => {
     navigation.navigate('ExerciseDetail', { exercise, planId: currentPlan._id });
   };
 
-  const handleComplete = (exercise) => {
-    setCurrentExercise(exercise);
-    setIsCompletionFormVisible(true);
+  const handleComplete = async (workout, planId) => {
+    const goal = workout.goal[0]
+    console.log("this is goal:", goal)
+    console.log("this is goalId:", goal._id)
+    const input = {
+      sets: goal.sets,
+      reps: goal.reps,
+      weight: goal.weight,
+      duration: goal.duration,
+      distance: goal.distance
+    }
+    try {
+      await updateGoal({
+        variables: {
+          workoutPlanId: planId,
+          workoutId: workout._id,
+          goalId: goal._id,
+          isComplete: true,
+        },
+      })
+
+      await saveProgress({
+        variables: {
+          workoutPlanId: planId,
+          workoutId: workout._id,
+          progressInput: input,
+        }
+      })
+    } catch(error) {
+      console.error('Error:', error);
+    }
+    // setCurrentExercise(exercise);
+    // setIsCompletionFormVisible(true);
   };
 
   const handleSetGoal = (exercise) => {
@@ -128,14 +161,37 @@ const EachPlan = ({ navigation, route }) => {
                 <Text style={styles.workout}>{workout.name}</Text>
                 <ButtonRemoveExercise onPress={() => handleRemove(currentPlan.name, workout.name, workout._id)} />
               </TouchableOpacity>
+              {workout.goal && workout.goal.length > 0 ? (
+                workout.goal.map((goal) => (
+                  <>
+                  {goal.isComplete === false ? (
+                    <>
+                    <TouchableOpacity onPress={() => handleExerciseClick(workout)} style={styles.workoutCard}>
+                      {goal.sets !== null && goal.reps !== null && goal.weight !== null ?(
+                      <Text style={styles.workout}>Sets: {goal.sets} Reps: {goal.reps} Weight: {goal.weight}</Text>
+                    ) : (
+                      <Text style={styles.workout}>Duration: {goal.duration} Distance: {goal.distance}</Text>
+                    )}
+                        {/* <ButtonRemoveExercise onPress={() => handleRemove(currentPlan.name, workout.name, workout._id)} /> */}
+                    </TouchableOpacity>
+                    <View style={styles.buttonContainer}>
+                    <TouchableOpacity onPress={() => handleComplete(workout, planId)} style={styles.completeButton}>
+                      <Text style={styles.completeButtonText}>Complete</Text>
+                    </TouchableOpacity>
+                    </View>
+                    </>
+                    ) : (
+                      <Text>Congratulations!</Text>
+                    )}
+                  </>
+                ))
+              ) : (
               <View style={styles.buttonContainer}>
-                <TouchableOpacity onPress={() => handleComplete(workout, planId)} style={styles.completeButton}>
-                  <Text style={styles.completeButtonText}>Complete</Text>
-                </TouchableOpacity>
                 <TouchableOpacity onPress={() => handleSetGoal(workout, planId)} style={styles.setGoalButton}>
                   <Text style={styles.setGoalButtonText}>Set Goal</Text>
                 </TouchableOpacity>
               </View>
+              )}
             </View>
           </View>
         ))}
@@ -229,6 +285,13 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   completeButton: {
+    backgroundColor: '#4CAF50',
+    padding: 8,
+    borderRadius: 5,
+    marginRight: 10,
+    flex: 1,
+  },
+  congratulations: {
     backgroundColor: '#4CAF50',
     padding: 8,
     borderRadius: 5,

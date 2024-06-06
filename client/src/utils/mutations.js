@@ -99,6 +99,39 @@ mutation AddWorkoutProgress($workoutPlanId: ID!, $workoutId: ID!, $progressInput
 }
 `;
 
+export const ADD_WORKOUT_GOAL = gql`
+mutation AddWorkoutGoal($workoutPlanId: ID!, $workoutId: ID!, $goalInput: GoalInput!) {
+  addWorkoutGoal(workoutPlanId: $workoutPlanId, workoutId: $workoutId, goalInput: $goalInput) {
+    _id
+    name
+    goal
+    workouts {
+      _id
+      name
+      bodyPart
+      goal {
+        sets
+        reps
+        weight
+        duration
+        distance
+        isComplete
+      }
+    }
+  }
+}
+`
+export const UPDATE_WORKOUT_GOAL = gql`
+mutation Mutation($workoutPlanId: ID!, $workoutId: ID!, $goalId: ID!, $isComplete: Boolean!) {
+  updateWorkoutGoal(workoutPlanId: $workoutPlanId, workoutId: $workoutId, goalId: $goalId, isComplete: $isComplete) {
+    workouts {
+      goal {
+        isComplete
+      }
+    }
+  }
+}
+`
 
 export const UPDATE_WORKOUT_PLAN_NAME = gql`
   mutation UpdateWorkoutPlanName($planId: ID!, $newName: String!) {

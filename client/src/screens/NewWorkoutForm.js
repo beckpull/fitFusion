@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/client';
 import { useNavigation } from '@react-navigation/native';
 import { ADD_WORKOUT_PLAN } from '../utils/mutations';
 import { WorkoutContext } from '../context/WorkoutContext';
-import { I18nContext } from '../../App';
+import { I18nContext } from '../../I18n';
 
 
 export default function NewWorkoutForm() {

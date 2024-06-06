@@ -1,5 +1,6 @@
 const { Schema } = require('mongoose');
 const progressSchema = require('./Progress');
+const goalSchema = require('./Goal')
 
 const workoutSchema = new Schema(
     {
@@ -37,6 +38,7 @@ const workoutSchema = new Schema(
             // required: true
         },
         progress: [progressSchema],
+        goal: [goalSchema]
     }
 );
 
