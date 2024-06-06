@@ -6,7 +6,7 @@ import image2 from '../assets/images/about_us_2.jpg';
 import image3 from '../assets/images/about_us_3.jpg';
 import Testimonials from '../components/AboutUs/Testimonials';
 import Footer from '../components/AboutUs/Footer';
-import { I18nContext } from '../../App';
+import { I18nContext } from '../../I18n';
 
 const { width } = Dimensions.get('window');
 const height = width * 0.6; // 60%

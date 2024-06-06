@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { View, ScrollView, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { I18nContext } from '../../../App';
+import { I18nContext } from '../../../I18n';
 import Colors from '../../styles/colors';
 
 

@@ -7,7 +7,7 @@ import UserPlan from '../components/workoutPlans/UserPlan';
 import RecommendedPlan from '../components/workoutPlans/RecommendedPlan';
 import ButtonAddPlan from '../components/workoutPlans/ButtonAddPlan';
 import '../styles/Workout.css';
-import { I18nContext } from '../../App';
+import { I18nContext } from '../../I18n';
 
 
 const WorkoutPlan = ({ navigation }) => {

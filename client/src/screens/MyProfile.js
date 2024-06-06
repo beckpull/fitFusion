@@ -12,7 +12,7 @@ import ReTakeQuiz from '../components/profile/ReTakeQuiz';
 import { useMutation, useQuery } from '@apollo/client';
 import { UPDATE_PROFILE_PIC } from '../utils/mutations';
 import { GET_ME } from '../utils/queries';
-import { I18nContext } from '../../App';
+import { I18nContext } from '../../I18n';
 
 const PlaceholderImage = require('../assets/images/persona-icon.jpg');
 
@@ -41,8 +41,22 @@ export default function MyProfile() {
   if (error) return <Text>Error: {error.message}</Text>;
   
   const { me: { username, level, workoutPlans } } = data;
+
+  const getLevelTranslationKey =(levelValue) => {
+    switch (levelValue) {
+      case 'Beginner':
+        return 'level1';
+      case 'Intermediate':
+        return 'level2';
+      case 'Advanced':
+        return 'level3';
+      default:
+        return levelValue;
+    }
+  };
+
   
-  const levelTranslationKey = `level${level}`;
+  const translatedLevel = i18n.t(getLevelTranslationKey(level));
 
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -115,7 +129,7 @@ export default function MyProfile() {
               {i18n.t('welcome')}: {username}
             </Text>
 
-            <Text style={styles.userWorkouts}>{i18n.t('Level')} : {level}</Text>
+            <Text style={styles.userWorkouts}>{i18n.t('Level')} : {translatedLevel}</Text>
             <Text style={styles.userWorkouts}>
               {i18n.t('workouts')}: {workoutPlans.length}
             </Text>

@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { useState } from 'react';
 import { ApolloProvider } from '@apollo/client';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -28,19 +28,20 @@ import SearchByNameScreen from './src/screens/SearchWorkout/SearchByNameScreen';
 // import SearchByMuscleScreen from './src/screens/SearchWorkout/SearchByMuscleScreen';
 import NewWorkoutForm from './src/screens/NewWorkoutForm';
 import EditWorkoutForm from './src/screens/EditWorkoutForm';
+import i18n, { I18nContext} from './I18n';
 // Languages support:
-import { I18n } from 'i18n-js';
-import en from './locales/en';
-import es from './locales/es';
-import pt from './locales/pt';
+// import { I18n } from 'i18n-js';
+// import en from './locales/en';
+// import es from './locales/es';
+// import pt from './locales/pt';
 
 
-const i18n = new I18n({ en, es, pt });
-i18n._defaultLocale = 'en';
-i18n._locale = 'en';
+// const i18n = new I18n({ en, es, pt });
+// i18n._defaultLocale = 'en';
+// i18n._locale = 'en';
 
 
-export const I18nContext = createContext();
+// export const I18nContext = createContext();
 
 
 const Stack = createStackNavigator();

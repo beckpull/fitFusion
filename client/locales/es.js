@@ -74,9 +74,10 @@ export default {
     "Example: Run a 5K in under 30 minutes": "Ejemplo: Correr un 5K en menos de 30 minutos",
     "Example: 5K Training Plan": "Ejemplo: Plan de entrenamiento de 5K",
     "This is our blog": "Este es nuestro blog",
-    "Calendar Progress": "Progreso del calendario",
+    "Calendar Progress": "Progreso Del Calendario",
     "Workout you have already done it will show in green": "El entrenamiento que ya has hecho se mostrará en verde",
     "Your best Buddy to work out": "Tu mejor compañero para hacer ejercicio",
     "Re-take Physical test": "Volver a tomar el test físico",
     "Exercises": "Ejercicios",
+    "Birth date cannot be today or in the future": "La fecha de nacimiento no puede ser hoy o en el futuro",
 };
