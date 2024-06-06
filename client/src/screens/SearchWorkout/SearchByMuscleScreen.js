@@ -3,7 +3,7 @@ import { ScrollView, View, StyleSheet } from 'react-native';
 import Workouts from '../../components/searchResults/ExerciseResults';
 import prototypeObject from '../../components/searchResults/WorkoutsJSON';
 
-export default SearchByNameScreen = () => {
+export default SearchByMuscleeScreen = () => {
     return (
         <ScrollView>
             <View style={styles.container}>
