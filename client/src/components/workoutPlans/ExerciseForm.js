@@ -4,7 +4,7 @@ import { Picker } from '@react-native-picker/picker';
 import { useMutation } from '@apollo/client';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-import { ADD_WORKOUT_PROGRESS } from '../../utils/mutations';
+import { ADD_WORKOUT_GOAL } from '../../utils/mutations';
 
 const ExerciseForm = ({ visible, onClose, onSave, exercise, workoutPlanId, workoutId }) => {
   const [sets, setSets] = useState('');
@@ -19,7 +19,7 @@ const ExerciseForm = ({ visible, onClose, onSave, exercise, workoutPlanId, worko
   console.log("workoutPlanId ", workoutPlanId);
   console.log("workoutId ", workoutId);
 
-  const [saveProgress, { loading, error }] = useMutation(ADD_WORKOUT_PROGRESS);
+  const [saveGoal, { loading, error }] = useMutation(ADD_WORKOUT_GOAL);
 
 
   if (loading) return <Text>Loading...</Text>;
@@ -41,19 +41,20 @@ const ExerciseForm = ({ visible, onClose, onSave, exercise, workoutPlanId, worko
     const variables = {
       workoutPlanId: workoutPlanId, 
       workoutId: workoutId, 
-      progressInput: {
+      goalInput: {
         sets: parseInt(sets),
         reps: parseInt(reps),
         weight: parseInt(weight),
         duration: parseInt(duration),
-        distance: parseInt(distance)
+        distance: parseInt(distance),
+        isComplete: false
       }
     }
 
     console.log(variables);
 
     try {
-      const { data } = await saveProgress({ 
+      const { data } = await saveGoal({ 
         variables: { ...variables } 
       });
     console.log

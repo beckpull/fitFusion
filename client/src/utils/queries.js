@@ -1,76 +1,96 @@
 import { gql } from '@apollo/client';
 
 export const GET_ME = gql`
-query Me {
+query Query {
   me {
     _id
-    age
-    birthDate
-    calories
-    country
-    email
-    gender
-    height
-    level
-    password
     username
+    email
+    password
+    country
+    birthDate
+    height
     weight
+    gender
+    level
+    calories
     profilePic {
-      contentType
       data
-    }
-    recommendedPlans {
-      _id
-      date
-      goal
-      isRecommended
-      name
-      workouts {
-        _id
-        bodyPart
-        equipment
-        gifUrl
-        instructions
-        name
-        secondary
-        target
-        workoutId
-        progress {
-          _id
-          date
-          distance
-          duration
-          reps
-          sets
-          weight
-        }
-      }
+      contentType
     }
     workoutPlans {
       _id
-      goal
-      isRecommended
       name
+      goal
       workouts {
         _id
+        name
+        workoutId
         bodyPart
         equipment
         gifUrl
-        instructions
-        name
-        secondary
         target
-        workoutId
+        secondary
+        instructions
         progress {
           _id
           date
-          distance
-          duration
-          reps
           sets
+          reps
           weight
+          duration
+          distance
+        }
+        goal {
+          _id
+          date
+          sets
+          reps
+          weight
+          duration
+          distance
+          isComplete
         }
       }
+      date
+      isRecommended
+    }
+    recommendedPlans {
+      _id
+      name
+      goal
+      workouts {
+        _id
+        name
+        workoutId
+        bodyPart
+        equipment
+        gifUrl
+        target
+        secondary
+        instructions
+        progress {
+          _id
+          date
+          sets
+          reps
+          weight
+          duration
+          distance
+        }
+        goal {
+          _id
+          date
+          sets
+          reps
+          weight
+          duration
+          distance
+          isComplete
+        }
+      }
+      date
+      isRecommended
     }
   }
 }
