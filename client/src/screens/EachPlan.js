@@ -175,47 +175,67 @@ const EachPlan = ({ navigation, route }) => {
 
 
         <Text style={styles.subtitle}>Workouts:</Text>
-        {currentPlan.workouts.map((workout, index) => (
-          <View key={`${workout._id}_${index}`} style={styles.workoutContainer}>
-            <View style={styles.workoutBlock}>
-              <TouchableOpacity onPress={() => handleExerciseClick(workout, currentPlan._id)} style={styles.workoutCard}>
-                <Text style={styles.workout}>{workout.name}</Text>
-                <ButtonRemoveExercise onPress={() => handleRemove(currentPlan.name, workout.name, workout._id)} />
-              </TouchableOpacity>
-              {workout.goal && workout.goal.length > 0 ? (
-                workout.goal.map((goal, index) => (
-                  <>
-                  {goalComplete === false ? (
-                    <>
-                    <TouchableOpacity key={index} onPress={() => handleExerciseClick(workout)} style={styles.workoutCard}>
-                      {goal.sets !== null && goal.reps !== null && goal.weight !== null ?(
-                      <Text style={styles.workout}>Sets: {goal.sets} Reps: {goal.reps} Weight: {goal.weight}</Text>
-                    ) : (
-                      <Text style={styles.workout}>Duration: {goal.duration} Distance: {goal.distance}</Text>
-                    )}
-                        {/* <ButtonRemoveExercise onPress={() => handleRemove(currentPlan.name, workout.name, workout._id)} /> */}
-                    </TouchableOpacity>
-                    <View style={styles.buttonContainer}>
-                    <TouchableOpacity onPress={() => handleComplete(workout, planId)} style={styles.completeButton}>
-                      <Text style={styles.completeButtonText}>Complete</Text>
-                    </TouchableOpacity>
-                    </View>
-                    </>
-                    ) : (
-                      <Text style={styles.subtitle}>Completed</Text>
-                    )}
-                  </>
-                ))
-              ) : (
-              <View style={styles.buttonContainer}>
-                <TouchableOpacity onPress={() => handleSetGoal(workout, planId)} style={styles.setGoalButton}>
-                  <Text style={styles.setGoalButtonText}>Set Goal</Text>
+        {currentPlan.workouts.map((workout, workoutIndex) => (
+  <View key={`${workout._id}_${workoutIndex}`} style={styles.workoutContainer}>
+    <View style={styles.workoutBlock}>
+      <TouchableOpacity
+        key={`${workout._id}_touch`}
+        onPress={() => handleExerciseClick(workout, currentPlan._id)}
+        style={styles.workoutCard}
+      >
+        <Text style={styles.workout}>{workout.name}</Text>
+        <ButtonRemoveExercise
+          onPress={() => handleRemove(currentPlan.name, workout.name, workout._id)}
+        />
+      </TouchableOpacity>
+      {workout.goal && workout.goal.length > 0 ? (
+        workout.goal.map((goal, goalIndex) => (
+          <React.Fragment key={`${goal._id}_${goalIndex}`}>
+            {goal.isComplete === false ? (
+              <React.Fragment key={`${goal._id}_incomplete`}>
+                <TouchableOpacity
+                  key={`${goal._id}_touch`}
+                  onPress={() => handleExerciseClick(workout)}
+                  style={styles.workoutCard}
+                >
+                  {goal.sets !== null && goal.reps !== null && goal.weight !== null ? (
+                    <Text style={styles.workout}>
+                      Sets: {goal.sets} Reps: {goal.reps} Weight: {goal.weight}
+                    </Text>
+                  ) : (
+                    <Text style={styles.workout}>
+                      Duration: {goal.duration} Distance: {goal.distance}
+                    </Text>
+                  )}
                 </TouchableOpacity>
-              </View>
-              )}
-            </View>
-          </View>
-        ))}
+                <View style={styles.buttonContainer}>
+                  <TouchableOpacity
+                    onPress={() => handleComplete(workout, planId)}
+                    style={styles.completeButton}
+                  >
+                    <Text style={styles.completeButtonText}>Complete</Text>
+                  </TouchableOpacity>
+                </View>
+              </React.Fragment>
+            ) : (
+              <Text key={`${goal._id}_complete`}>Congratulations!</Text>
+            )}
+          </React.Fragment>
+        ))
+      ) : (
+        <View style={styles.buttonContainer} key={`${workout._id}_setgoal`}>
+          <TouchableOpacity
+            onPress={() => handleSetGoal(workout, planId)}
+            style={styles.setGoalButton}
+          >
+            <Text style={styles.setGoalButtonText}>Set Goal</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+    </View>
+  </View>
+))}
+
 
         {isGoalFormVisible && currentExercise && (
           <ExerciseForm
