@@ -75,7 +75,7 @@ export default function App() {
             <Stack.Screen name="PhysicalTest" component={PhysicalTest} />
 
             {/* <Stack.Screen name="MainSearchScreen" component={MainSearchScreen} options={{ title: 'Search for a Workout' }} /> */}
-            <Stack.Screen name="SearchByNameScreen" component={SearchByNameScreen} options={{ title: 'Search by Name' }} />
+            <Stack.Screen name="SearchByNameScreen" component={SearchByNameScreen} options={{ title: '' }} />
             {/* <Stack.Screen name="SearchByMuscleScreen" component={SearchByMuscleScreen} options={{ title: 'Search by Targeted Muscle' }} /> */}
 
             <Stack.Screen name="NewWorkoutForm" component={NewWorkoutForm} options={{ title: 'New Workout Form' }} />
@@ -83,7 +83,7 @@ export default function App() {
             <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
 
             {/* <Stack.Screen name="MyWorkouts" component={MyWorkouts} /> */}
-            <Stack.Screen name="EachPlan" component={EachPlan} />
+            <Stack.Screen name="EachPlan" component={EachPlan} options={{title: ''}} />
             <Stack.Screen name="EachRecommendedPlan" component={EachRecommendedPlan} />
             <Stack.Screen name="ExerciseDetail" component={ExerciseDetail} />
 

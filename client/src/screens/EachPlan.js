@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useLayoutEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useQuery, useMutation } from '@apollo/client';
@@ -8,6 +8,7 @@ import ExerciseForm from '../components/workoutPlans/ExerciseForm';
 import ExerciseCompletionForm from '../components/workoutPlans/ExerciseCompletionForm';
 import ButtonAddWorkout from '../components/workoutPlans/ButtonAddWorkout';
 import ButtonRemoveExercise from '../components/workoutPlans/ButtonRemoveExercise';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { WorkoutContext } from '../context/WorkoutContext';
 
@@ -22,10 +23,24 @@ const EachPlan = ({ navigation, route }) => {
   const [removeWorkout] = useMutation(REMOVE_WORKOUT);
   const [updateGoal] = useMutation(UPDATE_WORKOUT_GOAL);
   const [saveProgress] = useMutation(ADD_WORKOUT_PROGRESS);
+  const [goalComplete, setGoalComplete] = useState(false)
 
   useEffect(() => {
     refetch();
   }, [refetch]);
+
+
+  useLayoutEffect(() => {
+
+    navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity onPress={() => navigation.navigate('MyWorkouts')}>
+          <Ionicons style={styles.arrow} name="arrow-back" size={24} color="black" marginBottom="200" />
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation]);
+
 
   if (loading) return <Text>Loading...</Text>;
 
@@ -41,6 +56,9 @@ const EachPlan = ({ navigation, route }) => {
   if (!currentPlan) {
     return <Text>Workout Plan not found</Text>;
   }
+
+
+
 
   const handleExerciseClick = (exercise) => {
     setCurrentExercise(exercise);
@@ -75,6 +93,9 @@ const EachPlan = ({ navigation, route }) => {
           progressInput: input,
         }
       })
+
+      setGoalComplete(true);
+      Alert.alert('Congratulations!');
     } catch(error) {
       console.error('Error:', error);
     }
@@ -151,20 +172,20 @@ const EachPlan = ({ navigation, route }) => {
           <Text style={styles.subtitle}>Goal: {currentPlan.goal}</Text>
         </View>
 
-       
+
 
         <Text style={styles.subtitle}>Workouts:</Text>
         {currentPlan.workouts.map((workout, index) => (
           <View key={`${workout._id}_${index}`} style={styles.workoutContainer}>
             <View style={styles.workoutBlock}>
-            <TouchableOpacity key={workout._id} onPress={() => handleExerciseClick(workout, currentPlan._id)} style={styles.workoutCard}>
+              <TouchableOpacity onPress={() => handleExerciseClick(workout, currentPlan._id)} style={styles.workoutCard}>
                 <Text style={styles.workout}>{workout.name}</Text>
                 <ButtonRemoveExercise onPress={() => handleRemove(currentPlan.name, workout.name, workout._id)} />
               </TouchableOpacity>
               {workout.goal && workout.goal.length > 0 ? (
                 workout.goal.map((goal, index) => (
                   <>
-                  {goal.isComplete === false ? (
+                  {goalComplete === false ? (
                     <>
                     <TouchableOpacity key={index} onPress={() => handleExerciseClick(workout)} style={styles.workoutCard}>
                       {goal.sets !== null && goal.reps !== null && goal.weight !== null ?(
@@ -181,7 +202,7 @@ const EachPlan = ({ navigation, route }) => {
                     </View>
                     </>
                     ) : (
-                      <Text>Congratulations!</Text>
+                      <Text style={styles.subtitle}>Completed</Text>
                     )}
                   </>
                 ))
@@ -314,6 +335,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     textAlign: 'center',
   },
+  arrow: {
+    marginLeft: 20,
+},
 });
 
 export default EachPlan;

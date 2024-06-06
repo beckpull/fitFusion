@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     height: 100,
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: 'black',
+    backgroundColor: '#3e3e5b',
   },
   text: {
     flex: 1,
