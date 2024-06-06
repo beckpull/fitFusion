@@ -24,7 +24,7 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_USER_SECOND_SCREEN = gql`
-  mutation Mutation($height: Int!, $weight: Int!, $gender: String!, $level: String!, $calories: Int!) {
+  mutation Mutation($height: Int!, $weight: Int!, $gender: String!, $level: String!, $calories: Int) {
     addUserSecondScreen(height: $height, weight: $weight, gender: $gender, level: $level, calories: $calories) {
       _id
       email
