@@ -1,14 +1,31 @@
 import React, { useState } from 'react';
 import { View, ScrollView, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
-
-export default function VerticalTabs() {
+export default function VerticalTabs({ allProgress }) {
+    console.log("this is allProgress from Verticaltabs:", allProgress);
     const [selectedTab, setSelectedTab] = useState(0);
+    allProgress.map(progress => {
+        console.log("weight", progress.weight);
+        console.log("duration", progress.duration);
+        console.log("distance", progress.distance)
+    })
+    const totalWeight = allProgress.reduce((accumulator, progress) => {
+        return accumulator + progress.weight;
+    }, 0);
+    console.log("total weight", totalWeight);
+    const totalDistance = allProgress.reduce((accumulator, progress) => {
+        return accumulator + progress.distance;
+    }, 0);
+    console.log('TotalDistance:', totalDistance);
+    const totalDuration = allProgress.reduce((accumulator, progress) => {
+        return accumulator + progress.duration;
+    }, 0);
+    console.log('totalDuration:', totalDuration);
 
     const tabData = [
-        { title: 'Movement', image: require('../../assets/images/image1.png'), description: 'Do you have any injuries or discomfort? We adapt it completely or partially to take care of you.' },
-        { title: 'Weight', image: require('../../assets/images/image2.png'), description: 'According to your goal! You choose to Tone or Increase' },
-        { title: 'Intensity', image: require('../../assets/images/image3.png'), description: ' It depends on your physical condition. We propose the movement, you set the intensity.' }
+        { title: 'Movement', image: require('../../assets/images/image1.png'), description: `You have moved a total of ${totalDistance} miles!` },
+        { title: 'Weight', image: require('../../assets/images/image3.png'), description: `You have lifted a total of ${totalWeight} pounds!` },
+        { title: 'Intensity', image: require('../../assets/images/image2.png'), description: `You have moved for a total of ${totalDuration} minutes!` }
     ];
 
     const handleTabPress = (index) => {
@@ -17,8 +34,8 @@ export default function VerticalTabs() {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.variablesText}>Variables</Text>
-            <Text style={styles.descriptionText}>In FitFusion® we adapt our variables to your physical capacity, so that you quickly adapt and achieve the expected results.</Text>
+            <Text style={styles.variablesText}>Stats:</Text>
+            {/* <Text style={styles.descriptionText}>In FitFusion® we adapt our variables to your physical capacity, so that you quickly adapt and achieve the expected results.</Text> */}
             <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.tabsContainer}>
                 {tabData.map((tab, index) => (
                     <TouchableOpacity

@@ -42,6 +42,10 @@ export default function MyProfile() {
 
   const { me: { username, level, workoutPlans } } = data;
 
+  const allWorkouts = workoutPlans.map(plan => plan.workouts).flat();
+  console.log("this is allWorkouts", allWorkouts)
+  const allProgress = allWorkouts.map(workout => workout.progress).flat();
+  console.log("this is allProgress", allProgress);
 
   const getLevelTranslationKey =(levelValue) => {
     switch (levelValue) {
@@ -160,7 +164,9 @@ export default function MyProfile() {
           </TouchableOpacity>
         </View>
 
-        <VerticalTabs />
+        <VerticalTabs
+         allProgress={allProgress}
+        />
 
       </ScrollView>
       <StatusBar style="auto" />
