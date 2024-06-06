@@ -21,9 +21,27 @@ const EachRecommendedPlan = ({ route, navigation }) => {
   const [updateGoal] = useMutation(UPDATE_WORKOUT_GOAL);
   const [saveProgress] = useMutation(ADD_WORKOUT_PROGRESS);
   const { loading, error, data, refetch } = useQuery(GET_ME);
-  const [goalComplete, setGoalComplete] = useState(false)
+  const [goalComplete, setGoalComplete] = useState({});
 
+  useEffect(() => {
+    if (data) {
+      console.log("from useEffect:", data);
+      const initialGoalCompleteState = {};
+      data.me.workoutPlans.forEach(plan => {
+        plan.workouts.forEach(workout => {
+          workout.goal.forEach(goal => {
+            initialGoalCompleteState[goal._id] = goal.isComplete || false;
+            console.log("initialGoalCompleteState:", initialGoalCompleteState)
+          })
+        })
+      })
+      setGoalComplete(initialGoalCompleteState);
+    }
+  }, [data]);
+  
   if (loading) return <Text>Loading...</Text>;
+
+
 
   if (error) {
     console.log(error);
@@ -45,8 +63,8 @@ const EachRecommendedPlan = ({ route, navigation }) => {
     navigation.navigate('ExerciseDetail', { exercise, planId: planId });
   };
 
-  const handleComplete = async (workout, planId) => {
-    const goal = workout.goal[0]
+  const handleComplete = async (workout, goalId) => {
+    const goal = workout.goal.find(g => g._id === goalId)
     // console.log("this is goal:", goal)
     // console.log("this is goalId:", goal._id)
     const input = {
@@ -74,7 +92,7 @@ const EachRecommendedPlan = ({ route, navigation }) => {
         }
       })
 
-      setGoalComplete(true);
+      setGoalComplete(prevState => ({ ...prevState, [goalId]: true}));
       Alert.alert('Congratulations!');
     } catch (error) {
       console.error('Error:', error);
@@ -169,7 +187,7 @@ const EachRecommendedPlan = ({ route, navigation }) => {
               {workout.goal && workout.goal.length > 0 ? (
                 workout.goal.map((goal, goalIndex) => (
                   <React.Fragment key={`${goal._id}_${goalIndex}`}>
-                    {goal.isComplete === false ? (
+                    {!goalComplete[goal._id] ? (
                       <React.Fragment key={`${goal._id}_incomplete`}>
                         <TouchableOpacity
                           key={`${goal._id}_touch`}
@@ -188,7 +206,7 @@ const EachRecommendedPlan = ({ route, navigation }) => {
                         </TouchableOpacity>
                         <View style={styles.buttonContainer}>
                           <TouchableOpacity
-                            onPress={() => handleComplete(workout, planId)}
+                            onPress={() => handleComplete(workout, goal._id)}
                             style={styles.completeButton}
                           >
                             <Text style={styles.completeButtonText}>Complete</Text>
@@ -196,7 +214,7 @@ const EachRecommendedPlan = ({ route, navigation }) => {
                         </View>
                       </React.Fragment>
                     ) : (
-                      <Text key={`${goal._id}_complete`}>Congratulations!</Text>
+                      <Text key={`${goal._id}_complete`} style={styles.subtitle}>Completed</Text>
                     )}
                   </React.Fragment>
                 ))
