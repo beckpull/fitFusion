@@ -31,12 +31,12 @@ const EachPlan = ({ navigation, route }) => {
 
   if (error) {
     console.log(error);
-    return <Text>Error: {error.message}</Text>;
+    // return <Text>Error: {error.message}</Text>;
   }
 
   const { me: { workoutPlans } } = data;
   const currentPlan = workoutPlans.find(plan => plan._id === planId);
-  console.log("This is currentPlan", currentPlan);
+  // console.log("This is currentPlan", currentPlan);
 
   if (!currentPlan) {
     return <Text>Workout Plan not found</Text>;
@@ -49,8 +49,8 @@ const EachPlan = ({ navigation, route }) => {
 
   const handleComplete = async (workout, planId) => {
     const goal = workout.goal[0]
-    console.log("this is goal:", goal)
-    console.log("this is goalId:", goal._id)
+    // console.log("this is goal:", goal)
+    // console.log("this is goalId:", goal._id)
     const input = {
       sets: goal.sets,
       reps: goal.reps,
@@ -154,19 +154,19 @@ const EachPlan = ({ navigation, route }) => {
        
 
         <Text style={styles.subtitle}>Workouts:</Text>
-        {currentPlan.workouts.map((workout) => (
-          <View key={workout._id} style={styles.workoutContainer}>
+        {currentPlan.workouts.map((workout, index) => (
+          <View key={`${workout._id}_${index}`} style={styles.workoutContainer}>
             <View style={styles.workoutBlock}>
-            <TouchableOpacity onPress={() => handleExerciseClick(workout, currentPlan._id)} style={styles.workoutCard}>
+            <TouchableOpacity key={workout._id} onPress={() => handleExerciseClick(workout, currentPlan._id)} style={styles.workoutCard}>
                 <Text style={styles.workout}>{workout.name}</Text>
                 <ButtonRemoveExercise onPress={() => handleRemove(currentPlan.name, workout.name, workout._id)} />
               </TouchableOpacity>
               {workout.goal && workout.goal.length > 0 ? (
-                workout.goal.map((goal) => (
+                workout.goal.map((goal, index) => (
                   <>
                   {goal.isComplete === false ? (
                     <>
-                    <TouchableOpacity key={goal._id} onPress={() => handleExerciseClick(workout)} style={styles.workoutCard}>
+                    <TouchableOpacity key={index} onPress={() => handleExerciseClick(workout)} style={styles.workoutCard}>
                       {goal.sets !== null && goal.reps !== null && goal.weight !== null ?(
                       <Text style={styles.workout}>Sets: {goal.sets} Reps: {goal.reps} Weight: {goal.weight}</Text>
                     ) : (

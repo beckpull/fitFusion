@@ -14,9 +14,8 @@ const ExerciseForm = ({ visible, onClose, onSave, exercise, workoutPlanId, worko
   const [distance, setDistance] = useState('');
   const [measurementType, setMeasurementType] = useState('setsRepsWeight');
 
-
-  console.log("workoutPlanId ", workoutPlanId);
-  console.log("workoutId ", workoutId);
+  // console.log("workoutPlanId ", workoutPlanId);
+  // console.log("workoutId ", workoutId);
 
   const [saveGoal, { loading, error }] = useMutation(ADD_WORKOUT_GOAL);
 
@@ -50,13 +49,13 @@ const ExerciseForm = ({ visible, onClose, onSave, exercise, workoutPlanId, worko
       }
     }
 
-    console.log(variables);
+    // console.log(variables);
 
     try {
       const { data } = await saveGoal({ 
         variables: { ...variables } 
       });
-    console.log(data);
+    // console.log(data);
     onSave(input);
     onClose();
     } catch (err) {

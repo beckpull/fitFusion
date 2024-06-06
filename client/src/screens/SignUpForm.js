@@ -83,7 +83,7 @@ export default function SignUpForm() {
         variables: { username, email, password, country, birthDate },
       });
   
-      console.log('This is the data: ', data);
+      // console.log('This is the data: ', data);
   
       if (error) {
         console.error('Server error:', error);
@@ -91,7 +91,7 @@ export default function SignUpForm() {
       }
   
       Auth.login(data.addUser.token);
-      console.log("User added successfully!", data.addUser);
+      // console.log("User added successfully!", data.addUser);
       navigation.navigate('PhysicalTest', { userId: data.addUser.user.id });
     } catch (err) {
       console.error('something happened!!', err.message);
@@ -149,11 +149,11 @@ export default function SignUpForm() {
           dropDownStyle={{ backgroundColor: '#fafafa' }}
           onChangeItem={item => {
             setCountry(item.value);
-            console.log('onChangeItem triggered');
-            console.log('selected item:', item);
+            // console.log('onChangeItem triggered');
+            // console.log('selected item:', item);
           }}
           onOpen={() => {
-            console.log('onOpen triggered');
+            // console.log('onOpen triggered');
             setShowDatePicker(false); // Close the date picker when the country picker is opened
           }}
         />

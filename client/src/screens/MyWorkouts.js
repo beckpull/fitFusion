@@ -13,7 +13,7 @@ import { I18nContext } from '../../I18n';
 const WorkoutPlan = ({ navigation }) => {
   const { i18n } = useContext(I18nContext);
   const { loading, error, data, refetch } = useQuery(GET_ME);
-  console.log("GET_ME ", data);
+  // console.log("GET_ME ", data);
 
   useFocusEffect(
     useCallback(() => {
