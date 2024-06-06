@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useCallback } from "react";
-import { View, Text, StyleSheet, TextInput, Pressable, Alert, Keyboard, Switch, TouchableWithoutFeedback } from "react-native";
+import { View, Text, StyleSheet, TextInput, Pressable, Alert, Keyboard, Switch, TouchableWithoutFeedback, Modal, TouchableOpacity, Linking, ScrollView } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import colors from '../styles/colors';
@@ -28,6 +28,8 @@ export default function PhysicalTest({ route }) {
   const [calories, setCalories] = useState('');
   const [isCalorieGoalEnabled, setIsCalorieGoalEnabled] = useState(false);
   const [addUserSecondScreen, { error, data }] = useMutation(ADD_USER_SECOND_SCREEN);
+  const [modalTsAndCsVisible, setModalTsAndCsVisible] = useState(false);
+
   const navigation = useNavigation();
   const goToLoginForm = () => {
     navigation.navigate('LoginForm');
@@ -54,7 +56,7 @@ export default function PhysicalTest({ route }) {
   const handleSubmit = useCallback(async (event) => {
     event.preventDefault();
 
-    if (!height || !weight || gender === 'null' || level === 'null'|| (isCalorieGoalEnabled && !calories)) {
+    if (!height || !weight || gender === 'null' || level === 'null' || (isCalorieGoalEnabled && !calories)) {
       Alert.alert(i18n.t('Error'), i18n.t('All fields are required'));
 
       return;
@@ -81,13 +83,13 @@ export default function PhysicalTest({ route }) {
       if (data) {
         Auth.login(data.addUserSecondScreen.token);
         navigation.navigate('TabBar');
-      } 
+      }
     } catch (error) {
       console.error('Error signing up:', error.message);
     }
   }, [height, weight, gender, level, isCalorieGoalEnabled, calories, addUserSecondScreen, route.params.userId, navigation]);
 
-  
+
 
 
   useEffect(() => {
@@ -105,26 +107,26 @@ export default function PhysicalTest({ route }) {
           <View style={{ flex: 1, marginRight: 10 }}>
             <Text style={styles.label}>{i18n.t('Height')}</Text>
             <View style={{ flexDirection: 'row', justifyContent: 'left' }}>
-            <TextInput
-              style={styles.input}
-              value={feet}
-              onChangeText={(value) => {
-               setFeet(value);
-              }}
-              keyboardType="decimal-pad"
-              placeholder={i18n.t("feet")}
-            />
+              <TextInput
+                style={styles.input}
+                value={feet}
+                onChangeText={(value) => {
+                  setFeet(value);
+                }}
+                keyboardType="decimal-pad"
+                placeholder={i18n.t("feet")}
+              />
 
-            <TextInput
-              style={styles.input}
-              value={inches}
-              onChangeText={(value) => {
-                setInches(value);
-              }}
-              keyboardType="decimal-pad"
-              placeholder="in."
+              <TextInput
+                style={styles.input}
+                value={inches}
+                onChangeText={(value) => {
+                  setInches(value);
+                }}
+                keyboardType="decimal-pad"
+                placeholder="in."
 
-            />
+              />
             </View>
           </View>
           <View style={{ flex: 1 }}>
@@ -208,6 +210,46 @@ export default function PhysicalTest({ route }) {
             }}
           />
         </View>
+
+        <TouchableOpacity onPress={() => setModalTsAndCsVisible(true)}>
+          <Text style={styles.link}>Terms and Conditions</Text>
+        </TouchableOpacity>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalTsAndCsVisible}
+          onRequestClose={() => {
+            setModalTsAndCsVisible(!modalTsAndCsVisible);
+          }}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              <View style={styles.header}>
+                <Text style={styles.modalText}>Read Before Signing Up!</Text>
+                <TouchableOpacity style={styles.closeButton} onPress={() => setModalTsAndCsVisible(false)}>
+                  <Text style={styles.closeButtonText}>X</Text>
+                </TouchableOpacity>
+              </View>
+              <ScrollView>
+                <Text style={styles.modalText2}>
+                  - Use at Your Own Risk: By using FitFusion, you acknowledge that participation in physical activities carries inherent risks. FitFusion is not liable for any injuries, accidents, or health issues that may occur as a result of using the app.
+                </Text>
+                <Text style={styles.modalText2}>
+                  - Personal Responsibility: You are responsible for your own safety and well-being while using FitFusion. This includes following instructions provided by the app, using equipment properly, and listening to your body's signals. Stop any exercise that causes discomfort or pain immediately.
+                </Text>
+                <Text style={styles.modalText2}>
+                  - No Medical Advice: FitFusion is not a substitute for professional medical advice, diagnosis, or treatment. The information provided in the app is for general informational purposes only. Consult with your physician or another qualified healthcare provider before beginning any exercise program.
+                </Text>
+                <Text style={styles.modalText3}>
+                  By clicking "I Agree" or by using FitFusion, you indicate your acceptance of these terms and conditions. If you do not agree to abide by these terms, please do not use the app.
+                </Text>
+                <TouchableOpacity style={styles.agreeButton} onPress={() => setModalTsAndCsVisible(false)}>
+                  <Text style={styles.agreeButtonText}>I Agree</Text>
+                </TouchableOpacity>
+              </ScrollView>
+            </View>
+          </View>
+        </Modal>
 
 
         <Pressable style={styles.button} onPress={handleSubmit}>
@@ -308,5 +350,63 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontSize: 16,
   },
+  link: {
+    color: 'gray',
+    textDecorationLine: 'underline',
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    width: '80%',
+    padding: 20,
+    backgroundColor: 'white',
+    borderRadius: 10,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  closeButton: {
+    fontSize: 20,
+    color: 'red',
+  },
+  closeButtonText: {
+    fontSize: 20,
+    color: '#e98168',
+    fontWeight: 'bold',
+  },
+  modalText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: "#003566",
+  },
+  modalText2: {
+    fontSize: 14,
+    color: "gray",
+    marginBottom: 10,
+  },
+  modalText3: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: "#003566",
+  },
+  agreeButton: {
+    backgroundColor: '#e98168',
+    padding: 10,
+    marginTop: 20,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  agreeButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+
 });
 
