@@ -46,7 +46,7 @@ export default function PhysicalTest({ route }) {
     // console.log(heightValue);
 
     setHeight(heightValue);
-    console.log(height);
+    // console.log(height);
   }
 
   useEffect(() => {

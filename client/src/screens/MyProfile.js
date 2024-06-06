@@ -22,8 +22,8 @@ export default function MyProfile() {
   const [updateProfilePic] = useMutation(UPDATE_PROFILE_PIC);
   const { loading, error, data } = useQuery(GET_ME);
   const { i18n } = useContext(I18nContext);
-  console.log('Loading:', loading);
-  console.log('Error:', error);
+  // console.log('Loading:', loading);
+  // console.log('Error:', error);
 
 
   // console.log('Data:', data);
@@ -67,7 +67,7 @@ export default function MyProfile() {
       base64: true,
       mimeType: true,
     });
-    console.log("this is result:", result)
+    // console.log("this is result:", result)
 
     if (!result.canceled) {
       const profilePicData = result.assets[0].base64;
@@ -83,7 +83,7 @@ export default function MyProfile() {
       })
 
         .then(response => {
-          console.log("profile picture updated");
+          // console.log("profile picture updated");
           setImage({ uri: `data:${profilePicContentType};base64,${profilePicData}` })
         })
         .catch(error => {

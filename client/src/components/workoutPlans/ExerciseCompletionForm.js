@@ -13,8 +13,8 @@ const ExerciseCompletionForm = ({ visible, onClose, onSave, exercise, workoutPla
   const [distance, setDistance] = useState('');
   const [measurementType, setMeasurementType] = useState('setsRepsWeight');
 
-  console.log("workoutPlanId ", workoutPlanId);
-  console.log("workoutId ", workoutId);
+  // console.log("workoutPlanId ", workoutPlanId);
+  // console.log("workoutId ", workoutId);
 
   const [saveProgress, { data, loading, error }] = useMutation(ADD_WORKOUT_PROGRESS);
 
@@ -45,7 +45,7 @@ const ExerciseCompletionForm = ({ visible, onClose, onSave, exercise, workoutPla
       const { data } = await saveProgress({ 
         variables: { ...variables } 
       });
-    console.log(data);
+    // console.log(data);
     onSave(input);
     onClose();
     } catch (err) {

@@ -27,7 +27,7 @@ export default function LoginForm() {
     }
   
     try {
-      console.log("Attempting login...");
+      // console.log("Attempting login...");
       const { data } = await login({
         variables: { email, password },
       });
@@ -40,7 +40,7 @@ export default function LoginForm() {
       }
   
       Auth.login(data.login.token);
-      console.log("Login successful!");
+      // console.log("Login successful!");
       navigation.navigate('TabBar');
     } catch (err) {
       console.error('something happened!!', err.message);
