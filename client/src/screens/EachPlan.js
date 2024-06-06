@@ -23,6 +23,7 @@ const EachPlan = ({ navigation, route }) => {
   const [removeWorkout] = useMutation(REMOVE_WORKOUT);
   const [updateGoal] = useMutation(UPDATE_WORKOUT_GOAL);
   const [saveProgress] = useMutation(ADD_WORKOUT_PROGRESS);
+  const [goalComplete, setGoalComplete] = useState(false)
 
   useEffect(() => {
     refetch();
@@ -92,6 +93,9 @@ const EachPlan = ({ navigation, route }) => {
           progressInput: input,
         }
       })
+
+      setGoalComplete(true)
+      Alert.alert('Congratulations!')
     } catch(error) {
       console.error('Error:', error);
     }
@@ -181,7 +185,7 @@ const EachPlan = ({ navigation, route }) => {
               {workout.goal && workout.goal.length > 0 ? (
                 workout.goal.map((goal) => (
                   <>
-                  {goal.isComplete === false ? (
+                  {goalComplete === false ? (
                     <>
                     <TouchableOpacity onPress={() => handleExerciseClick(workout)} style={styles.workoutCard}>
                       {goal.sets !== null && goal.reps !== null && goal.weight !== null ?(
@@ -198,7 +202,7 @@ const EachPlan = ({ navigation, route }) => {
                     </View>
                     </>
                     ) : (
-                      <Text>Congratulations!</Text>
+                      <Text style={styles.subtitle}>Completed</Text>
                     )}
                   </>
                 ))
