@@ -2,7 +2,7 @@ import React, { useState,useContext } from 'react';
 import { View, Text, StyleSheet, Pressable, TextInput, Alert, KeyboardAvoidingView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { sendPasswordResetEmail } from '../utils/auth'; // Assuming you have a function to send reset emails
-import { I18nContext } from '../../App';
+import { I18nContext } from '../../I18n';
 
 export default function ForgotPassword() {
   const { i18n } = useContext(I18nContext);

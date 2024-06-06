@@ -3,7 +3,7 @@ import CalendarProgress from '../components/MyProgress/CalendarProgress';
 import Colors from '../styles/colors';
 import React, { useEffect, useContext } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { I18nContext } from '../../App';
+import { I18nContext } from '../../I18n';
 
 export default function MyProgress({ navigation }) {
   const { i18n } = useContext(I18nContext);

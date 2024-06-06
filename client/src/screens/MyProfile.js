@@ -12,7 +12,7 @@ import ReTakeQuiz from '../components/profile/ReTakeQuiz';
 import { useMutation, useQuery } from '@apollo/client';
 import { UPDATE_PROFILE_PIC } from '../utils/mutations';
 import { GET_ME } from '../utils/queries';
-import { I18nContext } from '../../App';
+import { I18nContext } from '../../I18n';
 
 const PlaceholderImage = require('../assets/images/persona-icon.jpg');
 
@@ -36,13 +36,29 @@ export default function MyProfile() {
       setImage({ uri: `data:image/jpeg;base64,${data.me.profilePic.data}` })
     }
   }, [data]);
-  
+
   if (loading) return <Text>Loading...</Text>;
   if (error) return <Text>Error: {error.message}</Text>;
-  
+
   const { me: { username, level, workoutPlans } } = data;
+
+
+  const getLevelTranslationKey =(levelValue) => {
+    switch (levelValue) {
+      case 'Beginner':
+        return 'level1';
+      case 'Intermediate':
+        return 'level2';
+      case 'Advanced':
+        return 'level3';
+      default:
+        return levelValue;
+    }
+  };
+
   
-  const levelTranslationKey = `level${level}`;
+  const translatedLevel = i18n.t(getLevelTranslationKey(level));
+
 
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -66,32 +82,32 @@ export default function MyProfile() {
         }
       })
 
-      .then(response => {
-        console.log("profile picture updated");
-        setImage({uri: `data:${profilePicContentType};base64,${profilePicData}`})
-      })
-      .catch(error => {
-        console.error('Error updating picture:', error);
-        Alert.alert("Error updating profile picture, please try again");
-      })
+        .then(response => {
+          console.log("profile picture updated");
+          setImage({ uri: `data:${profilePicContentType};base64,${profilePicData}` })
+        })
+        .catch(error => {
+          console.error('Error updating picture:', error);
+          Alert.alert("Error updating profile picture, please try again");
+        })
     } else {
 
       Alert.alert('You did not select any image.');
     }
   };
-  
+
   const handleClick = () => {
     const url = 'https://open.spotify.com/playlist/1Tq5PyQCvmwFUW17fxcabR?si=20af5756d6e04664';
-    
+
     Linking.canOpenURL(url)
-    .then((supported) => {
-      if (supported) {
-        return Linking.openURL(url);
-      } else {
-        console.log(`Don't know how to open this URL: ${url}`);
-      }
-    })
-    .catch((err) => console.error('An error occurred', err));
+      .then((supported) => {
+        if (supported) {
+          return Linking.openURL(url);
+        } else {
+          console.log(`Don't know how to open this URL: ${url}`);
+        }
+      })
+      .catch((err) => console.error('An error occurred', err));
   };
   // console.log("This is Image: ", image)
   return (
@@ -100,11 +116,10 @@ export default function MyProfile() {
         <TouchableOpacity style={styles.card}>
           <View style={styles.imageWrapper}>
             {loading ? <Text>{i18n.t('Loading')}...</Text> : image && (
-              <Image
-              source={image}
-              style={{ width: 100, height: 100, borderRadius: 50 }}
-              // placeholderImageSource={PlaceholderImage}
-              // selectedImage={selectedImage}
+              <UserImage
+                username={username}
+                placeholderImageSource={PlaceholderImage}
+                selectedImage={image.uri}
               />
             )}
           </View>
@@ -115,7 +130,7 @@ export default function MyProfile() {
               {i18n.t('welcome')}: {username}
             </Text>
 
-            <Text style={styles.userWorkouts}>{i18n.t('Level')} : {level}</Text>
+            <Text style={styles.userWorkouts}>{i18n.t('Level')} : {translatedLevel}</Text>
             <Text style={styles.userWorkouts}>
               {i18n.t('workouts')}: {workoutPlans.length}
             </Text>

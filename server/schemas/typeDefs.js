@@ -45,6 +45,7 @@ const typeDefs = `
         secondary: [String]
         instructions: [String]
         progress: [Progress]
+        goal: [Goal]
     }
 
     type Progress {
@@ -55,6 +56,17 @@ const typeDefs = `
         weight: Int
         duration: Int
         distance: Int
+    }
+
+    type Goal {
+        _id: ID
+        date: Date
+        sets: Int
+        reps: Int
+        weight: Int
+        duration: Int
+        distance: Int
+        isComplete: Boolean
     }
 
     type Auth {
@@ -71,6 +83,15 @@ const typeDefs = `
         target: String
         secondary: [String]
         instructions: [String]
+    }
+
+    input GoalInput {
+        sets: Int
+        reps: Int
+        weight: Int
+        duration: Int
+        distance: Int
+        isComplete: Boolean
     }
 
     input ProgressInput {
@@ -105,6 +126,8 @@ const typeDefs = `
         addWorkout(workoutPlanId: ID!, workoutInput: WorkoutInput!): WorkoutPlan
         removeWorkout(workoutPlanId: ID!, workoutId: ID!): WorkoutPlan
 
+        addWorkoutGoal(workoutPlanId: ID!, workoutId: ID!, goalInput: GoalInput!): WorkoutPlan
+        updateWorkoutGoal(workoutPlanId: ID!, workoutId: ID!, goalId: ID!, isComplete: Boolean!): WorkoutPlan
         addWorkoutProgress(workoutPlanId: ID!, workoutId: ID!, progressInput: ProgressInput!): WorkoutPlan
 
         updateProfilePic(profilePic: ProfilePicInput!): User

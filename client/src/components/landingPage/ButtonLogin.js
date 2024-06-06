@@ -1,5 +1,5 @@
 import { Text, Pressable, StyleSheet } from 'react-native';
-import { I18nContext } from '../../../App';
+import { I18nContext } from '../../../I18n';
 import { useContext } from 'react';
 
 export default function ButtonLogin({ navigation }) {
