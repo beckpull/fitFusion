@@ -9,7 +9,6 @@ import { ADD_WORKOUT } from '../../utils/mutations';
 import { WorkoutContext } from '../../context/WorkoutContext';
 import WorkoutsJSON from '../../components/searchResults/WorkoutsJSON';
 import Workouts from '../../components/searchResults/ExerciseResults';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 
