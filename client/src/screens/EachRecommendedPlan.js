@@ -12,7 +12,7 @@ import { WorkoutContext } from '../context/WorkoutContext';
 
 const EachRecommendedPlan = ({ route, navigation }) => {
   const { planId, name, goal, workouts } = route.params;
-   const [isGoalFormVisible, setIsGoalFormVisible] = useState(false);
+  const [isGoalFormVisible, setIsGoalFormVisible] = useState(false);
   const [isCompletionFormVisible, setIsCompletionFormVisible] = useState(false);
   const [currentExercise, setCurrentExercise] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -21,6 +21,7 @@ const EachRecommendedPlan = ({ route, navigation }) => {
   const [updateGoal] = useMutation(UPDATE_WORKOUT_GOAL);
   const [saveProgress] = useMutation(ADD_WORKOUT_PROGRESS);
   const { loading, error, data, refetch } = useQuery(GET_ME);
+  const [goalComplete, setGoalComplete] = useState(false)
 
   if (loading) return <Text>Loading...</Text>;
 
@@ -72,6 +73,9 @@ const EachRecommendedPlan = ({ route, navigation }) => {
           progressInput: input,
         }
       })
+
+      setGoalComplete(true);
+      Alert.alert('Congratulations!');
     } catch(error) {
       console.error('Error:', error);
     }
@@ -159,7 +163,7 @@ const EachRecommendedPlan = ({ route, navigation }) => {
             {workout.goal && workout.goal.length > 0 ? (
               workout.goal.map((goal) => (
                 <>
-                {goal.isComplete === false ? (
+                {goalComplete === false ? (
                   <>
                   <TouchableOpacity onPress={() => handleExerciseClick(workout)} style={styles.workoutCard}>
                     {goal.sets !== null && goal.reps !== null && goal.weight !== null ?(
@@ -176,7 +180,7 @@ const EachRecommendedPlan = ({ route, navigation }) => {
                   </View>
                   </>
                   ) : (
-                    <Text>Congratulations!</Text>
+                    <Text style={styles.subtitle}>Completed</Text>
                   )}
                 </>
               ))
