@@ -94,8 +94,8 @@ const EachPlan = ({ navigation, route }) => {
         }
       })
 
-      setGoalComplete(true)
-      Alert.alert('Congratulations!')
+      setGoalComplete(true);
+      Alert.alert('Congratulations!');
     } catch(error) {
       console.error('Error:', error);
     }
