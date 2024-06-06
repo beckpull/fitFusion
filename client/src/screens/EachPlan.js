@@ -41,7 +41,7 @@ const EachPlan = ({ navigation, route }) => {
 
   const handleExerciseClick = (exercise) => {
     setCurrentExercise(exercise);
-    navigation.navigate('ExerciseDetail', { exercise });
+    navigation.navigate('ExerciseDetail', { exercise, planId: currentPlan._id });
   };
 
   const handleComplete = (exercise) => {
@@ -124,7 +124,7 @@ const EachPlan = ({ navigation, route }) => {
         {currentPlan.workouts.map((workout) => (
           <View key={workout._id} style={styles.workoutContainer}>
             <View style={styles.workoutBlock}>
-              <TouchableOpacity onPress={() => handleExerciseClick(workout)} style={styles.workoutCard}>
+            <TouchableOpacity onPress={() => handleExerciseClick(workout, currentPlan._id)} style={styles.workoutCard}>
                 <Text style={styles.workout}>{workout.name}</Text>
                 <ButtonRemoveExercise onPress={() => handleRemove(currentPlan.name, workout.name, workout._id)} />
               </TouchableOpacity>
@@ -170,7 +170,9 @@ const EachPlan = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   scrollContainer: {
     flexGrow: 1,
-    padding: 15,
+    paddingVertical: 20,
+    paddingHorizontal: 10,
+    backgroundColor: '#f5f5f5',
   },
   container: {
     flex: 1,

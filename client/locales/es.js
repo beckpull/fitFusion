@@ -80,4 +80,5 @@ export default {
     "Re-take Physical test": "Volver a tomar el test físico",
     "Exercises": "Ejercicios",
     "Birth date cannot be today or in the future": "La fecha de nacimiento no puede ser hoy o en el futuro",
+
 };

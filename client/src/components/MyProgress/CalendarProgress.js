@@ -8,6 +8,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import goodJobImage from '../../assets/images/good_job.png';
 import { I18nContext } from '../../../I18n';
 
+
 export default function CalendarProgress() {
   const { i18n } = useContext(I18nContext);
 
