@@ -136,7 +136,7 @@ const EachRecommendedPlan = ({ route, navigation }) => {
     <ScrollView contentContainerStyle={styles.scrollContainer}>
     <View style={styles.container}>
       <TouchableOpacity
-        onPress={() => handleRename(workout._id, workout.name, workout.goal)}
+        onPress={() => handleRename(currentPlan._id, currentPlan.name, currentPlan.goal)}
         style={styles.iconButton}>
         <Icon name={isEditing ? "save" : "edit"} size={24} color="black" />
       </TouchableOpacity>
@@ -161,7 +161,7 @@ const EachRecommendedPlan = ({ route, navigation }) => {
                 <>
                 {goal.isComplete === false ? (
                   <>
-                  <TouchableOpacity onPress={() => handleExerciseClick(workout)} style={styles.workoutCard}>
+                  <TouchableOpacity key={goal._id} onPress={() => handleExerciseClick(workout)} style={styles.workoutCard}>
                     {goal.sets !== null && goal.reps !== null && goal.weight !== null ?(
                     <Text style={styles.workout}>Sets: {goal.sets} Reps: {goal.reps} Weight: {goal.weight}</Text>
                   ) : (

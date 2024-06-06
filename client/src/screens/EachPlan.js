@@ -166,7 +166,7 @@ const EachPlan = ({ navigation, route }) => {
                   <>
                   {goal.isComplete === false ? (
                     <>
-                    <TouchableOpacity onPress={() => handleExerciseClick(workout)} style={styles.workoutCard}>
+                    <TouchableOpacity key={goal._id} onPress={() => handleExerciseClick(workout)} style={styles.workoutCard}>
                       {goal.sets !== null && goal.reps !== null && goal.weight !== null ?(
                       <Text style={styles.workout}>Sets: {goal.sets} Reps: {goal.reps} Weight: {goal.weight}</Text>
                     ) : (
