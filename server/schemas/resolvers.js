@@ -223,6 +223,39 @@ const resolvers = {
       throw AuthenticationError
     },
 
+    addWorkoutGoal: async (parent, { workoutPlanId, workoutId, goalInput }, context) => {
+      if (context.user) {
+        return await WorkoutPlan.findOneAndUpdate(
+          { _id: workoutPlanId, 'workouts._id': workoutId },
+          {
+            $push: { 'workouts.$.goal': goalInput }
+          },
+          { new: true, runValidators: true }
+        );
+      }
+      throw AuthenticationError
+    },
+
+    updateWorkoutGoal: async (parent, { workoutPlanId, workoutId, goalId, isComplete }, context) => {
+      if (context.user) {
+        return await WorkoutPlan.findOneAndUpdate(
+          { _id: workoutPlanId, 'workouts._id': workoutId, 'workouts.goal._id': goalId },
+          {
+            $set: { 'workouts.$[workout].goal.$[goal].isComplete': isComplete }
+          },
+          { 
+            new: true, 
+            arrayFilters: [
+              { 'workout._id': workoutId },
+              {'goal._id': goalId }
+            ],
+            runValidators: true }
+        );
+
+      }
+      throw AuthenticationError
+    },
+
     addWorkoutProgress: async (parent, { workoutPlanId, workoutId, progressInput }, context) => {
       if (context.user) {
         return await WorkoutPlan.findOneAndUpdate(
