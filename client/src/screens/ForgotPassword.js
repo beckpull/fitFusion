@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import { View, Text, StyleSheet, Pressable, TextInput, Alert, KeyboardAvoidingView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { sendPasswordResetEmail } from '../utils/auth'; // Assuming you have a function to send reset emails
+import { I18nContext } from '../../I18n';
 
 export default function ForgotPassword() {
+  const { i18n } = useContext(I18nContext);
   const [email, setEmail] = useState('');
   const navigation = useNavigation();
 
@@ -14,7 +16,7 @@ export default function ForgotPassword() {
 
   const handleForgotPassword = async () => {
     if (!email) {
-      Alert.alert('Error', 'Please enter your email address');
+      Alert.alert(i18n.t('Error'), i18n.t('Please enter your email address'));
       return;
     }
 
@@ -30,20 +32,20 @@ export default function ForgotPassword() {
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       {/* Forgot password form */}
-      <Text style={styles.title}>Forgot Password?</Text>
-      <Text style={styles.subtitle}>Enter your email address below to receive instructions on how to reset your password.</Text>
+      <Text style={styles.title}>{i18n.t('Forgot Password')}?</Text>
+      <Text style={styles.subtitle}>{i18n.t('resetPassword')}.</Text>
       <TextInput
         style={styles.input}
         value={email}
         onChangeText={setEmail}
-        placeholder="Enter your email"
+        placeholder={i18n.t("Enter your email")}
         keyboardType="email-address"
       />
       <Pressable style={styles.button} onPress={handleForgotPassword}>
-        <Text style={styles.buttonText}>Reset Password</Text>
+        <Text style={styles.buttonText}>{i18n.t('Reset Password')}</Text>
       </Pressable>
       <Pressable onPress={goToLoginForm}>
-        <Text style={styles.goBackLink}>← Go back to login</Text>
+        <Text style={styles.goBackLink}>← {i18n.t('Go back to login')}</Text>
       </Pressable>
     </KeyboardAvoidingView>
   );

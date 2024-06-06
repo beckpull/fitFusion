@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { View, Text, TextInput, Pressable, StyleSheet, TouchableWithoutFeedback, Keyboard, Alert } from "react-native";
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -6,8 +6,10 @@ import { useNavigation } from '@react-navigation/native';
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
+import { I18nContext } from "../../I18n";
 
 export default function SignUpForm() {
+  const { i18n } = useContext(I18nContext);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -42,22 +44,32 @@ export default function SignUpForm() {
 
   const handleDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || birthDate;
+    const today = new Date();
+
+    // Check if selected date is today or in the future
+    if (currentDate >= today) {
+      Alert.alert(i18n.t('Error'), i18n.t('Birth date cannot be today or in the future'));
+      setShowDatePicker(false);
+      return;
+    }
+
     setShowDatePicker(false);
     setBirthDate(currentDate);
   };
 
   const navigation = useNavigation();
   const goToLoginForm = () => {
-    navigation.navigate('LoginForm'); // Replace 'Login' with the name of your Login screen in your navigation stack
+    navigation.navigate('LoginForm'); 
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     if (!username || !email || !password || !country || !birthDate) {
-      Alert.alert('Error', 'All fields are required');
+      Alert.alert(i18n.t('Error'), i18n.t('All fields are required'));
       return;
     } else if (!emailRegex.test(email)) {
-      Alert.alert('Error', 'Please enter a valid email address');
+      Alert.alert(i18n.t('Error'), i18n.t('Please enter a valid email address'));
       return;
     }
   
@@ -67,7 +79,6 @@ export default function SignUpForm() {
     setCountry('');
     setBirthDate(new Date());
     try {
-      console.log('Entering the try!')
       const { data } = await addUser({
         variables: { username, email, password, country, birthDate },
       });
@@ -81,7 +92,6 @@ export default function SignUpForm() {
   
       Auth.login(data.addUser.token);
       console.log("User added successfully!", data.addUser);
-      // console.log("User added successfully!");
       navigation.navigate('PhysicalTest', { userId: data.addUser.user.id });
     } catch (err) {
       console.error('something happened!!', err.message);
@@ -99,38 +109,38 @@ export default function SignUpForm() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
     <View style={styles.container}>
-      <Text style={styles.h1}>Create Account</Text>
-      <Text style={styles.label}>Username</Text>
+      <Text style={styles.h1}>{i18n.t('Create Account')}</Text>
+      <Text style={styles.label}>{i18n.t('Username')}</Text>
       <TextInput
 
         style={styles.input}
         value={username}
         onChangeText={setUsername}
-        placeholder="Enter your username"
+        placeholder={i18n.t("Enter your username")}
       />
-      <Text style={styles.label}>Email</Text>
+      <Text style={styles.label}>{i18n.t('Email')}</Text>
       <TextInput
         style={styles.input}
         value={email}
         onChangeText={setEmail}
-        placeholder="Enter your email"
+        placeholder={i18n.t("Enter your email address")}
         keyboardType="email-address"
       />
 
-      <Text style={styles.label}>Password</Text>
+      <Text style={styles.label}>{i18n.t('Password')}</Text>
       <TextInput
         style={styles.input}
         value={password}
         onChangeText={setPassword}
-        placeholder="Enter your password"
+        placeholder={i18n.t("Enter your password")}
         secureTextEntry={true}
       />
 
-      <Text style={styles.label}>Country</Text>
+      <Text style={styles.label}>{i18n.t('Country')}</Text>
       <View style={styles.pickerContainer}>
         <DropDownPicker
           items={items}
-          placeholder="Select your country"
+          placeholder={i18n.t("Select your country")}
           open={open}
           value={country}
           setOpen={setOpen}
@@ -150,7 +160,7 @@ export default function SignUpForm() {
       </View>
 
       <View style={open ? styles.birthDateContainerOpen : styles.birthDateContainerClosed}>
-        <Text style={styles.label}>Birth Date</Text>
+        <Text style={styles.label}>{i18n.t('Birth Date')}</Text>
         <Pressable onPress={() => setShowDatePicker(true)}>
           <Text style={styles.dateText}>{birthDate.toDateString()}</Text>
         </Pressable>
@@ -168,13 +178,13 @@ export default function SignUpForm() {
 
 
       <Pressable style={styles.button} onPress={handleSubmit}>
-        <Text style={styles.buttonText}>Continue</Text>
+        <Text style={styles.buttonText}>{i18n.t('Continue')}</Text>
       </Pressable>
 
       <View style={styles.loginContainer}>
-        <Text style={styles.loginText}>I am already a user,</Text>
+        <Text style={styles.loginText}>{i18n.t('I am already a user')},</Text>
         <Pressable onPress={goToLoginForm}>
-          <Text style={styles.loginLink}>Login</Text>
+          <Text style={styles.loginLink}>{i18n.t('Login')}</Text>
         </Pressable>
       </View>
     </View>

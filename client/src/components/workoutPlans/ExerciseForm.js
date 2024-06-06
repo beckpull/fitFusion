@@ -14,8 +14,7 @@ const ExerciseForm = ({ visible, onClose, onSave, exercise, workoutPlanId, worko
   const [distance, setDistance] = useState('');
   const [measurementType, setMeasurementType] = useState('setsRepsWeight');
 
-  // const workoutPlanId = WorkoutPlanId;
-  // const workoutId = WorkoutId;
+
   console.log("workoutPlanId ", workoutPlanId);
   console.log("workoutId ", workoutId);
 
@@ -57,7 +56,6 @@ const ExerciseForm = ({ visible, onClose, onSave, exercise, workoutPlanId, worko
       const { data } = await saveGoal({ 
         variables: { ...variables } 
       });
-    console.log
     console.log(data);
     onSave(input);
     onClose();

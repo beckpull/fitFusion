@@ -1,10 +1,12 @@
 import { text } from '@fortawesome/fontawesome-svg-core';
 import CalendarProgress from '../components/MyProgress/CalendarProgress';
 import Colors from '../styles/colors';
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { I18nContext } from '../../I18n';
 
 export default function MyProgress({ navigation }) {
+  const { i18n } = useContext(I18nContext);
   useEffect(() => {
     navigation.setOptions({
       headerTitle: '',
@@ -16,11 +18,11 @@ export default function MyProgress({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.contText}>
-        <Text style={styles.text}>Calendar Progress</Text>
+        <Text style={styles.text}>{i18n.t('Calendar Progress')}</Text>
       </View>
       <CalendarProgress />
       <View style={styles.contText}>
-        <Text style={styles.textAlert}>Workout you have already done it will show in green</Text>
+        <Text style={styles.textAlert}>{i18n.t('Workout you have already done it will show in green')}</Text>
       </View>
 
     </View>

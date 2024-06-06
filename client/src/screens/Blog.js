@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { View, Text, ScrollView, StyleSheet, Image, Linking, ActivityIndicator } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-
+import { I18nContext } from '../../I18n';
 
 const API_KEY = '83e7b281b3864bf888cb227cd1e5cb2c'
 
 export default function Blog({ navigation }) {
+  const { i18n } = useContext(I18nContext);
 
   const [blogPosts, setBlogPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -60,7 +61,7 @@ export default function Blog({ navigation }) {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.heading}>This is our blog!</Text>
+      <Text style={styles.heading}>{i18n.t('This is our blog')}!</Text>
       {loading ? (
         <ActivityIndicator size="large" color="#17a2b8" />
       ) : (

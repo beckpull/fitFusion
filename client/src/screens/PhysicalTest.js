@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import { View, Text, StyleSheet, TextInput, Pressable, Alert, Keyboard, Switch, TouchableWithoutFeedback } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -7,9 +7,11 @@ import TabBar from "../components/tabBar/TabBar";
 import { useMutation } from "@apollo/client";
 import { ADD_USER_SECOND_SCREEN } from "../utils/mutations";
 import Auth from "../utils/auth";
+import { I18nContext } from "../../I18n";
 import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
 export default function PhysicalTest({ route }) {
+  const { i18n } = useContext(I18nContext);
   const [feet, setFeet] = useState(0);
   const [inches, setInches] = useState(0);
   const [height, setHeight] = useState(0);
@@ -18,9 +20,9 @@ export default function PhysicalTest({ route }) {
   const [level, setLevel] = useState('null');
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState([
-    { label: `It's been a while since I've been to the gym🏋️‍♂️❌`, value: `Beginner` },
-    { label: `I'm fairly active, but there's always room for improvement💪🔄`, value: `Intermediate` },
-    { label: 'I live for the gym!🏋️‍♂️❤️', value: 'Advanced' }
+    { label: i18n.t('beginner'), value: 'Begginner' },
+    { label: i18n.t('intermediate'), value: 'Intermediate' },
+    { label: i18n.t('advanced'), value: 'Advanced' }
   ]);
 
   const [calories, setCalories] = useState('');
@@ -33,22 +35,37 @@ export default function PhysicalTest({ route }) {
 
   const getHeightInInches = () => {
     const feetToInches = parseInt(feet) * 12;
+    // console.log(feetToInches);
+
     const inchesValue = parseInt(inches);
+    // console.log(inchesValue);
+
     const heightValue = feetToInches + inchesValue;
+    // console.log(heightValue);
+
     setHeight(heightValue);
+    console.log(height);
   }
 
-  const handleSubmit = async (event) => {
+  useEffect(() => {
+    getHeightInInches();
+  }, [feet, inches, getHeightInInches]);
+
+  const handleSubmit = useCallback(async (event) => {
     event.preventDefault();
+
     if (!height || !weight || gender === 'null' || level === 'null'|| (isCalorieGoalEnabled && !calories)) {
-      Alert.alert('Error', 'All fields are required');
+      Alert.alert(i18n.t('Error'), i18n.t('All fields are required'));
+
       return;
     }
     if (isCalorieGoalEnabled && !calories) {
-      Alert.alert('Error', 'Calories field is required if setting a calorie goal');
+      Alert.alert(i18n.t('Error'), i18n.t('Calories field is required if setting a calorie goal'));
       return;
     }
+
     Alert.alert('Form submitted', `Height: ${height}, Weight: ${weight}, Gender: ${gender}, Level: ${level}, Calories: ${calories}`);
+
     try {
       const { data } = await addUserSecondScreen({
         variables: {
@@ -60,19 +77,16 @@ export default function PhysicalTest({ route }) {
           calories: isCalorieGoalEnabled ? parseInt(calories) : null,
         },
       });
-      console.log('This is the data: ', data);
-      if (error) {
-        console.error('Server error:', error);
-        return;
-      }
-    
-      Auth.login(data.addUserSecondScreen.token);
-      console.log("User added successfully!");
-      navigation.navigate('TabBar');
+
+      if (data) {
+        Auth.login(data.addUserSecondScreen.token);
+        navigation.navigate('TabBar');
+      } 
     } catch (error) {
       console.error('Error signing up:', error.message);
     }
-  };
+  }, [height, weight, gender, level, isCalorieGoalEnabled, calories, addUserSecondScreen, route.params.userId, navigation]);
+
   
 
 
@@ -85,64 +99,65 @@ export default function PhysicalTest({ route }) {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={styles.container}>
-        <Text style={styles.h1}>Physical Test</Text>
+
+        <Text style={styles.h1}>{i18n.t('Physical Test')}</Text>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <View style={{ flex: 1, marginRight: 10 }}>
-            <Text style={styles.label}>Height</Text>
+            <Text style={styles.label}>{i18n.t('Height')}</Text>
             <View style={{ flexDirection: 'row', justifyContent: 'left' }}>
             <TextInput
               style={styles.input}
               value={feet}
               onChangeText={(value) => {
                setFeet(value);
-               getHeightInInches();
               }}
               keyboardType="decimal-pad"
-              placeholder="feet"
+              placeholder={i18n.t("feet")}
             />
+
             <TextInput
               style={styles.input}
               value={inches}
               onChangeText={(value) => {
                 setInches(value);
-                getHeightInInches();
               }}
               keyboardType="decimal-pad"
               placeholder="in."
+
             />
             </View>
           </View>
           <View style={{ flex: 1 }}>
-            <Text style={styles.label}>Weight</Text>
+            <Text style={styles.label}>{i18n.t('Weight')}</Text>
             <TextInput
               style={styles.input}
               value={weight}
               onChangeText={setWeight}
               keyboardType="decimal-pad"
-              placeholder="Enter weight in pounds"
+              placeholder={i18n.t("Enter weight in pounds")}
             />
           </View>
         </View>
 
-        <Text style={styles.label}>Gender</Text>
+        <Text style={styles.label}>{i18n.t('Gender')}</Text>
         <View style={styles.buttonContainer}>
           <Pressable
             style={[styles.buttonGender, gender === 'Male' ? styles.selectedButton : null]}
             onPress={() => setGender('Male')}
           >
-            <Text style={styles.buttonText}>Male</Text>
+            <Text style={styles.buttonText}>{i18n.t('Male')}</Text>
           </Pressable>
           <Pressable
             style={[styles.buttonGender, gender === 'Female' ? styles.selectedButton : null]}
             onPress={() => setGender('Female')}
           >
-            <Text style={styles.buttonText}>Female</Text>
+            <Text style={styles.buttonText}>{i18n.t('Female')}</Text>
           </Pressable>
           <Pressable
             style={[styles.buttonGender, gender === 'Non-binary' ? styles.selectedButton : null]}
             onPress={() => setGender('Non-binary')}
           >
-            <Text style={styles.buttonText}>Non-Binary</Text>
+            <Text style={styles.buttonText}>{i18n.t('Non-Binary')}</Text>
           </Pressable>
         </View>
 
@@ -154,27 +169,27 @@ export default function PhysicalTest({ route }) {
             onValueChange={setIsCalorieGoalEnabled}
             value={isCalorieGoalEnabled}
           />
-          <Text style={styles.switchLabel}>Set a Calorie Goal</Text>
+          <Text style={styles.switchLabel}>{i18n.t('Set a Calorie Goal')}</Text>
         </View>
 
         {isCalorieGoalEnabled && (
           <View>
-            <Text style={styles.label}>Calories</Text>
+            <Text style={styles.label}>{i18n.t('Calories')}</Text>
             <TextInput
               style={styles.input}
               value={calories}
               onChangeText={setCalories}
               keyboardType="numeric"
-              placeholder="Enter your calorie goal"
+              placeholder={i18n.t("Enter your calorie goal")}
             />
           </View>
         )}
 
-        <Text style={styles.label}>Level</Text>
+        <Text style={styles.label}>{i18n.t('Level')}</Text>
         <View style={styles.pickerContainer}>
           <DropDownPicker
             items={items}
-            placeholder="Select your level"
+            placeholder={i18n.t("Select your level")}
             open={open}
             value={level}
             setOpen={setOpen}
@@ -196,7 +211,7 @@ export default function PhysicalTest({ route }) {
 
 
         <Pressable style={styles.button} onPress={handleSubmit}>
-          <Text style={styles.buttonText}>Create Account</Text>
+          <Text style={styles.buttonText}>{i18n.t('Create Account')}</Text>
         </Pressable>
       </View>
     </TouchableWithoutFeedback>
@@ -294,3 +309,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
+

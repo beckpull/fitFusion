@@ -109,7 +109,7 @@ const typeDefs = `
 
     type Query {
         me: User
-
+        getWorkoutProgress(workoutPlanId: ID!, workoutId: ID!): [Progress]
         allUsers: [User]
         myWorkoutPlans: [WorkoutPlan]
     }

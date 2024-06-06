@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { useState } from 'react';
 import { ApolloProvider } from '@apollo/client';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -28,26 +28,7 @@ import SearchByNameScreen from './src/screens/SearchWorkout/SearchByNameScreen';
 // import SearchByMuscleScreen from './src/screens/SearchWorkout/SearchByMuscleScreen';
 import NewWorkoutForm from './src/screens/NewWorkoutForm';
 import EditWorkoutForm from './src/screens/EditWorkoutForm';
-// Languages support:
-import { I18n } from 'i18n-js';
-import en from './locales/en';
-import es from './locales/es';
-import pt from './locales/pt';
-
-
-const i18n = new I18n({ en, es, pt });
-console.log('i18n: ', i18n);
-// i18n.translations = { en, es, pt };
-console.log(i18n.t('welcome'))
-i18n._defaultLocale = 'es';
-i18n._locale = 'es';
-
-
-export const I18nContext = createContext();
-
-console.log('I18nContext: ', I18nContext);
-
-
+import i18n, { I18nContext} from './I18n';
 
 const Stack = createStackNavigator();
 
@@ -55,7 +36,7 @@ const httpLink = createHttpLink({
   uri: `http://${process.env.HTTP_URI}:3001/graphql`,
 });
 
-console.log(httpLink)
+// console.log(httpLink)
 
 const authLink = setContext(async (_, { headers }) => {
   const token = await AsyncStorage.getItem('id_token');
@@ -109,7 +90,6 @@ export default function App() {
 
             <Stack.Screen
               name="TabBar"
-            // component={() => <TabBar />} 
             >
               {() => <TabBar i18n={i18n} />}
 

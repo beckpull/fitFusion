@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useContext } from 'react';
 import { View, StyleSheet, ScrollView, Text } from 'react-native';
 import { GET_ME } from '../utils/queries';
 import { useQuery } from '@apollo/client';
@@ -7,8 +7,11 @@ import UserPlan from '../components/workoutPlans/UserPlan';
 import RecommendedPlan from '../components/workoutPlans/RecommendedPlan';
 import ButtonAddPlan from '../components/workoutPlans/ButtonAddPlan';
 import '../styles/Workout.css';
+import { I18nContext } from '../../I18n';
+
 
 const WorkoutPlan = ({ navigation }) => {
+  const { i18n } = useContext(I18nContext);
   const { loading, error, data, refetch } = useQuery(GET_ME);
   console.log("GET_ME ", data);
 
@@ -18,7 +21,7 @@ const WorkoutPlan = ({ navigation }) => {
     }, [refetch])
   );
 
-  if (loading) return <Text>Loading...</Text>;
+  if (loading) return <Text>{i18n.t('Loading')}...</Text>;
 
   if (error) {
     console.log(error);
@@ -33,20 +36,20 @@ const WorkoutPlan = ({ navigation }) => {
       <ScrollView contentContainerStyle={styles.scrollContainer}>
 
         {/* Render user's plans */}
-        <Text style={styles.yourPlans}>Your Plans</Text>
+        <Text style={styles.yourPlans}>{i18n.t('Your Plans')}</Text>
         {workoutPlans && workoutPlans.length > 0 ? (
           workoutPlans.map((plan) => (
             <UserPlan key={plan._id} planId={plan._id} name={plan.name} goal={plan.goal} workouts={plan.workouts} />
            ))
-        ) : <Text style={styles.noPlan}>You don't have any workout plans yet! Here are our recommended plans to get you started - or add one of your own!</Text>}
+        ) : <Text style={styles.noPlan}>{i18n.t(`You don't have any workout plans yet! Here are our recommended plans to get you started - or add one of your own`)}!</Text>}
 
         {/* Render recommended plans */}
-        <Text style={styles.recommendedPlans}>Recommended Plans</Text>
+        <Text style={styles.recommendedPlans}>{i18n.t('Recommended Plans')}</Text>
         {recommendedPlans && recommendedPlans.length > 0 ? (
           recommendedPlans.map((plan) => (
             <RecommendedPlan key={plan._id} planId={plan._id} name={plan.name} goal={plan.goal} workouts={plan.workouts} />
           ))
-        ) : <Text>No recommended plans available.</Text>}
+        ) : <Text>{i18n.t('No recommended plans available')}.</Text>}
 
       </ScrollView>
       <View style={styles.buttonContainer}>

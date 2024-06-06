@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { View, Text, TextInput, Pressable, StyleSheet, Alert, Image, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from "react-native";
 import icon from "../assets/FitFusionLogoType.png";
 import { useNavigation } from '@react-navigation/native';
-import MyProfile from "./MyProfile";
-import TabBar from "../components/tabBar/TabBar";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
+import { I18nContext } from "../../I18n";
 
 export default function LoginForm() {
+  const { i18n } = useContext(I18nContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [login, { error, data }] = useMutation(LOGIN_USER);
@@ -20,7 +20,6 @@ export default function LoginForm() {
 
   const handleSubmit = async(event) => {
     event.preventDefault();
-    
     // Check if any field is empty
     if (!email.trim() || !password.trim()) {
       Alert.alert('Error', 'Please fill out all fields.');
@@ -33,7 +32,6 @@ export default function LoginForm() {
         variables: { email, password },
       });
   
-      console.log('This is the data: ', data);
   
       if (error) {
         console.error('Server error:', error);
@@ -70,41 +68,41 @@ export default function LoginForm() {
           source={icon}
           style={{ width: 120, height: 80 }}
         />
-        <Text style={styles.h1}>Live the experience!</Text>
-        <Text style={{ ...styles.label, marginTop: 100 }}>Email</Text>
+        <Text style={styles.h1}>{i18n.t('Live the experience')}!</Text>
+        <Text style={{ ...styles.label, marginTop: 50 }}>{i18n.t('Email')}</Text>
         <TextInput
           id='email'
           style={[styles.input, !isEmailValid && styles.inputError]}
           name="email"
           value={email}
           onChangeText={setEmail}
-          placeholder="Enter your email address"
+          placeholder={i18n.t("Enter your email address")}
           onBlur={() => setIsEmailValid(email.trim() !== '')}
         />
         {!isEmailValid && <Text style={styles.errorText}>Email is required.</Text>}
-        <Text style={styles.label}>Password</Text>
+        <Text style={styles.label}>{i18n.t('Password')}</Text>
         <TextInput
           style={[styles.input, !isPasswordValid && styles.inputError]}
           name="password"
           value={password}
           onChangeText={setPassword}
-          placeholder="Enter your password"
+          placeholder={i18n.t("Enter your password")}
           secureTextEntry={true}
           onBlur={() => setIsPasswordValid(password.trim() !== '')}
         />
-        {!isPasswordValid && <Text style={styles.errorText}>Password is required.</Text>}
+        {!isPasswordValid && <Text style={styles.errorText}>{i18n.t("Password is required")}.</Text>}
         <Pressable style={styles.button} onPress={handleSubmit}>
-          <Text style={styles.buttonText}>Login</Text>
+          <Text style={styles.buttonText}>{i18n.t('Login')}</Text>
         </Pressable>
 
         <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
-          <Text style={styles.link}>I forgot my password</Text>
+          <Text style={styles.link}>{i18n.t('I forgot my password')}</Text>
         </TouchableOpacity>
 
-        <Text style={styles.text}>Not a user?</Text>
+        <Text style={styles.text}>{i18n.t('Not a user')}?</Text>
 
         <TouchableOpacity onPress={() => navigation.navigate('SignUpForm')}>
-          <Text style={styles.link}>Create account</Text>
+          <Text style={styles.link}>{i18n.t('Create account')}</Text>
         </TouchableOpacity>
       </View>
     </TouchableWithoutFeedback>
@@ -119,6 +117,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   container: {
+    marginTop: 20,
     padding: 20,
   },
   label: {
