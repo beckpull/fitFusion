@@ -79,6 +79,7 @@ export default {
   "Your best Buddy to work out": "Your best Buddy to work out",
   "Re-take Physical test": "Re-take Physical test",
   "Exercises": "Exercises",
+  "Birth date cannot be today or in the future": "Birth date cannot be today or in the future",
 
 
 };

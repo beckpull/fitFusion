@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { ScrollView, Text, StyleSheet, View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { I18nContext } from '../../../App';
+import { I18nContext } from '../../../I18n';
 
 export default function Footer() {
 

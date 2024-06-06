@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
-import { I18nContext } from "../../App";
+import { I18nContext } from "../../I18n";
 
 export default function SignUpForm() {
   const { i18n } = useContext(I18nContext);
@@ -44,6 +44,15 @@ export default function SignUpForm() {
 
   const handleDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || birthDate;
+    const today = new Date();
+
+    // Check if selected date is today or in the future
+    if (currentDate >= today) {
+      Alert.alert(i18n.t('Error'), i18n.t('Birth date cannot be today or in the future'));
+      setShowDatePicker(false);
+      return;
+    }
+
     setShowDatePicker(false);
     setBirthDate(currentDate);
   };
@@ -55,6 +64,7 @@ export default function SignUpForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     if (!username || !email || !password || !country || !birthDate) {
       Alert.alert(i18n.t('Error'), i18n.t('All fields are required'));
       return;
@@ -69,7 +79,6 @@ export default function SignUpForm() {
     setCountry('');
     setBirthDate(new Date());
     try {
-      console.log('Entering the try!')
       const { data } = await addUser({
         variables: { username, email, password, country, birthDate },
       });
