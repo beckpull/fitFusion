@@ -29,7 +29,7 @@ import SearchByNameScreen from './src/screens/SearchWorkout/SearchByNameScreen';
 import NewWorkoutForm from './src/screens/NewWorkoutForm';
 import EditWorkoutForm from './src/screens/EditWorkoutForm';
 // Languages support:
-import { I18n } from 'i18n-js';
+import { I18n, nullPlaceholder } from 'i18n-js';
 import en from './locales/en';
 import es from './locales/es';
 import pt from './locales/pt';
@@ -88,7 +88,7 @@ export default function App() {
             <Stack.Screen name="PhysicalTest" component={PhysicalTest} />
 
             {/* <Stack.Screen name="MainSearchScreen" component={MainSearchScreen} options={{ title: 'Search for a Workout' }} /> */}
-            <Stack.Screen name="SearchByNameScreen" component={SearchByNameScreen} options={{ title: 'Search by Name' }} />
+            <Stack.Screen name="SearchByNameScreen" component={SearchByNameScreen} options={{ title: '' }} />
             {/* <Stack.Screen name="SearchByMuscleScreen" component={SearchByMuscleScreen} options={{ title: 'Search by Targeted Muscle' }} /> */}
 
             <Stack.Screen name="NewWorkoutForm" component={NewWorkoutForm} options={{ title: 'New Workout Form' }} />
@@ -96,7 +96,7 @@ export default function App() {
             <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
 
             {/* <Stack.Screen name="MyWorkouts" component={MyWorkouts} /> */}
-            <Stack.Screen name="EachPlan" component={EachPlan} />
+            <Stack.Screen name="EachPlan" component={EachPlan} options={{title: ''}} />
             <Stack.Screen name="EachRecommendedPlan" component={EachRecommendedPlan} />
             <Stack.Screen name="ExerciseDetail" component={ExerciseDetail} />
 
