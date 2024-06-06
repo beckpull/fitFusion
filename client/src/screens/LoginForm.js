@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
-import { I18nContext } from "../../App";
+import { I18nContext } from "../../I18n";
 
 export default function LoginForm() {
   const { i18n } = useContext(I18nContext);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { View, Text, ScrollView, StyleSheet, Image, Linking, ActivityIndicator } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { I18nContext } from '../../App';
+import { I18nContext } from '../../I18n';
 
 const API_KEY = '83e7b281b3864bf888cb227cd1e5cb2c'
 

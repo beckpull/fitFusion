@@ -7,7 +7,7 @@ import TabBar from "../components/tabBar/TabBar";
 import { useMutation } from "@apollo/client";
 import { ADD_USER_SECOND_SCREEN } from "../utils/mutations";
 import Auth from "../utils/auth";
-import { I18nContext } from "../../App";
+import { I18nContext } from "../../I18n";
 import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
 export default function PhysicalTest({ route }) {
@@ -81,7 +81,6 @@ export default function PhysicalTest({ route }) {
       if (data) {
         Auth.login(data.addUserSecondScreen.token);
         navigation.navigate('TabBar');
-
       } 
     } catch (error) {
       console.error('Error signing up:', error.message);

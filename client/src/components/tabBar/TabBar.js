@@ -9,7 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 import Colors from '../../styles/colors';
 import LogoutButton from './LogoutButton';
 import LanguageToggle from './LanguagesToggle';
-import { I18nContext } from '../../../App';
+import { I18nContext } from '../../../I18n';
 
 const Tab = createBottomTabNavigator();
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
-import { I18nContext } from '../../../App';
+import { I18nContext } from '../../../I18n';
 
 function Testimonials() {
 

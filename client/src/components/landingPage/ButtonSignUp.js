@@ -1,6 +1,6 @@
 import { Text, Pressable, StyleSheet } from 'react-native';
 import { useContext } from 'react';
-import { I18nContext } from '../../../App';
+import { I18nContext } from '../../../I18n';
 
 export default function ButtonSignUp({ navigation }) {
   const { i18n } = useContext(I18nContext);

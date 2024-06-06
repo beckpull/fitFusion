@@ -8,7 +8,7 @@ import ButtonSignUp from '../components/landingPage/ButtonSignUp';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AboutUs from './AboutUs';
 import LanguagesToggle from '../components/tabBar/LanguagesToggle';
-import { I18nContext } from '../../App';
+import { I18nContext } from '../../I18n';
 
 
 export default HomeScreen = ({ navigation }) => {
