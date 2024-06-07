@@ -20,7 +20,7 @@ export default function PhysicalTest({ route }) {
   const [level, setLevel] = useState('null');
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState([
-    { label: i18n.t('beginner'), value: 'Begginner' },
+    { label: i18n.t('beginner'), value: 'Beginner' },
     { label: i18n.t('intermediate'), value: 'Intermediate' },
     { label: i18n.t('advanced'), value: 'Advanced' }
   ]);

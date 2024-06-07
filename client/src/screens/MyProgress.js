@@ -1,4 +1,4 @@
-import { text } from '@fortawesome/fontawesome-svg-core';
+// import { text } from '@fortawesome/fontawesome-svg-core';
 import CalendarProgress from '../components/MyProgress/CalendarProgress';
 import Colors from '../styles/colors';
 import React, { useEffect, useContext } from 'react';
