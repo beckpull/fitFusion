@@ -1,7 +1,7 @@
 import React, { useState, useContext, useLayoutEffect } from 'react';
 import { Text, View, StyleSheet, ScrollView, Alert, TouchableOpacity } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import axios from 'axios';
+// import axios from 'axios';
 import { SearchBar } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import { useMutation } from '@apollo/client';
