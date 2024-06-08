@@ -25,13 +25,11 @@ const EachRecommendedPlan = ({ route, navigation }) => {
 
   useEffect(() => {
     if (data) {
-      console.log("from useEffect:", data);
       const initialGoalCompleteState = {};
       data.me.workoutPlans.forEach(plan => {
         plan.workouts.forEach(workout => {
           workout.goal.forEach(goal => {
             initialGoalCompleteState[goal._id] = goal.isComplete || false;
-            console.log("initialGoalCompleteState:", initialGoalCompleteState)
           })
         })
       })
@@ -50,13 +48,10 @@ const EachRecommendedPlan = ({ route, navigation }) => {
 
   const { me: { recommendedPlans } } = data;
   const currentPlan = recommendedPlans.find(plan => plan._id === planId);
-  // console.log("This is currentPlan", currentPlan);
 
   if (!currentPlan) {
     return <Text>Workout Plan not found</Text>;
   }
-
-  // console.log(workouts);
 
   const handleExerciseClick = (exercise) => {
     setCurrentExercise(exercise);
@@ -65,8 +60,7 @@ const EachRecommendedPlan = ({ route, navigation }) => {
 
   const handleComplete = async (workout, goalId) => {
     const goal = workout.goal.find(g => g._id === goalId)
-    // console.log("this is goal:", goal)
-    // console.log("this is goalId:", goal._id)
+    
     const input = {
       sets: goal.sets,
       reps: goal.reps,
@@ -93,6 +87,9 @@ const EachRecommendedPlan = ({ route, navigation }) => {
       })
 
       setGoalComplete(prevState => ({ ...prevState, [goalId]: true}));
+
+      refetch();
+
       Alert.alert('Congratulations!');
     } catch (error) {
       console.error('Error:', error);
