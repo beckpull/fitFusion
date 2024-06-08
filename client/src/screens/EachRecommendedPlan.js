@@ -60,7 +60,7 @@ const EachRecommendedPlan = ({ route, navigation }) => {
 
   const handleComplete = async (workout, goalId) => {
     const goal = workout.goal.find(g => g._id === goalId)
-    
+
     const input = {
       sets: goal.sets,
       reps: goal.reps,
@@ -94,8 +94,7 @@ const EachRecommendedPlan = ({ route, navigation }) => {
     } catch (error) {
       console.error('Error:', error);
     }
-    // setCurrentExercise(exercise);
-    // setIsCompletionFormVisible(true);
+
   };
 
   const handleSetGoal = (exercise, planId) => {
