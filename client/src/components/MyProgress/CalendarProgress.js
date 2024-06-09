@@ -63,9 +63,15 @@ export default function CalendarProgress() {
         <Text>{i18n.t('Exercises')}: </Text>
         <Text style={styles.workoutName}>{item.workout.name} </Text>
         <View style={styles.content}>
-          <Text>Reps: {item.progress.reps}</Text>
-          <Text>Sets: {item.progress.sets}</Text>
-          <Text>Weight: {item.progress.weight} pounds</Text>
+        {item.progress.sets !== null && item.progress.reps !== null && item.progress.weight !== null ? (
+                            <Text>
+                              Sets: {item.progress.sets} Reps: {item.progress.reps} Weight: {item.progress.weight}
+                            </Text>
+                          ) : (
+                            <Text>
+                              Duration: {item.progress.duration} Distance: {item.progress.distance}
+                            </Text>
+                          )}
         </View>
       </View>
     ));
