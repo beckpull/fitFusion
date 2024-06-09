@@ -55,7 +55,7 @@ const EachRecommendedPlan = ({ route, navigation }) => {
 
   const handleExerciseClick = (exercise) => {
     setCurrentExercise(exercise);
-    navigation.navigate('ExerciseDetail', { exercise, planId: planId });
+    navigation.navigate('RecommendedExerciseDetail', { exercise, planId: planId });
   };
 
   const handleComplete = async (workout, goalId) => {

@@ -89,6 +89,9 @@ With a user-friendly interface, robust backend infrastructure, and innovative fe
  <!-- and view their fitness journey statistics. -->
 - **Nutritional Blog**: The app includes a blog page with nutritional blog posts about healthy lifestyle and dietary tips.
 - **About Us Page**: Features user testimonials and an introduction to the development team.
+- **Data Visualization**: Graphs or data visualizations to show user progress on exercises over time, possibly using the D3 library.
+- **Language Translations**: Implementation of language translations in English, Spanish, and Portuguese initially, expanding to other languages.
+
 
 ### Technologies Used:
 
@@ -202,16 +205,17 @@ _To get a local copy up and running follow these simple example steps:_
 <!-- CONTRIBUTING -->
 ## Future Developments:
 
-- **Enhanced 'My Profile' Page**: Includes statistics on users' fitness journey.
-- **User-Generated Blog Posts**: Users can contribute to the blog, creating a live feed of user-generated content.
-- **Accessibility Features**: Button functionality for users with restrictions or disabilities.
-- **Social Features**: Users can friend other users, view their progress, and work out together.
+- **Finalize app preparation and deploy to Google Play and Apple App Store.**
+- **Implement the forgot password functionality using Nodemailer and secure token verification.**
+- **Stripe functionality**: Integrate Stripe for payment processing and handle subscriptions or premium features.
+- **Accessibility Considerations**: Implement filters/functionality for users with physical restrictions or disabilities.
+- **Social Features**: Users can friend other users, view their progress, and work out together. Develop and integrate friend management and progress sharing functionalities.
 - **Real-time Workout Tracking**: Implementation of a real-time workout tracking feature.
-- **Body Modal**: Users can visually select body parts for workouts, with pop-up messages providing information about selected muscle groups.
-- **Motivational Messages**: Display motivational messages and tips from an external API.
-- **Data Visualization**: Graphs or data visualizations to show user progress on exercises over time, possibly using the D3 library.
-- **Language Translations**: Implementation of language translations in English, Spanish, and Portuguese initially, expanding to other languages.
+- **Body Modal**: Users can visually select body parts for workouts, with pop-up messages providing information about selected muscle groups and then filter workout results by target and secondary muscles based on user selection.
+- **Motivational Messages**: Display motivational messages and tips from an external API (Quotes API?). Integrate gym tips and tricks either from an API or a custom service.
 - **Light and Dark Theme**: Addition of light and dark theme options for user preference.
+- **User-Generated Blog Posts**: Users can contribute to the blog, creating a live feed of user-generated content.
+
 
 ## Contributing
 
