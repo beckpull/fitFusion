@@ -255,7 +255,7 @@ const EachPlan = ({ navigation, route }) => {
                         onPress={() => handleSetGoal(workout, planId)}
                         style={styles.setGoalButton}
                       >
-                        <Text style={styles.setGoalButtonText}>Set New Goal1</Text>
+                        <Text style={styles.setGoalButtonText}>Set New Goal</Text>
                       </TouchableOpacity>
                     </View>
                       )
@@ -268,7 +268,7 @@ const EachPlan = ({ navigation, route }) => {
                     onPress={() => handleSetGoal(workout, planId)}
                     style={styles.setGoalButton}
                   >
-                    <Text style={styles.setGoalButtonText}>Set New Goal2</Text>
+                    <Text style={styles.setGoalButtonText}>Set New Goal</Text>
                   </TouchableOpacity>
                 </View>
               )}
