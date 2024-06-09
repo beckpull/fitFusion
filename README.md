@@ -169,36 +169,51 @@ _To get a local copy up and running follow these simple example steps:_
   <!-- <img src="./readme-imgs/qr.png" width="200" alt="qr code to webpage">
   </br>
   <strong><i>Scan the QR code above or click <strong><a href="">HERE</a></strong> to view this deployed app!</strong> -->
-    <a href="https">
-    <p>Placeholder</p>
-      <img src="./readme-imgs/" width="">
-      <img src="./readme-imgs/" width="">
+    <a href="https://github.com/beckpull/fitFusion">
+    <p>Loading, Landing Page, About Us</p>
+      <img src="./readme-imgs/splash.PNG" width="200">
+      <img src="./readme-imgs/alert1.PNG" width="200">
+      <img src="./readme-imgs/landing.png" width="200">
+      <img src="./readme-imgs/about-us1.png" width="200">
+      <img src="./readme-imgs/about-us2.png" width="200">
+    </a>
+    <a href="https://github.com/beckpull/fitFusion">
+    <p>Sign Up</p>
+      <img src="./readme-imgs/signup.PNG" width="200">
+      <img src="./readme-imgs/physicalTest.PNG" width="200">
+      <!-- <img src="./readme-imgs/terms.PNG" width="200">
+      <img src="./readme-imgs/login.PNG" width="200"> -->
     </a>
     </br></br>
-    <a href="">
-      <p>Placeholder</p>
-      <img src="./readme-imgs/" width="">
-      <img src="./readme-imgs/" width="">
+    <a href="https://github.com/beckpull/fitFusion">
+      <p>MyWorkouts</p>
+      <img src="./readme-imgs/newUserHome.PNG" width="200">
+      <img src="./readme-imgs/recommended1.PNG" width="200">
+      <img src="./readme-imgs/addPlan.PNG" width="200">
+      <img src="./readme-imgs/addedPlan.PNG" width="200">
+      <img src="./readme-imgs/newPlan.PNG" width="200">
+      <!-- <img src="./readme-imgs/searchExercise.PNG" width="200">
+      <img src="./readme-imgs/addExercise.PNG" width="200"> -->
+      <img src="./readme-imgs/deleteExercise.PNG" width="200">
     </a>
-    <a href="">
-      <p>Placeholder</p>
-      <img src="./readme-imgs/" width="">
-      <img src="./readme-imgs/" width="">
+    <a href="https://github.com/beckpull/fitFusion">
+      <p>Blog, Progress</p>
+      <img src="./readme-imgs/blog.PNG" width="200">
+      <img src="./readme-imgs/setGoal1.PNG" width="200">
+      <img src="./readme-imgs/setGoal2.PNG" width="200">
+      <img src="./readme-imgs/progress1.PNG" width="200">
+      <img src="./readme-imgs/progress2.PNG" width="200">
+      <!-- <img src="./readme-imgs/calendar.PNG" width="200">
+      <img src="./readme-imgs/modal.PNG" width="200"> -->
     </a>
-    <a href="">
-      <p>Placeholder</p>
-      <img src="./readme-imgs/" width="">
-      <img src="./readme-imgs/" width="">
-    </a>
-    <a href="">
-      <p>Placeholder</p>
-      <img src="./readme-imgs/" width="">
-      <img src="./readme-imgs/" width="">
-    </a>
-    <a href="">
-      <p>Placeholder</p>
-      <img src="./readme-imgs/" width="">
-      <img src="./readme-imgs/" width="">
+    <a href="https://github.com/beckpull/fitFusion">
+      <p>MyProfile</p>
+      <img src="./readme-imgs/myProfile.PNG" width="200">
+      <img src="./readme-imgs/choosePhoto.PNG" width="200">
+      <img src="./readme-imgs/myProfilePic.PNG" width="200">
+      <!-- <img src="./readme-imgs/stats1.PNG" width="200">
+      <img src="./readme-imgs/stats2.PNG" width="200">
+      <img src="./readme-imgs/stats3.PNG" width="200"> -->
     </a>
 </br>
 </div>
