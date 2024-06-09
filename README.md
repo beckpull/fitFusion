@@ -20,7 +20,7 @@ A sophisticated fitness tracking application powered by React Native, MongoDB, G
     <a href="https://github.com/beckpull/fitFusion"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="">View Webpage</a>
+    <a href="https://www.github.com/beckpull/fitFusion">View Repository</a>
     ·
     <a href="https://github.com/beckpull/fitFusion/issues">Report Bug</a>
     ·
@@ -124,26 +124,25 @@ The primary objective of the FitFusion project is to develop a comprehensive fit
 <!-- - ![Mongoose](https://img.shields.io/badge/Mongoose•odm-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=darkgreen) -->
 - ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
 - ![Xcode](https://img.shields.io/badge/Xcode-007ACC?style=for-the-badge&logo=Xcode&logoColor=white)
-<!-- - ![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white)
+- ![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white)
 - ![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
-- ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white) -->
+- ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
 <!-- - ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white) -->
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
 
-<!-- ## Getting Started
+## Getting Started
 
 ### Prerequisites
 
 _This application has several dependencies, to install individually onto your machine, navigate to the directory this code lives in and type these npm i `<dependency>` into your Terminal / Git Bash:_
 
-<img src="./readme-imgs/maindev.png" alt="root directory dependencies" width="">
 <img src="./readme-imgs/serverdev.png" alt="server directory dependencies" width="">
-<img src="./readme-imgs/clientdev.png" alt="client directory dependencies" width=""> -->
+<img src="./readme-imgs/clientdev.png" alt="client directory dependencies" width="">
 
-<!-- ### Installation
+### Installation
 
 _To get a local copy up and running follow these simple example steps:_
 
@@ -156,24 +155,21 @@ _To get a local copy up and running follow these simple example steps:_
    ```sh
    npm i && npm run build
    ```
-3. Node `server.js`
-   ```sh
-   npm start
-   ```
+3. Run in two [split] terminals `cd server && npm run watch` & `cd client && npm run start`
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
 
-<!-- ## Usage
+## Usage
 </br></br>
 <p align="center"><i><strong>✨ Everything you need to know ✨</strong></i></p>
 
 <div align="center"> 
-  <img src="./readme-imgs/qr.png" width="200" alt="qr code to webpage">
+  <!-- <img src="./readme-imgs/qr.png" width="200" alt="qr code to webpage">
   </br>
-  <strong><i>Scan the QR code above or click <strong><a href="">HERE</a></strong> to view this deployed app!</strong>
-    <a href="">
+  <strong><i>Scan the QR code above or click <strong><a href="">HERE</a></strong> to view this deployed app!</strong> -->
+    <a href="https">
     <p>Placeholder</p>
       <img src="./readme-imgs/" width="">
       <img src="./readme-imgs/" width="">
@@ -184,10 +180,30 @@ _To get a local copy up and running follow these simple example steps:_
       <img src="./readme-imgs/" width="">
       <img src="./readme-imgs/" width="">
     </a>
+    <a href="">
+      <p>Placeholder</p>
+      <img src="./readme-imgs/" width="">
+      <img src="./readme-imgs/" width="">
+    </a>
+    <a href="">
+      <p>Placeholder</p>
+      <img src="./readme-imgs/" width="">
+      <img src="./readme-imgs/" width="">
+    </a>
+    <a href="">
+      <p>Placeholder</p>
+      <img src="./readme-imgs/" width="">
+      <img src="./readme-imgs/" width="">
+    </a>
+    <a href="">
+      <p>Placeholder</p>
+      <img src="./readme-imgs/" width="">
+      <img src="./readme-imgs/" width="">
+    </a>
 </br>
 </div>
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ROADMAP -->
 
