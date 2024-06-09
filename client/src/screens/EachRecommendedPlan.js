@@ -167,7 +167,12 @@ const EachRecommendedPlan = ({ route, navigation }) => {
 
 
         <Text style={styles.subtitle}>Workouts:</Text>
-        {currentPlan.workouts.map((workout, workoutIndex) => (
+        {currentPlan.workouts.map((workout, workoutIndex) => {
+          const todayGoal = workout.goal.find(goal => goal.date === todayDate);
+          const hasTodayGoal = !!todayGoal;
+        
+        
+        return (
           <View key={`${workout._id}_${workoutIndex}`} style={styles.workoutContainer}>
             <View style={styles.workoutBlock}>
               <TouchableOpacity
@@ -183,7 +188,10 @@ const EachRecommendedPlan = ({ route, navigation }) => {
               {workout.goal && workout.goal.length > 0 ? (
                 workout.goal.map((goal, goalIndex) => (
                   <React.Fragment key={`${goal._id}_${goalIndex}`}>
-                    {!goalComplete[goal._id] ? (
+                    {goal.date === todayDate ? (
+                     goal.isComplete ? (
+                      <Text key={`${goal._id}_completedToday`} style={styles.subtitle}>Completed Today's Goal</Text>
+                     ) : (
                       <React.Fragment key={`${goal._id}_incomplete`}>
                         <TouchableOpacity
                           key={`${goal._id}_touch`}
@@ -209,8 +217,18 @@ const EachRecommendedPlan = ({ route, navigation }) => {
                           </TouchableOpacity>
                         </View>
                       </React.Fragment>
+                     )
                     ) : (
-                      <Text key={`${goal._id}_complete`} style={styles.subtitle}>Completed</Text>
+                      !hasTodayGoal && goalIndex === workout.goal.length - 1 && (
+                      <View style={styles.buttonContainer} key={`${workout._id}_setgoal`}>
+                      <TouchableOpacity
+                        onPress={() => handleSetGoal(workout, planId)}
+                        style={styles.setGoalButton}
+                      >
+                        <Text style={styles.setGoalButtonText}>Set New Goal</Text>
+                      </TouchableOpacity>
+                    </View>
+                      )
                     )}
                   </React.Fragment>
                 ))
@@ -220,13 +238,13 @@ const EachRecommendedPlan = ({ route, navigation }) => {
                     onPress={() => handleSetGoal(workout, planId)}
                     style={styles.setGoalButton}
                   >
-                    <Text style={styles.setGoalButtonText}>Set Goal</Text>
+                    <Text style={styles.setGoalButtonText}>Set New Goal</Text>
                   </TouchableOpacity>
                 </View>
               )}
             </View>
           </View>
-        ))}
+        )} )}
 
 
         {isGoalFormVisible && currentExercise && (

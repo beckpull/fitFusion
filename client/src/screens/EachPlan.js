@@ -197,7 +197,12 @@ const EachPlan = ({ navigation, route }) => {
 
 
         <Text style={styles.subtitle}>Workouts:</Text>
-        {currentPlan.workouts.map((workout, workoutIndex) => (
+        {currentPlan.workouts.map((workout, workoutIndex) => {
+          const todayGoal = workout.goal.find(goal => goal.date === todayDate);
+          const hasTodayGoal = !!todayGoal;
+        
+        
+        return (
           <View key={`${workout._id}_${workoutIndex}`} style={styles.workoutContainer}>
             <View style={styles.workoutBlock}>
               <TouchableOpacity
@@ -244,6 +249,7 @@ const EachPlan = ({ navigation, route }) => {
                       </React.Fragment>
                      )
                     ) : (
+                      !hasTodayGoal && goalIndex === workout.goal.length - 1 && (
                       <View style={styles.buttonContainer} key={`${workout._id}_setgoal`}>
                       <TouchableOpacity
                         onPress={() => handleSetGoal(workout, planId)}
@@ -252,6 +258,7 @@ const EachPlan = ({ navigation, route }) => {
                         <Text style={styles.setGoalButtonText}>Set New Goal</Text>
                       </TouchableOpacity>
                     </View>
+                      )
                     )}
                   </React.Fragment>
                 ))
@@ -267,7 +274,7 @@ const EachPlan = ({ navigation, route }) => {
               )}
             </View>
           </View>
-        ))}
+        )} )}
 
 
         {isGoalFormVisible && currentExercise && (
