@@ -60,7 +60,7 @@ export default {
   "beginner": "It's been a while since I've been to the gym🏋️‍♂️❌",
   "intermediate": "I'm fairly active, but there's always room for improvement💪🔄",
   "advanced": "I live for the gym!🏋️‍♂️❤️",
-  "level1": "Begginner",
+  "level1": "Beginner",
   "level2": "Intermediate",
   "level3": "Advanced",
   "Loading": "Loading",
