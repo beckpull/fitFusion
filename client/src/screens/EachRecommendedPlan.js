@@ -9,8 +9,10 @@ import ExerciseCompletionForm from '../components/workoutPlans/ExerciseCompletio
 import ButtonAddWorkout from '../components/workoutPlans/ButtonAddWorkout';
 import ButtonRemoveExercise from '../components/workoutPlans/ButtonRemoveExercise';
 import { WorkoutContext } from '../context/WorkoutContext';
+import { I18nContext } from '../../I18n';
 
 const EachRecommendedPlan = ({ route, navigation }) => {
+  const { i18n } = useContext(I18nContext);
   const { planId, name, goal, workouts } = route.params;
   const [isGoalFormVisible, setIsGoalFormVisible] = useState(false);
   const [isCompletionFormVisible, setIsCompletionFormVisible] = useState(false);
@@ -161,12 +163,12 @@ const EachRecommendedPlan = ({ route, navigation }) => {
 
         <View style={styles.titleContainer}>
           <Text style={styles.title}>{currentPlan.name}</Text>
-          <Text style={styles.subtitle}>Goal: {currentPlan.goal}</Text>
+          <Text style={styles.subtitle}>{i18n.t('Goal')}: {currentPlan.goal}</Text>
         </View>
 
 
 
-        <Text style={styles.subtitle}>Workouts:</Text>
+        <Text style={styles.subtitle}>{i18n.t('workouts')}:</Text>
         {currentPlan.workouts.map((workout, workoutIndex) => {
           const todayGoal = workout.goal.find(goal => goal.date === todayDate);
           const hasTodayGoal = !!todayGoal;
@@ -200,11 +202,11 @@ const EachRecommendedPlan = ({ route, navigation }) => {
                         >
                           {goal.sets !== null && goal.reps !== null && goal.weight !== null ? (
                             <Text style={styles.workout}>
-                              Sets: {goal.sets} Reps: {goal.reps} Weight: {goal.weight}
+                              {i18n.t('Sets')}: {goal.sets} Reps: {goal.reps} {i18n.t('Weight')}: {goal.weight}
                             </Text>
                           ) : (
                             <Text style={styles.workout}>
-                              Duration: {goal.duration} Distance: {goal.distance}
+                              {i18n.t('Duration')}: {goal.duration} {i18n.t('Distance')}: {goal.distance}
                             </Text>
                           )}
                         </TouchableOpacity>
@@ -213,7 +215,7 @@ const EachRecommendedPlan = ({ route, navigation }) => {
                             onPress={() => handleComplete(workout, goal._id)}
                             style={styles.completeButton}
                           >
-                            <Text style={styles.completeButtonText}>Complete</Text>
+                            <Text style={styles.completeButtonText}>{i18n.t('Complete')}</Text>
                           </TouchableOpacity>
                         </View>
                       </React.Fragment>
@@ -225,7 +227,7 @@ const EachRecommendedPlan = ({ route, navigation }) => {
                         onPress={() => handleSetGoal(workout, planId)}
                         style={styles.setGoalButton}
                       >
-                        <Text style={styles.setGoalButtonText}>Set New Goal</Text>
+                        <Text style={styles.setGoalButtonText}>{i18n.t('Set New Goal')}</Text>
                       </TouchableOpacity>
                     </View>
                       )
@@ -238,7 +240,7 @@ const EachRecommendedPlan = ({ route, navigation }) => {
                     onPress={() => handleSetGoal(workout, planId)}
                     style={styles.setGoalButton}
                   >
-                    <Text style={styles.setGoalButtonText}>Set New Goal</Text>
+                    <Text style={styles.setGoalButtonText}>{i18n.t('Set New Goal')}</Text>
                   </TouchableOpacity>
                 </View>
               )}

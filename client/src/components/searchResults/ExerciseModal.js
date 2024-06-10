@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, StyleSheet, Modal, ScrollView, Pressable, Image } from 'react-native';
+import { I18nContext } from '../../../I18n';
 
 export default ExerciseModal = ({ modalVisible, setModalVisible, workout }) => {
+  const { i18n } = useContext(I18nContext);
   return (
     <Modal
       animationType="fade"
@@ -20,11 +22,11 @@ export default ExerciseModal = ({ modalVisible, setModalVisible, workout }) => {
                 <Text style={styles.title}>{workout.name}</Text>
                 <Image style={{ width: 200, height: 200 }} source={{ uri: workout.gifUrl }} />
 
-                <Text style={styles.subtitle}>Equipment:</Text>
+                <Text style={styles.subtitle}>{i18n.t('Equipment')}:</Text>
                 <Text style={styles.description}>{workout.equipment}</Text>
-                <Text style={styles.subtitle}>Body Part:</Text>
+                <Text style={styles.subtitle}>{i18n.t('Body Part')}:</Text>
                 <Text style={styles.description}>{workout.bodyPart}</Text>
-                <Text style={styles.subtitle}>Target Muscles:</Text>
+                <Text style={styles.subtitle}>{i18n.t('Target Muscles')}:</Text>
                 <Text style={styles.description}>{workout.target}</Text>
                 
 
@@ -44,13 +46,13 @@ export default ExerciseModal = ({ modalVisible, setModalVisible, workout }) => {
                 </View>
               </>
             ) : (
-              <Text>No workout selected</Text>
+              <Text>{i18n.t('No workout selected')}</Text>
             )}
             <Pressable
               style={[styles.button, styles.buttonClose]}
               onPress={() => setModalVisible(false)}
             >
-              <Text style={styles.textStyle}>Close</Text>
+              <Text style={styles.textStyle}>{i18n.t('Close')}</Text>
             </Pressable>
           </View>
         </ScrollView>

@@ -34,6 +34,7 @@ export default {
   "Please enter a valid email address": "Please enter a valid email address",
   "Create Account": "Create Account",
   "Username": "Username",
+  "Name": "Name",
   "Enter your username": "Enter your username",
   "Country": "Country",
   "Select your country": "Select your country",
@@ -79,6 +80,8 @@ export default {
   "Your best Buddy to work out": "Your best Buddy to work out",
   "Re-take Physical test": "Re-take Physical test",
   "Exercises": "Exercises",
+  "Exercise": "Exercise",
+  "Equipment": "Equipment",
   "Birth date cannot be today or in the future": "Birth date cannot be today or in the future",
   "Movement": "Movement",
   "Weight": "Weight",
@@ -94,14 +97,37 @@ export default {
   "noMedicalAdvice": "FitFusion is not a substitute for professional medical advice, diagnosis, or treatment. The information provided in the app is for general informational purposes only. Consult with your physician or another qualified healthcare provider before beginning any exercise program.",
   "termsAcceptance": "By clicking \"I Agree\" or by using FitFusion, you indicate your acceptance of these terms and conditions. If you do not agree to abide by these terms, please do not use the app.",
   "I Agree": "I Agree",
-
-
-
-
-
-
-
-
-
-
+  "Enter What You Completed": "Enter What You Completed",
+  "Input Your Exercise Goal": "Input Your Exercise Goal",
+  "back": "Back",
+  "save": "Save",
+  "Search an" : "Search an",
+  "Exercise by": "Exercise by",
+  "Target Muscle": "Target Muscle",
+  "Target Muscles": "Target Muscles",
+  "Secondary Muscles": "Secondary Muscles",
+  "Search for an exercise name": "Search for an exercise name",
+  "searchPlaceholder" : "Search...",
+  "Workout Plan not found": "Workout Plan not found",
+  "congratulations" : "Congratulations!",
+  "Completed Today's Goal" : "Completed Today's Goal",
+  "Sets": "Sets",
+  "Duration": "Duration",
+  "Distance" : "Distance",
+  "Complete": "Complete",
+  "Set New Goal": "Set New Goal",
+  "Update Workout Plan": "Update Workout Plan",
+  "Example: 5K Training Plan": "Example: 5K Training Plan",
+  "Example: Run a 5K in under 30 minutes": "Example: Run a 5K in under 30 minutes",
+  "Body Part": "Body Part",
+  "Instructions": "Instructions",
+  "Progress Over Time": "Progress Over Time",
+  "Close": "Close",
+  "Description": "Description",
+  "Add": "Add",
+  "No workout selected": "No workout selected",
+  "Workout details": "Workout details",
+  "Date": "Date",
+  "Re Take Quiz": "Re Take Quiz",
+  "Go Back": "Go Back",
 };

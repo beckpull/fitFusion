@@ -3,8 +3,10 @@ import { View, Text, TextInput, Pressable, StyleSheet, TouchableWithoutFeedback,
 import { useMutation } from '@apollo/client';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { UPDATE_WORKOUT_PLAN } from '../utils/mutations';
+import { I18nContext } from '../../I18n';
 
 export default function EditWorkoutForm() {
+    const { i18n } = useContext(I18nContext);
     const route = useRoute();
     const { id, workoutPlanName, workoutPlanGoal } = route.params;
 
@@ -53,27 +55,27 @@ export default function EditWorkoutForm() {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
             <View>
                 <View style={styles.container}>
-                    <Text style={styles.h1}>Update Workout Plan</Text>
-                    <Text style={styles.label}>Workout Plan Name:</Text>
+                    <Text style={styles.h1}>{i18n.t('Update Workout Plan')}</Text>
+                    <Text style={styles.label}>{i18n.t('Workout Plan Name')}:</Text>
 
                     <TextInput
                         style={styles.input}
                         value={name}
                         onChangeText={setName}
-                        placeholder="Example: 5K Training Plan"
+                        placeholder={i18n.t('Example: 5K Training Plan')}
                     />
-                    <Text style={styles.label}>Goal:</Text>
+                    <Text style={styles.label}>{i18n.t('Goal')}:</Text>
 
                     <TextInput
                         style={styles.input}
                         value={goal}
                         onChangeText={setGoal}
-                        placeholder="Example: Run a 5K in under 30 minutes"
+                        placeholder={i18n.t('Example: Run a 5K in under 30 minutes')}
                     />
 
                 </View>
                 <Pressable style={styles.button} onPress={handleSubmit}>
-                    <Text style={styles.buttonText}>Create Workout Plan</Text>
+                    <Text style={styles.buttonText}>{i18n.t('Create Workout Plan')}</Text>
                 </Pressable>
             </View>
         </TouchableWithoutFeedback>

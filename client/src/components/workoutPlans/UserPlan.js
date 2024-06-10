@@ -1,13 +1,16 @@
-import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, Alert } from 'react-native';
+import React, { useContext} from 'react';
+import { StyleSheet, Text, TouchableOpacity, Alert } from 'react-native';
 import ButtonRemovePlan from './ButtonRemovePlan';
 import { useMutation } from '@apollo/client';
 import { useNavigation } from '@react-navigation/native';
 import { REMOVE_WORKOUT_PLAN } from '../../utils/mutations';
 import { GET_ME } from '../../utils/queries';
+import { I18nContext } from '../../../I18n';
 
 
 const UserPlan = ({ planId, name, workouts }) => {
+  const { i18n } = useContext(I18nContext);
+
   const [removeWorkoutPlan, { error }] = useMutation(REMOVE_WORKOUT_PLAN, {
     refetchQueries: [{ query: GET_ME }]
   });
@@ -50,7 +53,7 @@ const UserPlan = ({ planId, name, workouts }) => {
     <TouchableOpacity onPress={handlePress} style={styles.card}>
       <ButtonRemovePlan onPress={handleDelete} />
       <Text style={styles.title}>{name}</Text>
-      <Text style={styles.exercises}>{workouts.length} Workouts</Text>
+      <Text style={styles.exercises}>{workouts.length} {i18n.t('workouts')} </Text>
     </TouchableOpacity>
   );
 };

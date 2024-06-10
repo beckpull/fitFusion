@@ -65,11 +65,11 @@ export default function CalendarProgress() {
         <View style={styles.content}>
         {item.progress.sets !== null && item.progress.reps !== null && item.progress.weight !== null ? (
                             <Text>
-                              Sets: {item.progress.sets} Reps: {item.progress.reps} Weight: {item.progress.weight}
+                              {i18n.t('Sets')}: {item.progress.sets} Reps: {item.progress.reps} {i18n.t('Weight')}: {item.progress.weight}
                             </Text>
                           ) : (
                             <Text>
-                              Duration: {item.progress.duration} Distance: {item.progress.distance}
+                              {i18n.t('Duration')}: {item.progress.duration} {i18n.t('Distance')}: {item.progress.distance}
                             </Text>
                           )}
         </View>
@@ -95,11 +95,11 @@ export default function CalendarProgress() {
               <Text style={styles.closeButtonText}>X</Text>
             </TouchableOpacity>
             <ScrollView>
-              <Text style={styles.modalText}>Workout details </Text>
+              <Text style={styles.modalText}>{i18n.t('Workout details')} </Text>
               <View style={{ alignItems: 'center' }}>
                 <Image source={goodJobImage} style={{ width: 250, height: 100, marginTop: 20, marginBottom: 20 }}></Image>
               </View>
-              <Text>Date: {selectedDate}</Text>
+              <Text>{i18n.t('Date')}: {selectedDate}</Text>
               {selectedDate && renderWorkoutDetails(selectedDate)}
 
             </ScrollView>

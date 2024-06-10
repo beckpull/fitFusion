@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useContext } from "react";
 import { View, Text, StyleSheet, TextInput, Pressable, Alert, Keyboard, Switch, TouchableWithoutFeedback, Button } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -6,10 +6,12 @@ import colors from '../../styles/colors';
 import { useMutation } from "@apollo/client";
 import { ADD_USER_SECOND_SCREEN } from "../../utils/mutations";
 import Auth from "../../utils/auth";
+import { I18nContext } from "../../../I18n";
 // import MyProfile from "../../screens/MyProfile";
 // import { Button } from "react-native-elements";
 
 export default function ReTakeQuiz({ userId, onClose }) {
+    const { i18n } = useContext(I18nContext);
     const [feet, setFeet] = useState(0);
     const [inches, setInches] = useState(0);
     const [height, setHeight] = useState(0);
@@ -95,10 +97,10 @@ export default function ReTakeQuiz({ userId, onClose }) {
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
             <View style={styles.container}>
-                <Text style={styles.h1}>Physical Test</Text>
+                <Text style={styles.h1}>{i18n.t('Physical Test')}</Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <View style={{ flex: 1, marginRight: 10 }}>
-                        <Text style={styles.label}>Height</Text>
+                        <Text style={styles.label}>{i18n.t('Height')}</Text>
                         <View style={{ flexDirection: 'row', justifyContent: 'left' }}>
                             <TextInput
                                 style={styles.input}
@@ -123,7 +125,7 @@ export default function ReTakeQuiz({ userId, onClose }) {
                         </View>
                     </View>
                     <View style={{ flex: 1 }}>
-                        <Text style={styles.label}>Weight</Text>
+                        <Text style={styles.label}>{i18n.t('Weight')}</Text>
                         <TextInput
                             style={styles.input}
                             value={weight}
@@ -134,25 +136,25 @@ export default function ReTakeQuiz({ userId, onClose }) {
                     </View>
                 </View>
 
-                <Text style={styles.label}>Gender</Text>
+                <Text style={styles.label}>{i18n.t('Gender')}</Text>
                 <View style={styles.buttonContainer}>
                     <Pressable
                         style={[styles.buttonGender, gender === 'Male' ? styles.selectedButton : null]}
                         onPress={() => setGender('Male')}
                     >
-                        <Text style={styles.buttonText}>Male</Text>
+                        <Text style={styles.buttonText}>{i18n.t('Male')}</Text>
                     </Pressable>
                     <Pressable
                         style={[styles.buttonGender, gender === 'Female' ? styles.selectedButton : null]}
                         onPress={() => setGender('Female')}
                     >
-                        <Text style={styles.buttonText}>Female</Text>
+                        <Text style={styles.buttonText}>{i18n.t('Female')}</Text>
                     </Pressable>
                     <Pressable
                         style={[styles.buttonGender, gender === 'Non-binary' ? styles.selectedButton : null]}
                         onPress={() => setGender('Non-binary')}
                     >
-                        <Text style={styles.buttonText}>Non-Binary</Text>
+                        <Text style={styles.buttonText}>{i18n.t('Non-Binary')}</Text>
                     </Pressable>
                 </View>
 
@@ -164,12 +166,12 @@ export default function ReTakeQuiz({ userId, onClose }) {
                         onValueChange={setIsCalorieGoalEnabled}
                         value={isCalorieGoalEnabled}
                     />
-                    <Text style={styles.switchLabel}>Set a Calorie Goal</Text>
+                    <Text style={styles.switchLabel}>{i18n.t('Set a Calorie Goal')}</Text>
                 </View>
 
                 {isCalorieGoalEnabled && (
                     <View>
-                        <Text style={styles.label}>Calories</Text>
+                        <Text style={styles.label}>{i18n.t('Calories')}</Text>
                         <TextInput
                             style={styles.input}
                             value={calories}
@@ -180,11 +182,11 @@ export default function ReTakeQuiz({ userId, onClose }) {
                     </View>
                 )}
 
-                <Text style={styles.label}>Level</Text>
+                <Text style={styles.label}>{i18n.t('Level')}</Text>
                 <View style={styles.pickerContainer}>
                     <DropDownPicker
                         items={items}
-                        placeholder="Select your level"
+                        placeholder={i18n.t("Select your level")}
                         open={open}
                         value={level}
                         setOpen={setOpen}
@@ -206,10 +208,10 @@ export default function ReTakeQuiz({ userId, onClose }) {
 
 
                 <Pressable style={styles.button} onPress={handleSubmit}>
-                    <Text style={styles.buttonText}>Re Take Quiz</Text>
+                    <Text style={styles.buttonText}>{i18n.t('Re Take Quiz')}</Text>
                 </Pressable>
 
-                <Button title="Go Back" onPress={onClose} />
+                <Button title={i18n.t("Go Back")} onPress={onClose} />
 
             </View>
         </TouchableWithoutFeedback>
