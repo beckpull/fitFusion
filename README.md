@@ -85,12 +85,11 @@ With a user-friendly interface, robust backend infrastructure, and innovative fe
 - **User Authentication**: Users can sign up or log in securely using JWT tokens.
 - **Workout Plan** Creation: Users can create custom workout plans using ExerciseDB API exercises.
 - **Goal Setting**: Users can set goals for their workout routines, including reps, sets, weight, duration, or distance and track their progress on over time.
-- **MyProfile Page**: Users have a dedicated profile page where they can upload a profile picture.
- <!-- and view their fitness journey statistics. -->
+- **MyProfile Page**: Users have a dedicated profile page where they can upload a profile picture and view their fitness journey statistics.
 - **Nutritional Blog**: The app includes a blog page with nutritional blog posts about healthy lifestyle and dietary tips.
 - **About Us Page**: Features user testimonials and an introduction to the development team.
-- **Data Visualization**: Graphs or data visualizations to show user progress on exercises over time, possibly using the D3 library.
-- **Language Translations**: Implementation of language translations in English, Spanish, and Portuguese initially, expanding to other languages.
+- **Data Visualization**: Graphs & data visualizations to show user progress on exercises over time.
+- **Language Translations**: Implementation of language translations in English, Spanish, and Portuguese.
 
 
 ### Technologies Used:
@@ -124,10 +123,13 @@ The primary objective of the FitFusion project is to develop a comprehensive fit
 <!-- - ![Mongoose](https://img.shields.io/badge/Mongoose•odm-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=darkgreen) -->
 - ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
 - ![Xcode](https://img.shields.io/badge/Xcode-007ACC?style=for-the-badge&logo=Xcode&logoColor=white)
-- ![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white)
-- ![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
 - ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
 <!-- - ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white) -->
+
+### Built For
+
+- ![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white)
+- ![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -136,11 +138,15 @@ The primary objective of the FitFusion project is to develop a comprehensive fit
 ## Getting Started
 
 ### Prerequisites
-
 _This application has several dependencies, to install individually onto your machine, navigate to the directory this code lives in and type these npm i `<dependency>` into your Terminal / Git Bash:_
 
-<img src="./readme-imgs/serverdev.png" alt="server directory dependencies" width="">
-<img src="./readme-imgs/clientdev.png" alt="client directory dependencies" width="">
+<div align="center">
+<p>Server side:</p>
+<img src="./readme-imgs/serverdev.png" alt="server directory dependencies" width="550">
+<p>Client side:</p>
+<img src="./readme-imgs/clientdev.png" alt="client directory dependencies" width="535">
+
+</div>
 
 ### Installation
 
@@ -162,8 +168,7 @@ _To get a local copy up and running follow these simple example steps:_
 <!-- USAGE EXAMPLES -->
 
 ## Usage
-</br></br>
-<p align="center"><i><strong>✨ Everything you need to know ✨</strong></i></p>
+<p align="center"><i><strong>✨ Explore the app through these screenshots ✨</strong></i></p>
 
 <div align="center"> 
   <!-- <img src="./readme-imgs/qr.png" width="200" alt="qr code to webpage">
@@ -171,49 +176,64 @@ _To get a local copy up and running follow these simple example steps:_
   <strong><i>Scan the QR code above or click <strong><a href="">HERE</a></strong> to view this deployed app!</strong> -->
     <a href="https://github.com/beckpull/fitFusion">
     <p>Loading, Landing Page, About Us</p>
-      <img src="./readme-imgs/splash.PNG" width="200">
-      <img src="./readme-imgs/alert1.PNG" width="200">
-      <img src="./readme-imgs/landing.png" width="200">
-      <img src="./readme-imgs/about-us1.png" width="200">
-      <img src="./readme-imgs/about-us2.png" width="200">
+      <img src="./readme-imgs/splash.PNG" width="180">
+      <img src="./readme-imgs/alert1.PNG" width="180">
+      <img src="./readme-imgs/landing.png" width="180">
+      <img src="./readme-imgs/about-us1.png" width="180">
+      <img src="./readme-imgs/about-us2.png" width="180">
     </a>
+    </br></br>
     <a href="https://github.com/beckpull/fitFusion">
-    <p>Sign Up</p>
-      <img src="./readme-imgs/signup.PNG" width="200">
-      <img src="./readme-imgs/physicalTest.PNG" width="200">
-      <!-- <img src="./readme-imgs/terms.PNG" width="200">
-      <img src="./readme-imgs/login.PNG" width="200"> -->
+    <p>Sign Up & Login</p>
+      <img src="./readme-imgs/signup.PNG" width="180">
+      <img src="./readme-imgs/physicalTest.PNG" width="180">
+      <img src="./readme-imgs/terms.PNG" width="180">
+      <img src="./readme-imgs/login.PNG" width="180">
+      <img src="./readme-imgs/forgotPassword.PNG" width="180">
     </a>
     </br></br>
     <a href="https://github.com/beckpull/fitFusion">
       <p>MyWorkouts</p>
-      <img src="./readme-imgs/newUserHome.PNG" width="200">
-      <img src="./readme-imgs/recommended1.PNG" width="200">
-      <img src="./readme-imgs/addPlan.PNG" width="200">
-      <img src="./readme-imgs/addedPlan.PNG" width="200">
-      <img src="./readme-imgs/newPlan.PNG" width="200">
-      <!-- <img src="./readme-imgs/searchExercise.PNG" width="200">
-      <img src="./readme-imgs/addExercise.PNG" width="200"> -->
-      <img src="./readme-imgs/deleteExercise.PNG" width="200">
+      <img src="./readme-imgs/newUserHome.PNG" width="180">
+      <img src="./readme-imgs/recommended1.PNG" width="180">
+      <img src="./readme-imgs/addPlan.PNG" width="180">
     </a>
+    </br></br>
     <a href="https://github.com/beckpull/fitFusion">
-      <p>Blog, Progress</p>
-      <img src="./readme-imgs/blog.PNG" width="200">
-      <img src="./readme-imgs/setGoal1.PNG" width="200">
-      <img src="./readme-imgs/setGoal2.PNG" width="200">
-      <img src="./readme-imgs/progress1.PNG" width="200">
-      <img src="./readme-imgs/progress2.PNG" width="200">
-      <!-- <img src="./readme-imgs/calendar.PNG" width="200">
-      <img src="./readme-imgs/modal.PNG" width="200"> -->
+      <p>Customizing MyWorkouts</p>
+      <img src="./readme-imgs/addedPlan.PNG" width="180">
+      <img src="./readme-imgs/newPlan.PNG" width="180">
+      <img src="./readme-imgs/addedExercise.png" width="180">
+      <img src="./readme-imgs/deleteExercise.PNG" width="180">
     </a>
+    </br></br>
     <a href="https://github.com/beckpull/fitFusion">
-      <p>MyProfile</p>
-      <img src="./readme-imgs/myProfile.PNG" width="200">
-      <img src="./readme-imgs/choosePhoto.PNG" width="200">
-      <img src="./readme-imgs/myProfilePic.PNG" width="200">
-      <!-- <img src="./readme-imgs/stats1.PNG" width="200">
-      <img src="./readme-imgs/stats2.PNG" width="200">
-      <img src="./readme-imgs/stats3.PNG" width="200"> -->
+      <p>News Blog & Setting Goals</p>
+      <img src="./readme-imgs/blog.PNG" width="180">
+      <img src="./readme-imgs/setGoal1.PNG" width="180">
+      <img src="./readme-imgs/setGoal2.PNG" width="180">
+    </a>
+    </br></br>
+    <a href="https://github.com/beckpull/fitFusion">
+      <p>Progress Tracking</p>
+      <img src="./readme-imgs/progress1.PNG" width="180">
+      <img src="./readme-imgs/progress2.PNG" width="180">
+      <img src="./readme-imgs/calendar.jpg" width="180">
+      <img src="./readme-imgs/modal.jpg" width="180">
+    </a>
+    </br></br>
+    <a href="https://github.com/beckpull/fitFusion">
+      <p>MyProfile - upload profile photo</p>
+      <img src="./readme-imgs/myProfile.PNG" width="180">
+      <img src="./readme-imgs/choosePhoto.PNG" width="180">
+      <img src="./readme-imgs/myProfilePic.PNG" width="180">
+    </a>
+    </br></br>
+    <a href="https://github.com/beckpull/fitFusion">
+      <p>MyProfile Statistics</p>
+      <img src="./readme-imgs/stats1.jpg" width="180">
+      <img src="./readme-imgs/stats2.jpg" width="180">
+      <img src="./readme-imgs/stats3.jpg" width="180">
     </a>
 </br>
 </div>
@@ -236,7 +256,7 @@ _To get a local copy up and running follow these simple example steps:_
 <!-- CONTRIBUTING -->
 ## Future Developments:
 
-- **Finalize app preparation and deploy to Google Play and Apple App Store.**
+- **Finalize deployment to Google Play and Apple App Store.**
 - **Implement the forgot password functionality using Nodemailer and secure token verification.**
 - **Stripe functionality**: Integrate Stripe for payment processing and handle subscriptions or premium features.
 - **Accessibility Considerations**: Implement filters/functionality for users with physical restrictions or disabilities.
@@ -301,6 +321,11 @@ See the [open issues](https://github.com/beckpull/fitFusion/issues) for a full l
 > **All of the utilized information has been altered in order to fit this project. This repository contains _solely_ our own work.**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<div align="center">
+  <img src="./readme-imgs/apple.jpg" width="200">
+  <img src="./readme-imgs/google.jpeg" width="205">
+</div>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
