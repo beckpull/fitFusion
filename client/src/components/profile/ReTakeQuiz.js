@@ -211,7 +211,7 @@ export default function ReTakeQuiz({ userId, onClose }) {
                     <Text style={styles.buttonText}>{i18n.t('Re Take Quiz')}</Text>
                 </Pressable>
 
-                <Button title={i18n.t("Go Back")} onPress={onClose} />
+                <Button title={`⬅︎ ${i18n.t("Go Back")}`} onPress={onClose} />
 
             </View>
         </TouchableWithoutFeedback>
@@ -245,6 +245,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 5,
         marginTop: 20,
+        marginBottom: 10,
     },
     buttonText: {
         color: 'white',

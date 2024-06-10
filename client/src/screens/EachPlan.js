@@ -12,6 +12,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { I18nContext } from '../../I18n';
 import { WorkoutContext } from '../context/WorkoutContext';
 import { init } from 'i18next';
+import Colors from '../styles/colors';
 
 const EachPlan = ({ navigation, route }) => {
   const { i18n } = useContext(I18nContext);
@@ -187,7 +188,7 @@ const EachPlan = ({ navigation, route }) => {
         <TouchableOpacity
           onPress={() => handleRename(currentPlan._id, currentPlan.name, currentPlan.goal)}
           style={styles.iconButton}>
-          <Icon name={isEditing ? "save" : "edit"} size={24} color="black" />
+          <Icon name={isEditing ? "save" : "edit"} size={24} color={Colors.primaryVariant} />
         </TouchableOpacity>
 
         <View style={styles.titleContainer}>
@@ -195,9 +196,8 @@ const EachPlan = ({ navigation, route }) => {
           <Text style={styles.subtitle}>{i18n.t('Goal')}: {currentPlan.goal}</Text>
         </View>
 
+        <Text style={styles.subtitle}>{i18n.t('workouts')}:</Text>
 
-
-        <Text style={styles.subtitle}>{i18n.t('Workouts')}:</Text>
         {currentPlan.workouts.map((workout, workoutIndex) => {
           const todayGoal = workout.goal.find(goal => goal.date === todayDate);
           const hasTodayGoal = !!todayGoal;
@@ -311,6 +311,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     paddingHorizontal: 10,
     backgroundColor: '#f5f5f5',
+    paddingTop: 40,
   },
   container: {
     flex: 1,
@@ -325,6 +326,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
+    marginTop: 20,
   },
   subtitle: {
     fontSize: 18,
@@ -367,14 +369,14 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   completeButton: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: Colors.calendarCheck,
     padding: 8,
     borderRadius: 5,
     marginRight: 10,
     flex: 1,
   },
   congratulations: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: Colors.calendarCheck,
     padding: 8,
     borderRadius: 5,
     marginRight: 10,
@@ -386,15 +388,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   setGoalButton: {
-    backgroundColor: '#2196F3',
+    backgroundColor: Colors.secondaryVariant,
     padding: 8,
     borderRadius: 5,
     flex: 1,
   },
   setGoalButtonText: {
     color: 'white',
-    fontSize: 14,
+    fontSize: 16,
     textAlign: 'center',
+    padding: 3,
   },
   arrow: {
     marginLeft: 20,

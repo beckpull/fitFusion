@@ -34,7 +34,7 @@ export default function LanguageToggle() {
 
 const styles = StyleSheet.create({
     languageButton: {
-      backgroundColor: '##e5e8e8',
+    //   backgroundColor: '#e5e8e8',
       borderRadius: 5,
       padding: 5,
       margin: 5,
@@ -43,8 +43,8 @@ const styles = StyleSheet.create({
       fontSize: 12,
       color: 'black',
     },
-    selectedLanguageText: {
-      fontSize: 12,
-      color: 'blue',
-    },
+    // selectedLanguageText: {
+    //   fontSize: 18,
+    //   color: 'blue',
+    // },
   });

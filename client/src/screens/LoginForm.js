@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
+import Colors from '../styles/colors';
 import { I18nContext } from "../../I18n";
 
 export default function LoginForm() {
@@ -130,16 +131,18 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 15,
     paddingHorizontal: 10,
+    backgroundColor: '#fff',
+    borderRadius: 5,
   },
   inputError: {
-    borderColor: 'red',
+    borderColor: Colors.error,
   },
   errorText: {
-    color: 'red',
+    color: Colors.error,
     marginBottom: 10,
   },
   button: {
-    backgroundColor: '#003566',
+    backgroundColor: Colors.backGroundButton,
     padding: 10,
     alignItems: 'center',
     borderRadius: 5,
@@ -147,11 +150,14 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 18,
+    fontWeight: 'bold',
   },
   link: {
-    color: 'blue',
+    color: Colors.links,
     textAlign: 'center',
     marginTop: 15,
+    fontSize: 16,
+    fontWeight: 'bold'
   },
   text: {
     textAlign: 'center',

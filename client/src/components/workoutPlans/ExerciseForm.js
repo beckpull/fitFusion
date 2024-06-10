@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Modal, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Modal, KeyboardAvoidingView, Platform, TouchableOpacity } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useMutation } from '@apollo/client';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -38,8 +38,8 @@ const ExerciseForm = ({ visible, onClose, onSave, exercise, workoutPlanId, worko
     };
 
     const variables = {
-      workoutPlanId: workoutPlanId, 
-      workoutId: workoutId, 
+      workoutPlanId: workoutPlanId,
+      workoutId: workoutId,
       goalInput: {
         sets: parseInt(sets),
         reps: parseInt(reps),
@@ -53,12 +53,12 @@ const ExerciseForm = ({ visible, onClose, onSave, exercise, workoutPlanId, worko
     // console.log(variables);
 
     try {
-      const { data } = await saveGoal({ 
-        variables: { ...variables } 
+      const { data } = await saveGoal({
+        variables: { ...variables }
       });
-    // console.log(data);
-    onSave(input);
-    onClose();
+      // console.log(data);
+      onSave(input);
+      onClose();
     } catch (err) {
       console.error('Error saving progress', err);
     }
@@ -73,15 +73,17 @@ const ExerciseForm = ({ visible, onClose, onSave, exercise, workoutPlanId, worko
         <KeyboardAwareScrollView contentContainerStyle={styles.scrollContainer}>
           <View style={styles.modalContainer}>
             <Text style={styles.title}>{i18n.t('Input Your Exercise Goal')}</Text>
-            <Text style={styles.exerciseName}>{i18n.t('Exercise')}: {exercise.name}</Text>
-            <Text style={styles.exerciseEquipment}>{i18n.t('Equipment')}: {exercise.equipment}</Text>
+            <Text style={styles.exerciseName}>{i18n.t('Exercise')}: </Text>
+            <Text style={styles.description}>{exercise.name}</Text>
+            <Text style={styles.exerciseName}>{i18n.t('Equipment')}: </Text>
+            <Text style={styles.description}>{exercise.equipment} </Text>
             <Picker
               selectedValue={measurementType}
               onValueChange={(itemValue) => setMeasurementType(itemValue)}
               style={styles.picker}
             >
-              <Picker.Item label="Sets, Reps, Weight" value="setsRepsWeight" />
-              <Picker.Item label="Duration, Distance" value="durationDistance" />
+              <Picker.Item label={`${i18n.t('Sets')}, ${i18n.t('Reps')}, ${i18n.t('Weight')}`} value="setsRepsWeight" />
+              <Picker.Item label={`${i18n.t('Duration')}, ${i18n.t('Distance')}`} value="durationDistance" />
             </Picker>
             {measurementType === 'setsRepsWeight' && (
               <>
@@ -126,8 +128,13 @@ const ExerciseForm = ({ visible, onClose, onSave, exercise, workoutPlanId, worko
                 />
               </>
             )}
-            <Button title={i18n.t('back')} onPress={onClose} />
-            <Button title={i18n.t('save')} onPress={handleSave} />
+            <TouchableOpacity style={styles.buttonContainer} onPress={onClose}>
+              <Text style={styles.buttonText}>{`⬅︎ ${i18n.t('back')}`}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonContainer} onPress={handleSave}>
+              <Text style={styles.buttonText}>{` ${i18n.t('save')} ✓`}</Text>
+            </TouchableOpacity>
+
           </View>
         </KeyboardAwareScrollView>
       </KeyboardAvoidingView>
@@ -149,28 +156,45 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   title: {
-    fontSize: 20,
+    fontSize: 22,
     marginBottom: 20,
     textAlign: 'center',
+    fontWeight: 'bold',
   },
   exerciseName: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 10,
+    marginTop: 15,
   },
-  exerciseEquipment: {
+  description: {
     fontSize: 16,
-    marginBottom: 20,
   },
   input: {
     borderWidth: 1,
     borderColor: '#ccc',
     padding: 10,
     marginVertical: 10,
+    borderRadius: 5,
   },
   picker: {
-    marginVertical: 10,
+    marginVertical: 5,
   },
+  buttonContainer: {
+    backgroundColor: '#f3b9ab',
+    fontSize: 14,
+    marginTop: 10,
+    padding: 8,
+    width: '50%',
+    alignSelf: 'center',
+    borderRadius: 5,
+  },
+  buttonText :{
+    color: '#003285',
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: 'bold',
+  }
 });
 
 export default ExerciseForm;
