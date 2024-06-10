@@ -1,15 +1,17 @@
-import {React} from 'react';
+import {React, useContext} from 'react';
 import { Text, Pressable, View, StyleSheet } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { I18nContext } from '../../I18n';
 
 export default MainSearchScreen = ({ navigation }) => {
+    const { i18n } = useContext(I18nContext);
     return (
         <View style={styles.container}>
            
             {/* Search an Exercise Title */}
             <View>
-                <Text style={styles.title}>Search an</Text>
-                <Text style={styles.title}>Exercise by</Text>
+                <Text style={styles.title}>{i18n.t('Search an')}</Text>
+                <Text style={styles.title}>{i18n.t('Exercise by')}</Text>
             </View>
             
             {/* Button container for two search options */}
@@ -17,12 +19,12 @@ export default MainSearchScreen = ({ navigation }) => {
                
                 {/* Button to search for an exercise by the exercise name */}
                 <Pressable style={styles.button} onPress={() => navigation.navigate('SearchByNameScreen')}>
-                    <Text style={styles.buttonText}>Name</Text>
+                    <Text style={styles.buttonText}>{i18n.t('Name')}</Text>
                 </Pressable>
                
                 {/* Button to search for an exercise by the target muscle */}
                 <Pressable style={styles.button} onPress={() => navigation.navigate('SearchByMuscleScreen')}>
-                    <Text style={styles.buttonText}>Target Muscle</Text>
+                    <Text style={styles.buttonText}>{i18n.t('Target Muscle')}</Text>
                 </Pressable>
 
             </View>

@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Modal, ScrollView } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useMutation } from '@apollo/client';
 import { ADD_WORKOUT_PROGRESS } from '../../utils/mutations';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { I18nContext } from '../../../I18n';
+
 
 const ExerciseCompletionForm = ({ visible, onClose, onSave, exercise, workoutPlanId, workoutId }) => {
+  const { i18n } = useContext(I18nContext);
   const [sets, setSets] = useState('');
   const [reps, setReps] = useState('');
   const [weight, setWeight] = useState('');
@@ -57,9 +60,9 @@ const ExerciseCompletionForm = ({ visible, onClose, onSave, exercise, workoutPla
     <Modal visible={visible} animationType="slide">
       <KeyboardAwareScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.modalContainer}>
-          <Text style={styles.title}>Enter What You Completed</Text>
-          <Text style={styles.exerciseName}>Exercise: {exercise.name}</Text>
-          <Text style={styles.exerciseEquipment}>Equipment: {exercise.equipment}</Text>
+          <Text style={styles.title}>{i18n.t('Enter What You Completed')}</Text>
+          <Text style={styles.exerciseName}>{i18n.t('Exercise')}: {exercise.name}</Text>
+          <Text style={styles.exerciseEquipment}>{i18n.t('Equipment')}: {exercise.equipment}</Text>
           <Picker
             selectedValue={measurementType}
             onValueChange={(itemValue) => setMeasurementType(itemValue)}

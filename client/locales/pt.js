@@ -34,6 +34,7 @@ export default {
     "Please enter a valid email address": "Por favor, insira um endereço de e-mail válido",
     "Create Account": "Criar conta",
     "Username": "Nome de usuário",
+    "Name": "Nome",
     "Enter your username": "Digite seu nome de usuário",
     "Country": "País",
     "Select your country": "Selecione seu país",
@@ -79,6 +80,8 @@ export default {
     "Your best Buddy to work out": "Seu melhor amigo para treinar",
     "Re-take Physical test": "Refazer teste físico",
     "Exercises": "Exercícios",
+    "Exercise": "Exercício",
+    "Equipment": "Equipamento",
     "Birth date cannot be today or in the future": "A data de nascimento não pode ser hoje ou no futuro",
     "Movement": "Movimento",
     "Weight": "Peso",
@@ -94,14 +97,39 @@ export default {
     "noMedicalAdvice": "FitFusion não é um substituto para aconselhamento médico profissional, diagnóstico ou tratamento. As informações fornecidas no aplicativo são apenas para fins informativos gerais. Consulte seu médico ou outro profissional de saúde qualificado antes de iniciar qualquer programa de exercícios.",
     "termsAcceptance": "Ao clicar em 'Eu concordo' ou ao usar o FitFusion, você indica sua aceitação destes termos e condições. Se você não concorda em obedecer a estes termos, por favor, não use o aplicativo.",
     "I Agree": "Eu concordo",
-
-
-
-
-
-
-
-
+    "Enter What You Completed": "Digite o que você completou",
+    "Input Your Exercise Goal": "Insira seu objetivo de exercício",
+    "back": "Voltar",
+    "save": "Salvar",
+    "Search an" : "Pesquisar um",
+    "Exercise by": "Exercício por",
+    "Target Muscle": "Músculo-alvo",
+    "Target Muscles": "Músculos-alvo",
+    "Secondary Muscles": "Músculos secundários",
+    "Search for an exercise name": "Pesquise por um nome de exercício",
+    "searchPlaceholder": "Buscar...",
+    "Workout Plan not found": "Plano de treino não encontrado",
+    "congratulations" : "Parabéns!",
+    "Completed Today's Goal" : "Completou o objetivo de hoje",
+    "Sets": "Séries",
+    "Duration": "Duração",
+    "Distance" : "Distância",
+    "Complete": "Completo",
+    "Set New Goal": "Definir novo objetivo",
+    "Update Workout Plan": "Atualizar plano de treino",
+    "Example: 5K Training Plan": "Exemplo: Plano de treino de 5 km",
+    "Example: Run a 5K in under 30 minutes": "Exemplo: Corra 5 km em menos de 30 minutos",
+    "Body Part": "Parte do corpo",
+    "Instructions": "Instruções",
+    "Progress Over Time": "Progresso ao longo do tempo",
+    "Close": "Fechar",
+    "Description": "Descrição",
+    "Add": "Adicionar",
+    "No workout selected": "Nenhum treino selecionado",
+    "Workout details": "Detalhes do treino",
+    "Date": "Data",
+    "Re Take Quiz": "Refazer questionário",
+    "Go Back": "Voltar",
 
 
 

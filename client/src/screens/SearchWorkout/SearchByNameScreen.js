@@ -9,12 +9,13 @@ import { ADD_WORKOUT } from '../../utils/mutations';
 import { WorkoutContext } from '../../context/WorkoutContext';
 import WorkoutsJSON from '../../components/searchResults/WorkoutsJSON';
 import Workouts from '../../components/searchResults/ExerciseResults';
-
+import { I18nContext } from '../../../I18n';
 
 
 
 
 export default function SearchByNameScreen() {
+    const { i18n } = useContext(I18nContext);
     const [searchQuery, setSearchQuery] = useState('');
     const [exercise, setExercise] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -79,10 +80,10 @@ export default function SearchByNameScreen() {
 
     return (
         <View style={styles.container}>
-        <Text style={styles.title}>Search for an exercise name:</Text>
+        <Text style={styles.title}>{i18n.t('Search for an exercise name')}:</Text>
         <View style={styles.search}>
             <SearchBar
-                placeholder="Search..."
+                placeholder={i18n.t('searchPlaceholder')}
                 onChangeText={handleSearch}
                 value={searchQuery}
                 platform="default"
@@ -93,7 +94,7 @@ export default function SearchByNameScreen() {
             />
 
             {loading ? (
-                <Text style={styles.message}>Loading...</Text>
+                <Text style={styles.message}>{i18n.t('Loading')}...</Text>
             ) : (
                 <ScrollView>
                     <View style={styles.container}>

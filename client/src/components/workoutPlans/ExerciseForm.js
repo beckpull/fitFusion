@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Modal, KeyboardAvoidingView, Platform } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useMutation } from '@apollo/client';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-
+import { I18nContext } from '../../../I18n';
 import { ADD_WORKOUT_GOAL } from '../../utils/mutations';
 
 const ExerciseForm = ({ visible, onClose, onSave, exercise, workoutPlanId, workoutId }) => {
+  const { i18n } = useContext(I18nContext);
   const [sets, setSets] = useState('');
   const [reps, setReps] = useState('');
   const [weight, setWeight] = useState('');
@@ -71,9 +72,9 @@ const ExerciseForm = ({ visible, onClose, onSave, exercise, workoutPlanId, worko
       >
         <KeyboardAwareScrollView contentContainerStyle={styles.scrollContainer}>
           <View style={styles.modalContainer}>
-            <Text style={styles.title}>Input Your Exercise Goal</Text>
-            <Text style={styles.exerciseName}>Exercise: {exercise.name}</Text>
-            <Text style={styles.exerciseEquipment}>Equipment: {exercise.equipment}</Text>
+            <Text style={styles.title}>{i18n.t('Input Your Exercise Goal')}</Text>
+            <Text style={styles.exerciseName}>{i18n.t('Exercise')}: {exercise.name}</Text>
+            <Text style={styles.exerciseEquipment}>{i18n.t('Equipment')}: {exercise.equipment}</Text>
             <Picker
               selectedValue={measurementType}
               onValueChange={(itemValue) => setMeasurementType(itemValue)}
@@ -125,8 +126,8 @@ const ExerciseForm = ({ visible, onClose, onSave, exercise, workoutPlanId, worko
                 />
               </>
             )}
-            <Button title="Back" onPress={onClose} />
-            <Button title="Save" onPress={handleSave} />
+            <Button title={i18n.t('back')} onPress={onClose} />
+            <Button title={i18n.t('save')} onPress={handleSave} />
           </View>
         </KeyboardAwareScrollView>
       </KeyboardAvoidingView>

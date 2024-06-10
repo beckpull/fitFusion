@@ -1,9 +1,12 @@
 import { Text, Pressable, StyleSheet } from 'react-native';
+import { useContext } from 'react';
+import { I18nContext } from '../../I18n';
 
 export default function ButtonSignUp({ navigation }) {
+  const { i18n } = useContext(I18nContext);
   return (
     <Pressable style={styles.button} onPress={() => navigation.navigate('WorkoutPlan')}>
-      <Text style={styles.buttonText}>Workouts</Text>
+      <Text style={styles.buttonText}>{i18n.t('workouts')}</Text>
     </Pressable>
   )
 }

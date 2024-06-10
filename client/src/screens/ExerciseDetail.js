@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, StyleSheet, Image, ScrollView, Button, Modal } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
 import { useQuery } from '@apollo/client';
 import { GET_WORKOUT_PROGRESS } from '../utils/queries';
+import { I18nContext } from '../../I18n';
 
 export default function ExerciseDetail({ route }) {
+  const { i18n } = useContext(I18nContext);
   const { exercise, planId } = route.params;
   const [modalVisible, setModalVisible] = useState(false);
   const { data, loading, error } = useQuery(GET_WORKOUT_PROGRESS, {
@@ -59,13 +61,13 @@ export default function ExerciseDetail({ route }) {
         <Text style={styles.title}>{name}</Text>
         <Button title="View Progress" onPress={() => setModalVisible(true)} />
         <Image source={{ uri: gifUrl }} style={styles.image} />
-        <Text style={styles.subtitle}>Equipment:</Text>
+        <Text style={styles.subtitle}>{i18n.t('Equipment')}:</Text>
         <Text style={styles.description}>{equipment}</Text>
-        <Text style={styles.subtitle}>Body Part:</Text>
+        <Text style={styles.subtitle}>{i18n.t('Body Part')}:</Text>
         <Text style={styles.description}>{bodyPart}</Text>
-        <Text style={styles.subtitle}>Target Muscles:</Text>
+        <Text style={styles.subtitle}>{i18n.t('Target Muscles')}:</Text>
         <Text style={styles.description}>{target}</Text>
-        <Text style={styles.subtitle}>Secondary Muscles:</Text>
+        <Text style={styles.subtitle}>{i18n.t('Secondary Muscles')}:</Text>
         <Text style={styles.description}>
           {secondary.map((muscle, index) => (
             <View key={index} style={styles.instructionItem}>
@@ -73,7 +75,7 @@ export default function ExerciseDetail({ route }) {
             </View>
           ))}
         </Text>
-        <Text style={styles.subtitle}>Instructions:</Text>
+        <Text style={styles.subtitle}>{i18n.t('Instructions')}:</Text>
         <View style={styles.instructionList}>
           {instructions[0].split(', ').map((instruction, index) => (
             <View key={index} style={styles.instructionItem}>
@@ -88,7 +90,7 @@ export default function ExerciseDetail({ route }) {
           onRequestClose={() => setModalVisible(false)}
         >
           <View style={styles.modalContainer}>
-            <Text style={styles.modalTitle}>Progress Over Time</Text>
+            <Text style={styles.modalTitle}>{i18n.t('Progress Over Time')}</Text>
             <View style={styles.chartContainer}>
               <LineChart
                 data={chartData}
@@ -120,15 +122,15 @@ export default function ExerciseDetail({ route }) {
               {/* Manual Legend */}
               <View style={styles.legendContainer}>
                 <View style={[styles.legendItem, { backgroundColor: '#ff0000' }]} />
-                <Text style={styles.legendText}>Sets</Text>
+                <Text style={styles.legendText}>{i18n.t('Sets')}</Text>
                 <View style={[styles.legendItem, { backgroundColor: '#00ff00' }]} />
                 <Text style={styles.legendText}>Reps</Text>
                 <View style={[styles.legendItem, { backgroundColor: '#0000ff' }]} />
-                <Text style={styles.legendText}>Weight</Text>
+                <Text style={styles.legendText}>{i18n.t('Weight')}</Text>
                 <View style={[styles.legendItem, { backgroundColor: '#ff00ff' }]} />
-                <Text style={styles.legendText}>Duration</Text>
+                <Text style={styles.legendText}>{i18n.t('Duration')}</Text>
                 <View style={[styles.legendItem, { backgroundColor: '#00ffff' }]} />
-                <Text style={styles.legendText}>Distance</Text>
+                <Text style={styles.legendText}>{i18n.t('Distance')}</Text>
               </View>
             </View>
             <Button title="Close" onPress={() => setModalVisible(false)} />
