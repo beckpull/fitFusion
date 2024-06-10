@@ -235,6 +235,12 @@ _To get a local copy up and running follow these simple example steps:_
       <img src="./readme-imgs/stats2.jpg" width="180">
       <img src="./readme-imgs/stats3.jpg" width="180">
     </a>
+    <a href="https://github.com/beckpull/fitFusion">
+      <p>Language Translations</p>
+      <img src="./readme-imgs/pt1.png" width="180">
+      <img src="./readme-imgs/es1.png" width="180">
+      <img src="./readme-imgs/esTerms.jpg" width="180">
+    </a>
 </br>
 </div>
 
