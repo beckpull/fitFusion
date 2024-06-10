@@ -41,10 +41,6 @@ const EachRecommendedPlan = ({ route, navigation }) => {
   
   if (loading) return <Text>Loading...</Text>;
 
-  useEffect(() => {
-    refetch();
-  }, [refetch]);
-
   if (error) {
     console.log(error);
     // return <Text>Error: {error.message}</Text>;
