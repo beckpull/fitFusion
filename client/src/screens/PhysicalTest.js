@@ -147,19 +147,19 @@ export default function PhysicalTest({ route }) {
             style={[styles.buttonGender, gender === 'Male' ? styles.selectedButton : null]}
             onPress={() => setGender('Male')}
           >
-            <Text style={styles.buttonText}>{i18n.t('Male')}</Text>
+            <Text style={styles.buttonTextGender}>{i18n.t('Male')}</Text>
           </Pressable>
           <Pressable
             style={[styles.buttonGender, gender === 'Female' ? styles.selectedButton : null]}
             onPress={() => setGender('Female')}
           >
-            <Text style={styles.buttonText}>{i18n.t('Female')}</Text>
+            <Text style={styles.buttonTextGender}>{i18n.t('Female')}</Text>
           </Pressable>
           <Pressable
             style={[styles.buttonGender, gender === 'Non-binary' ? styles.selectedButton : null]}
             onPress={() => setGender('Non-binary')}
           >
-            <Text style={styles.buttonText}>{i18n.t('Non-Binary')}</Text>
+            <Text style={styles.buttonTextGender}>{i18n.t('Non-Binary')}</Text>
           </Pressable>
         </View>
 
@@ -212,7 +212,10 @@ export default function PhysicalTest({ route }) {
         </View>
 
         <TouchableOpacity onPress={() => setModalTsAndCsVisible(true)}>
-          <Text style={styles.link}>{i18n.t('Terms and Conditions')}</Text>
+          <View style={{ flexDirection: 'row' }}>
+            <Text style={styles.link}>{i18n.t('Terms and Conditions')}</Text>
+            <Text>📝</Text>
+          </View>
         </TouchableOpacity>
         <Modal
           animationType="slide"
@@ -263,10 +266,13 @@ export default function PhysicalTest({ route }) {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
+    marginTop: 20,
   },
   label: {
     fontSize: 16,
     marginVertical: 5,
+    marginTop: 15,
+    marginBottom: 10,
   },
   input: {
     height: 40,
@@ -317,7 +323,7 @@ const styles = StyleSheet.create({
   },
   loginLink: {
     fontSize: 16,
-    color: 'blue',
+    color: colors.links,
     marginLeft: 5,
   },
   buttonContainer: {
@@ -335,6 +341,11 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   buttonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  buttonTextGender: {
     color: 'white',
     fontSize: 16,
   },
@@ -384,20 +395,20 @@ const styles = StyleSheet.create({
   modalText: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: "#003566",
+    color: colors.backGroundButton,
   },
   modalText2: {
     fontSize: 14,
-    color: "gray",
+    color: colors.borders,
     marginBottom: 10,
   },
   modalText3: {
     fontSize: 12,
     fontWeight: 'bold',
-    color: "#003566",
+    color: colors.backGroundButton,
   },
   agreeButton: {
-    backgroundColor: '#e98168',
+    backgroundColor: colors.primaryVariant,
     padding: 10,
     marginTop: 20,
     borderRadius: 5,

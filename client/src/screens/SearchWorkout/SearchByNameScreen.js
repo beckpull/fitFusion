@@ -111,21 +111,25 @@ export default function SearchByNameScreen() {
 
 const styles = StyleSheet.create({
     container: {
+        width: '100%',
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#FCF5EF',
         alignItems: 'center',
         justifyContent: 'top',
     },
     title: {
         lineHeight: 40,
         color: 'black',
-        fontSize: 30,
+        fontSize: 25,
         fontWeight: 'bold',
         textAlign: 'center',
-        marginBottom: 20,
+        marginBottom: 10,
+        marginTop: 30,
+        marginLeft: 10,
+        marginEnd: 10,
     },
     search: {
-        width: '90%',
+        width: '100%',
         padding: 16,
         borderRadius: 10,
     },

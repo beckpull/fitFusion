@@ -188,12 +188,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   userName: {
-    color: '#777',
+    color: Colors.dark,
     fontSize: 18,
     fontWeight: 'bold',
   },
   userWorkouts: {
-    color: '#777',
+    color: Colors.dark,
     fontSize: 14,
     fontWeight: 'bold',
   },

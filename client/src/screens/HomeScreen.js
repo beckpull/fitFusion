@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   link: {
     color: '#fff',
     textDecorationLine: 'underline',
-    fontSize: 16,
+    fontSize: 18,
   },
   toggle: {
     bottom: 0,

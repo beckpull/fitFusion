@@ -1,5 +1,5 @@
 export default {
-    "welcome": "Bem-vindo/a",
+    "welcome": "Olá! ",
     "workouts": "Treinos",
     "Learn more about us": "Saiba mais sobre nós",
     "Login": "Entrar",
@@ -114,6 +114,7 @@ export default {
     "Sets": "Séries",
     "Duration": "Duração",
     "Distance" : "Distância",
+    "Reps": "Reps",
     "Complete": "Completo",
     "Set New Goal": "Definir novo objetivo",
     "Update Workout Plan": "Atualizar plano de treino",

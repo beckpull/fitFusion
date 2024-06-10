@@ -114,6 +114,7 @@ export default {
   "Sets": "Sets",
   "Duration": "Duration",
   "Distance" : "Distance",
+  "Reps": "Reps",
   "Complete": "Complete",
   "Set New Goal": "Set New Goal",
   "Update Workout Plan": "Update Workout Plan",

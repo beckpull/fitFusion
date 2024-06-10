@@ -4,6 +4,7 @@ import { useMutation } from '@apollo/client';
 import { useNavigation } from '@react-navigation/native';
 import { ADD_WORKOUT_PLAN } from '../utils/mutations';
 import { WorkoutContext } from '../context/WorkoutContext';
+import Colors from '../styles/colors';
 import { I18nContext } from '../../I18n';
 
 
@@ -52,8 +53,12 @@ export default function NewWorkoutForm() {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
             <View>
                 <View style={styles.container}>
-                    <Text style={styles.h1}>{i18n.t('Create a New Workout Plan')}</Text>
-                    <Text style={styles.label}>{i18n.t('Workout Plan Name')}:</Text>
+                    <View style={styles.h1}>
+                        <Text style={styles.h1}>{i18n.t('Create a New Workout Plan')}</Text>
+                    </View>
+                    <View style={styles.label}>
+                        <Text style={styles.label}>{i18n.t('Workout Plan Name')}:</Text>
+                    </View>
 
                     <TextInput
                         style={styles.input}
@@ -69,11 +74,11 @@ export default function NewWorkoutForm() {
                         onChangeText={setGoal}
                         placeholder={i18n.t("Example: Run a 5K in under 30 minutes")}
                     />
-
-                </View>
                 <Pressable style={styles.button} onPress={handleSubmit}>
                     <Text style={styles.buttonText}>{i18n.t('Create Workout Plan')}</Text>
                 </Pressable>
+
+                </View>
             </View>
         </TouchableWithoutFeedback>
     );
@@ -84,7 +89,7 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 18,
-        marginBottom: 10,
+        marginBottom: 20,
     },
     input: {
         height: 40,
@@ -101,11 +106,8 @@ const styles = StyleSheet.create({
         color: 'green',
         marginTop: 10,
     },
-
-
-
     button: {
-        backgroundColor: '#003566',
+        backgroundColor: Colors.secondaryVariant,
         padding: 12,
         alignItems: 'center',
         borderRadius: 5,
@@ -114,6 +116,7 @@ const styles = StyleSheet.create({
     buttonText: {
         color: 'white',
         fontSize: 16,
+        fontWeight: 'bold',
     },
     container: {
         padding: 20,
@@ -134,7 +137,8 @@ const styles = StyleSheet.create({
     h1: {
         fontSize: 24,
         fontWeight: 'bold',
-        marginTop: 20,
+        marginTop: 30,
+        marginBottom: 20,
     },
 
 });

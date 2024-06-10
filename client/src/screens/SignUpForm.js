@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
+import Colors from '../styles/colors';
 import { I18nContext } from "../../I18n";
 
 export default function SignUpForm() {
@@ -215,13 +216,13 @@ const styles = StyleSheet.create({
   dateText: {
     height: 40,
     lineHeight: 40,
-    borderColor: 'gray',
+    borderColor: Colors.borders,
     borderWidth: 1,
     marginBottom: 10,
     paddingHorizontal: 10,
   },
   button: {
-    backgroundColor: '#003566',
+    backgroundColor: Colors.backGroundButton,
     padding: 12,
     alignItems: 'center',
     borderRadius: 5,
@@ -229,7 +230,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    fontSize: 16,
+    fontSize: 18,
+    fontWeight: 'bold',
   },
   h1: {
     fontSize: 24,
@@ -262,7 +264,9 @@ const styles = StyleSheet.create({
   },
   loginLink: {
     fontSize: 16,
-    color: 'blue',
+    color: Colors.links,
     marginLeft: 5,
+    fontWeight: 'bold'
+
   },
 });
