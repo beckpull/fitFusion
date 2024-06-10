@@ -80,5 +80,23 @@ export default {
     "Re-take Physical test": "Volver a tomar el test físico",
     "Exercises": "Ejercicios",
     "Birth date cannot be today or in the future": "La fecha de nacimiento no puede ser hoy o en el futuro",
+    "Movement": "Movimiento",
+    "Weight": "Peso",
+    "Intensity": "Intensidad",
+    "moved_description": "¡Has recorrido un total de {{distance}} millas!",
+    "lifted_description": "¡Has levantado un total de {{weight}} libras!",
+    "moved_duration_description": "¡Te has movido durante un total de {{duration}} minutos!",
+    "Stats": "Estadísticas",
+    "Terms and Conditions": "Términos y Condiciones",
+    "Read Before Signing Up": "Lea Antes de Registrarse:",
+    "disclaimer": "Úsela bajo tu propio riesgo: Al usar FitFusion, reconoce que la participación en actividades físicas conlleva riesgos inherentes. FitFusion no se hace responsable de lesiones, accidentes o problemas de salud que puedan ocurrir como resultado del uso de la aplicación.",
+    "personalResponsibility": "Es responsable de su propia seguridad y bienestar mientras usa FitFusion. Esto incluye seguir las instrucciones proporcionadas por la aplicación, usar el equipo correctamente y prestar atención a las señales de tu cuerpo. Detenga cualquier ejercicio que cause incomodidad o dolor de inmediato.",
+    "noMedicalAdvice": "FitFusion no es un sustituto de consejo médico profesional, diagnóstico o tratamiento. La información proporcionada en la aplicación es únicamente con fines informativos generales. Consulte con su médico u otro proveedor de atención médica calificado antes de comenzar cualquier programa de ejercicio.",
+    "termsAcceptance": "Al hacer clic en 'Acepto' o al usar FitFusion, indica su aceptación de estos términos y condiciones. Si no está de acuerdo en cumplir con estos términos, por favor, no use la aplicación.",
+    "I Agree": "Estoy de acuerdo",
+
+
+
+
 
 };

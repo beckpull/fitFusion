@@ -5,7 +5,7 @@ export default {
   "Login": "Login",
   "Logout": "Logout",
   "Sign Up": "Sign Up",
-  "Welcome to": "Welcome to", 
+  "Welcome to": "Welcome to",
   "fitFusionDescription": "– your ultimate companion for personalized fitness training. At FitFusion, we believe that every fitness journey is unique, and we are dedicated to helping you achieve your individual goals through tailored workout regimens that suit your preferences and lifestyle.",
   "Success Stories": "Success Stories",
   "testimonial1": "FitFusion makes home workouts easy with customized routines that fit my busy schedule. I love achieving my fitness goals without needing a gym membership.",
@@ -20,7 +20,7 @@ export default {
   "Password": "Password",
   "Enter your password": "Enter your password",
   "Password is required": "Password is required",
-  "I forgot my password" : "I forgot my password",
+  "I forgot my password": "I forgot my password",
   "Not a user": "Not a user",
   "Create account": "Create account",
   "Forgot Password": "Forgot Password",
@@ -40,7 +40,7 @@ export default {
   "Birth Date": "Birth Date",
   "Continue": "Continue",
   "I am already a user": "I am already a user",
-  "Physical Test": "Physical Test", 
+  "Physical Test": "Physical Test",
   "Age": "Age",
   "Enter your age": "Enter your age",
   "Height": "Height",
@@ -80,6 +80,28 @@ export default {
   "Re-take Physical test": "Re-take Physical test",
   "Exercises": "Exercises",
   "Birth date cannot be today or in the future": "Birth date cannot be today or in the future",
+  "Movement": "Movement",
+  "Weight": "Weight",
+  "Intensity": "Intensity",
+  "moved_description": "You have moved a total of {{distance}} miles!",
+  "lifted_description": "You have lifted a total of {{weight}} pounds!",
+  "moved_duration_description": "You have moved for a total of {{duration}} minutes!",
+  "Stats": "Stats",
+  "Terms and Conditions": "Terms and Conditions",
+  "Read Before Signing Up": "Read Before Signing Up:",
+  "disclaimer": "Use at Your Own Risk: By using FitFusion, you acknowledge that participation in physical activities carries inherent risks. FitFusion is not liable for any injuries, accidents, or health issues that may occur as a result of using the app.",
+  "personalResponsibility": "You are responsible for your own safety and well-being while using FitFusion. This includes following instructions provided by the app, using equipment properly, and listening to your body's signals. Stop any exercise that causes discomfort or pain immediately.",
+  "noMedicalAdvice": "FitFusion is not a substitute for professional medical advice, diagnosis, or treatment. The information provided in the app is for general informational purposes only. Consult with your physician or another qualified healthcare provider before beginning any exercise program.",
+  "termsAcceptance": "By clicking \"I Agree\" or by using FitFusion, you indicate your acceptance of these terms and conditions. If you do not agree to abide by these terms, please do not use the app.",
+  "I Agree": "I Agree",
+
+
+
+
+
+
+
+
 
 
 };
