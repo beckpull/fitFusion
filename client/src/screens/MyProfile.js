@@ -143,7 +143,7 @@ export default function MyProfile() {
         <TouchableOpacity style={styles.card} onPress={handleClick}>
           <Icon name="music" size={30} color={Colors.primaryVariant} />
           <View style={styles.cont}>
-            <Text style={{ fontWeight: 'bold', marginBottom: 5 }}>FitFusion Music</Text>
+            <Text style={{ fontWeight: 'bold', marginBottom: 5 }}>FitFusion Playlist</Text>
             <Text>{i18n.t('Your best Buddy to work out')}</Text>
           </View>
         </TouchableOpacity>

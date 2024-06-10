@@ -212,7 +212,7 @@ export default function PhysicalTest({ route }) {
         </View>
 
         <TouchableOpacity onPress={() => setModalTsAndCsVisible(true)}>
-          <Text style={styles.link}>Terms and Conditions</Text>
+          <Text style={styles.link}>{i18n.t('Terms and Conditions')}</Text>
         </TouchableOpacity>
         <Modal
           animationType="slide"
@@ -225,26 +225,26 @@ export default function PhysicalTest({ route }) {
           <View style={styles.modalContainer}>
             <View style={styles.modalContent}>
               <View style={styles.header}>
-                <Text style={styles.modalText}>Read Before Signing Up!</Text>
+                <Text style={styles.modalText}>{i18n.t('Read Before Signing Up')}!</Text>
                 <TouchableOpacity style={styles.closeButton} onPress={() => setModalTsAndCsVisible(false)}>
                   <Text style={styles.closeButtonText}>X</Text>
                 </TouchableOpacity>
               </View>
               <ScrollView>
                 <Text style={styles.modalText2}>
-                  - Use at Your Own Risk: By using FitFusion, you acknowledge that participation in physical activities carries inherent risks. FitFusion is not liable for any injuries, accidents, or health issues that may occur as a result of using the app.
+                  - {i18n.t('disclaimer')} :
                 </Text>
                 <Text style={styles.modalText2}>
-                  - Personal Responsibility: You are responsible for your own safety and well-being while using FitFusion. This includes following instructions provided by the app, using equipment properly, and listening to your body's signals. Stop any exercise that causes discomfort or pain immediately.
+                  - {i18n.t('personalResponsibility')} : 
                 </Text>
                 <Text style={styles.modalText2}>
-                  - No Medical Advice: FitFusion is not a substitute for professional medical advice, diagnosis, or treatment. The information provided in the app is for general informational purposes only. Consult with your physician or another qualified healthcare provider before beginning any exercise program.
+                  - {i18n.t('noMedicalAdvice')} : 
                 </Text>
                 <Text style={styles.modalText3}>
-                  By clicking "I Agree" or by using FitFusion, you indicate your acceptance of these terms and conditions. If you do not agree to abide by these terms, please do not use the app.
+                {i18n.t('termsAcceptance')} :
                 </Text>
                 <TouchableOpacity style={styles.agreeButton} onPress={() => setModalTsAndCsVisible(false)}>
-                  <Text style={styles.agreeButtonText}>I Agree</Text>
+                  <Text style={styles.agreeButtonText}>{i18n.t('I Agree')}</Text>
                 </TouchableOpacity>
               </ScrollView>
             </View>
