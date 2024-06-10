@@ -128,13 +128,13 @@ const ExerciseForm = ({ visible, onClose, onSave, exercise, workoutPlanId, worko
                 />
               </>
             )}
-
             <TouchableOpacity style={styles.buttonContainer} onPress={onClose}>
               <Text style={styles.buttonText}>{`⬅︎ ${i18n.t('back')}`}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.buttonContainer} onPress={handleSave}>
               <Text style={styles.buttonText}>{` ${i18n.t('save')} ✓`}</Text>
             </TouchableOpacity>
+
           </View>
         </KeyboardAwareScrollView>
       </KeyboardAvoidingView>

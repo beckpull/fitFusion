@@ -196,9 +196,8 @@ const EachPlan = ({ navigation, route }) => {
           <Text style={styles.subtitle}>{i18n.t('Goal')}: {currentPlan.goal}</Text>
         </View>
 
-
-
         <Text style={styles.subtitle}>{i18n.t('workouts')}:</Text>
+
         {currentPlan.workouts.map((workout, workoutIndex) => {
           const todayGoal = workout.goal.find(goal => goal.date === todayDate);
           const hasTodayGoal = !!todayGoal;
