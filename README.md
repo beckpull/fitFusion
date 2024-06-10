@@ -76,7 +76,7 @@ The core functionality of FitFusion revolves around empowering users to create a
 
 In addition to workout planning, FitFusion offers users the ability to set specific goals for their fitness journey. Whether it's increasing reps, sets, or weights for strength training exercises, or tracking duration and distance for cardio workouts, users can establish measurable objectives to monitor their progress over time.
 
-<!-- Furthermore, FitFusion goes beyond traditional fitness tracking apps by offering users a holistic approach to wellness. The platform features a dedicated "MyProfile" page where users can upload profile pictures and access comprehensive statistics on their fitness journey. This personalized dashboard provides insights into workout history, progress metrics, and achievement milestones, empowering users to stay motivated and focused on their fitness goals. -->
+Furthermore, FitFusion goes beyond traditional fitness tracking apps by offering users a holistic approach to wellness. The platform features dedicated "MyProfile" and "Progress" pages where users can upload profile pictures and access comprehensive statistics on their fitness journey. These personalized dashboards provide insights into workout history, progress metrics, and achievement milestones, empowering users to stay motivated and focused on their fitness goals.
 
 With a user-friendly interface, robust backend infrastructure, and innovative features, FitFusion aims to revolutionize the way users engage with their fitness routines. Whether users are beginners looking to kickstart their fitness journey or seasoned athletes seeking to optimize their training regimen, FitFusion provides the tools and resources needed to achieve success and lead a healthier, happier lifestyle.
 
@@ -94,11 +94,11 @@ With a user-friendly interface, robust backend infrastructure, and innovative fe
 
 ### Technologies Used:
 
-- **Frontend**: React Native, Apollo Client, GraphQL
-- **Backend**: MongoDB, Mongoose, Apollo Server, GraphQL, Node.js, Express
+- **Frontend**: React Native, Expo, Apollo Client, GraphQL, i18n, Babel
+- **Backend**: MongoDB, Mongoose, Bcrypt, Apollo Server, GraphQL, Node.js, Express
 - **Authentication**: JWT tokens, jwt-decode, custom authentication middleware
-- **External APIs**: ExerciseDB API, external motivational message API
-- **Data Visualization**: D3 library (potentially)
+- **External APIs**: ExerciseDB API
+- **Data Visualization**: React Native 'chart-kit'
 - **Deployment**: 
 
 ### Goals:
