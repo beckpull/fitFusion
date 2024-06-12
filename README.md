@@ -64,7 +64,7 @@ A sophisticated fitness tracking application powered by React Native, MongoDB, G
 
 ## About The Project
 
-The FitFusion project is a collaborative effort among five passionate individuals from Denver University who share a common goal of creating a comprehensive fitness tracking application. Named FitFusion, this app aims to revolutionize the way users approach their fitness routines by providing a seamless and personalized experience.
+The FitFusion project is a collaborative effort among five passionate individuals from University of Denver who share a common goal of creating a comprehensive fitness tracking application. Named FitFusion, this app aims to revolutionize the way users approach their fitness routines by providing a seamless and personalized experience.
 
 ### Overview:
 
